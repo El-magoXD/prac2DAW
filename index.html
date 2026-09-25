@@ -1,11 +1,82 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="es">
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PI - Pisos e Inmuebles</title>
-</head>
-<body>
-    
-</body>
+  </head>
+  <body>
+    <header>
+      <h1>PI - Pisos e Inmuebles</h1>
+
+      <nav>
+        <ul>
+          <li><a href="index.html">Página principal</a></li>
+          <li><a href="search.html">Buscar</a></li>
+          <li><a href="register.html">Registrarse</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section>
+        <h2>Acceso de usuarios</h2>
+
+        <form action="index-registrado.html" method="get">
+          <p>
+            <label for="usuario">Nombre de usuario:</label>
+            <input type="text" id="usuario" name="usuario">
+          </p>
+
+          <p>
+            <label for="password">Contraseña:</label>
+            <input type="password" id="password" name="password">
+          </p>
+
+          <p>
+            <button type="submit">Entrar</button>
+          </p>
+        </form>
+      </section>
+
+      <section>
+        <h2>Últimos anuncios</h2>
+
+        <article>
+          <a href="anuncio.html">
+            <img
+              src="img/piso.jpg"
+              width="300"
+              alt="Piso en venta en Alicante"
+            >
+            <h3>Piso luminoso en Alicante</h3>
+          </a>
+
+          <p>Fecha: 25/09/2026</p>
+          <p>Ciudad: Alicante</p>
+          <p>País: España</p>
+          <p>Precio: 185.000 €</p>
+        </article>
+      </section>
+
+        <section>
+            <h2>Búsqueda rápida</h2>
+
+            <form action="result.html" method="get">
+                <p>
+                    <label for="busqueda">Buscar:</label>
+                    <input type="search" id="busqueda" name="busqueda">
+                </p>
+
+                <p>
+                    <button type="submit">Buscar</button>
+                </p>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2026 PI - Pisos e Inmuebles. Todos los derechos reservados.</p>
+    </footer>
+  </body>
 </html>
