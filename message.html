@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Enviar mensaje | PI - Pisos e Inmuebles</title>
+  </head>
+  <body>
+    <header>
+      <h1>PI - Pisos e Inmuebles</h1>
+
+      <nav>
+        <ul>
+          <li><a href="index-reg.html">Página principal</a></li>
+          <li><a href="search.html">Buscar</a></li>
+          <li><a href="register.html">Registrarse</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section>
+        <h2>Enviar mensaje al anunciante</h2>
+
+        <form action="index-reg.html" method="get">
+          <fieldset>
+            <legend>Detalles de tu mensaje</legend>
+
+            <p>
+              <label for="tipo_mensaje">Tipo de mensaje:</label>
+              <select id="tipo_mensaje" name="tipo_mensaje">
+                <option value="mas_informacion">Más información</option>
+                <option value="solicitar_cita">Solicitar una cita</option>
+                <option value="comunicar_oferta">Comunicar una oferta</option>
+              </select>
+            </p>
+
+            <p>
+              <label for="texto_mensaje">Texto:</label><br />
+              <textarea
+                id="texto_mensaje"
+                name="texto_mensaje"
+                rows="10"
+                cols="60"
+                placeholder="Escribe aquí tu mensaje para el anunciante..."
+              ></textarea>
+            </p>
+
+            <p>
+              <button type="submit">Enviar mensaje</button>
+            </p>
+          </fieldset>
+        </form>
+      </section>
+    </main>
+
+    <footer>
+      <p>Pedro González Sánchez & Alejandro Sánchez Martí</p>
+      <p>&copy; 2026 PI - Pisos e Inmuebles. Todos los derechos reservados.</p>
+    </footer>
+  </body>
+</html>
