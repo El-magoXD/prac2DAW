@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Registrarse</title>
   </head>
+
   <body>
     <header>
       <h1>PI - Pisos e Inmuebles</h1>
@@ -20,49 +21,79 @@
 
     <main>
       <h2>Registro de nuevo usuario</h2>
+
       <form action="index-reg.html" method="get">
         <fieldset>
           <legend>Datos de acceso</legend>
+
           <p>
             <label for="usuario">Nombre de usuario:</label>
             <input type="text" id="usuario" name="usuario" />
           </p>
+
           <p>
             <label for="password">Contraseña:</label>
-            <input type="password" id="password" name="password" />
+            <input
+              type="password"
+              id="password"
+              name="password"
+              pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])[A-Za-z0-9_-]{6,15}"
+              required
+            />
           </p>
+
           <p>
             <label for="password2">Repetir contraseña:</label>
-            <input type="password" id="password2" name="password2" />
+            <input
+              type="password"
+              id="password2"
+              name="password2"
+              pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])[A-Za-z0-9_-]{6,15}"
+              required
+            />
           </p>
+
           <p>
             <label for="email">Dirección de email:</label>
-            <input type="email" id="email" name="email" />
+            <input
+              type="email"
+              id="email"
+              name="email"
+              pattern="(?=.{1,254}$)(?=.{1,64}@)[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+)*@[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?(?:\.[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?)*"
+            />
           </p>
         </fieldset>
+
         <fieldset>
           <legend>Datos personales</legend>
+
           <p><span>Sexo:</span></p>
+
           <p>
             <input type="radio" id="hombre" name="sexo" value="hombre" />
             <label for="hombre">Hombre</label>
           </p>
+
           <p>
             <input type="radio" id="mujer" name="sexo" value="mujer" />
             <label for="mujer">Mujer</label>
           </p>
+
           <p>
             <input type="radio" id="otro" name="sexo" value="otro" />
             <label for="otro">Otro</label>
           </p>
+
           <p>
             <label for="fecha-nacimiento">Fecha de nacimiento:</label>
             <input type="date" id="fecha-nacimiento" name="fecha-nacimiento" />
           </p>
+
           <p>
             <label for="ciudad">Ciudad de residencia:</label>
             <input type="text" id="ciudad" name="ciudad" />
           </p>
+
           <p>
             <label for="pais">País de residencia:</label>
             <select id="pais" name="pais">
@@ -79,11 +110,13 @@
               <option value="estados-unidos">Estados Unidos</option>
             </select>
           </p>
+
           <p>
             <label for="foto">Foto:</label>
             <input type="file" id="foto" name="foto" accept="image/*" />
           </p>
         </fieldset>
+
         <p>
           <button type="submit">Registrarse</button>
           <button type="reset">Limpiar formulario</button>
