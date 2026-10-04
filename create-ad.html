@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Solicitar folleto - PI - Pisos e Inmuebles</title>
+    <title>Solicitar folleto | PI - Pisos e Inmuebles</title>
   </head>
 
   <body>
@@ -107,7 +107,7 @@
         </table>
       </section>
 
-      <form action="create-ad.html" method="post">
+      <form action="ad-response.html" method="post">
         <fieldset>
           <legend>Personalización del folleto</legend>
 
@@ -119,6 +119,7 @@
                 Piso luminoso en Alicante (5 páginas, 6 fotos)
               </option>
             </select>
+            (*)
             <small
               >Solo puedes solicitar folletos de anuncios publicados por
               ti.</small
@@ -145,10 +146,11 @@
               name="color_portada"
               value="#000000"
             />
+            (*)
           </p>
 
           <p>
-            <label for="copias">Número de copias (1–99):</label>
+            <label for="copias">Número de copias (1-99):</label>
             <input
               type="number"
               id="copias"
@@ -158,6 +160,7 @@
               value="1"
               required
             />
+            (*)
           </p>
 
           <p>
@@ -171,6 +174,7 @@
               <option value="750">750 DPI</option>
               <option value="900">900 DPI</option>
             </select>
+            (*)
           </p>
 
           <fieldset>
@@ -234,6 +238,7 @@
               autocomplete="name"
               required
             />
+            (*)
           </p>
 
           <p>
@@ -248,76 +253,68 @@
               autocomplete="email"
               required
             />
+            (*)
           </p>
 
           <p>
-            <label for="calle">Calle:</label>
+            <label for="calle">Dirección:</label>
             <input
               type="text"
               id="calle"
               name="calle"
               autocomplete="address-line1"
+              placeholder="Calle"
               required
             />
-          </p>
-
-          <p>
-            <label for="numero">Número:</label>
-            <input type="text" id="numero" name="numero" required />
-          </p>
-
-          <p>
-            <label for="piso">Piso:</label>
-            <input type="text" id="piso" name="piso" required />
-          </p>
-
-          <p>
-            <label for="puerta">Puerta:</label>
-            <input type="text" id="puerta" name="puerta" required />
-          </p>
-
-          <p>
-            <label for="codigo-postal">Código postal:</label>
+            <input
+              type="text"
+              id="numero"
+              name="numero"
+              placeholder="Número"
+              required
+            />
+            <input
+              type="text"
+              id="piso"
+              name="piso"
+              placeholder="Piso"
+              required
+            />
+            <input
+              type="text"
+              id="puerta"
+              name="puerta"
+              placeholder="Puerta"
+              required
+            />
             <input
               type="text"
               id="codigo-postal"
               name="codigo_postal"
+              placeholder="Código postal"
               autocomplete="postal-code"
               required
             />
-          </p>
-
-          <p>
-            <label for="localidad">Localidad:</label>
-            <input
-              type="text"
-              id="localidad"
-              name="localidad"
-              autocomplete="address-level2"
-              required
-            />
-          </p>
-
-          <p>
-            <label for="provincia">Provincia:</label>
-            <input
-              type="text"
-              id="provincia"
-              name="provincia"
-              autocomplete="address-level1"
-              required
-            />
-          </p>
-
-          <p>
-            <label for="pais">País:</label>
-            <input
-              type="text"
-              id="pais"
-              name="pais"
-              autocomplete="country-name"
-              required
-            />
+            <select id="localidad" name="localidad" required>
+              <option value="">Localidad</option>
+              <option value="alicante">Alicante</option>
+              <option value="elche">Elche</option>
+              <option value="benidorm">Benidorm</option>
+            </select>
+            <select id="provincia" name="provincia" required>
+              <option value="">Provincia</option>
+              <option value="alicante">Alicante</option>
+              <option value="valencia">Valencia</option>
+              <option value="castellon">Castellón</option>
+            </select>
+            <select id="pais" name="pais" required>
+              <option value="">País</option>
+              <option value="espana">España</option>
+              <option value="francia">Francia</option>
+              <option value="italia">Italia</option>
+              <option value="portugal">Portugal</option>
+            </select>
+            (*)
           </p>
 
           <p>
@@ -327,6 +324,7 @@
               id="telefono"
               name="telefono"
               autocomplete="tel"
+              pattern="[0-9]{9}"
             />
           </p>
 
