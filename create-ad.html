@@ -4,6 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Solicitar folleto | PI - Pisos e Inmuebles</title>
+    <style>
+      table,
+      tr,
+      th,
+      td {
+        border: 1px solid black;
+      }
+    </style>
   </head>
 
   <body>
@@ -44,66 +52,44 @@
 
         <table>
           <caption>
-            Coste unitario de impresión según resolución y tipo de impresión
+            Tarifas
           </caption>
-          <thead>
-            <tr>
-              <th scope="col">Elemento</th>
-              <th scope="col">Impresión</th>
-              <th scope="col">150 DPI</th>
-              <th scope="col">300 DPI</th>
-              <th scope="col">450 DPI</th>
-              <th scope="col">600 DPI</th>
-              <th scope="col">750 DPI</th>
-              <th scope="col">900 DPI</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row" rowspan="2">Página</th>
-              <td>Blanco y negro</td>
-              <td>0,05 €</td>
-              <td>0,06 €</td>
-              <td>0,07 €</td>
-              <td>0,08 €</td>
-              <td>0,09 €</td>
-              <td>0,10 €</td>
-            </tr>
-            <tr>
-              <td>Color</td>
-              <td>0,12 €</td>
-              <td>0,15 €</td>
-              <td>0,18 €</td>
-              <td>0,21 €</td>
-              <td>0,24 €</td>
-              <td>0,27 €</td>
-            </tr>
-            <tr>
-              <th scope="row" rowspan="2">Foto</th>
-              <td>Blanco y negro</td>
-              <td>0,08 €</td>
-              <td>0,10 €</td>
-              <td>0,12 €</td>
-              <td>0,14 €</td>
-              <td>0,16 €</td>
-              <td>0,18 €</td>
-            </tr>
-            <tr>
-              <td>Color</td>
-              <td>0,25 €</td>
-              <td>0,30 €</td>
-              <td>0,35 €</td>
-              <td>0,40 €</td>
-              <td>0,45 €</td>
-              <td>0,50 €</td>
-            </tr>
-          </tbody>
-          <tfoot>
-            <tr>
-              <th scope="row" colspan="2">Coste de procesamiento y envío</th>
-              <td colspan="6">4,95 € por solicitud (fijo)</td>
-            </tr>
-          </tfoot>
+          <tr>
+            <th scope="col">Concepto</th>
+            <th scope="col">Tarifa</th>
+          </tr>
+          <tr>
+            <th scope="row">Coste procesamiento y envío</th>
+            <td>10 €</td>
+          </tr>
+          <tr>
+            <th scope="row">&lt; 5 páginas</th>
+            <td>2 € por pág.</td>
+          </tr>
+          <tr>
+            <th scope="row">entre 5 y 10 páginas</th>
+            <td>1.8 € por pág.</td>
+          </tr>
+          <tr>
+            <th scope="row">&gt; 10 páginas</th>
+            <td>1.6 € por pág.</td>
+          </tr>
+          <tr>
+            <th scope="row">Blanco y negro</th>
+            <td>0 €</td>
+          </tr>
+          <tr>
+            <th scope="row">Color</th>
+            <td>0.5 € por foto</td>
+          </tr>
+          <tr>
+            <th scope="row">Resolución &lt;&equals; 300 dpi</th>
+            <td>0 € por foto</td>
+          </tr>
+          <tr>
+            <th scope="row">Resolución &gt; 300 dpi</th>
+            <td>0.2€ por foto</td>
+          </tr>
         </table>
       </section>
 
@@ -165,15 +151,20 @@
 
           <p>
             <label for="resolucion">Resolución de las fotos:</label>
-            <select id="resolucion" name="resolucion" required size="6">
-              <!-- Se pone size="6" porque sino da error de validación ya que es un campo obligatorio -->
-              <option value="150">150 DPI</option>
-              <option value="300">300 DPI</option>
-              <option value="450">450 DPI</option>
-              <option value="600">600 DPI</option>
-              <option value="750">750 DPI</option>
-              <option value="900">900 DPI</option>
-            </select>
+            <input
+              type="range"
+              id="resolucion"
+              name="resolucion"
+              min="150"
+              max="900"
+              step="150"
+              value="150"
+              oninput="
+                document.getElementById('salida_resolucion').value =
+                  this.value + ' DPI'
+              "
+            />
+            <output id="salida_resolucion">150 DPI</output>
             (*)
           </p>
 
@@ -324,7 +315,6 @@
               id="telefono"
               name="telefono"
               autocomplete="tel"
-              pattern="[0-9]{9}"
             />
           </p>
 
