@@ -25,12 +25,18 @@
         <form action="index-reg.html" method="get">
           <p>
             <label for="usuario">Nombre de usuario:</label>
-            <input type="text" id="usuario" name="usuario" />
+            <input type="text" id="usuario" name="usuario" required />
           </p>
 
           <p>
             <label for="password">Contraseña:</label>
-            <input type="password" id="password" name="password" />
+            <input
+              type="password"
+              id="password"
+              name="password"
+              pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])[A-Za-z0-9_-]{6,15}"
+              required
+            />
           </p>
 
           <p>
