@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Solicitar folleto | PI - Pisos e Inmuebles</title>
+    <style>
+      table,
+      tr,
+      th,
+      td {
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <h1>PI - Pisos e Inmuebles</h1>
+
+      <nav>
+        <ul>
+          <li><a href="index-reg.html">Inicio</a></li>
+          <li><a href="search.html">Buscar anuncios</a></li>
+          <li><a href="create-ad.html">Crear folleto</a></li>
+          <li><a href="404.html">Mis anuncios</a></li>
+          <li><a href="404.html">Crear anuncio</a></li>
+          <li><a href="my-messages.html">Mis mensajes</a></li>
+          <li><a href="404.html">Mi cuenta</a></li>
+          <li><a href="index.html">Cerrar sesión</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <h2>Solicitar un folleto publicitario</h2>
+      <p>
+        Elige uno de tus anuncios y personaliza el folleto que enviaremos a la
+        dirección indicada. El número de páginas y fotos depende del anuncio
+        seleccionado. El coste de impresión se calcula por página y foto, por
+        copia, según el tipo de impresión y la resolución; el coste de
+        procesamiento y envío se añade una sola vez y es fijo, con independencia
+        del número de páginas y de copias.
+      </p>
+
+      <section>
+        <h3>Tarifas de impresión</h3>
+        <p>
+          Tarifas de referencia en euros por página o foto y por copia. La
+          resolución elegida se aplica a las fotos.
+        </p>
+
+        <table>
+          <caption>
+            Tarifas
+          </caption>
+          <tr>
+            <th scope="col">Concepto</th>
+            <th scope="col">Tarifa</th>
+          </tr>
+          <tr>
+            <th scope="row">Coste procesamiento y envío</th>
+            <td>10 €</td>
+          </tr>
+          <tr>
+            <th scope="row">&lt; 5 páginas</th>
+            <td>2 € por pág.</td>
+          </tr>
+          <tr>
+            <th scope="row">entre 5 y 10 páginas</th>
+            <td>1.8 € por pág.</td>
+          </tr>
+          <tr>
+            <th scope="row">&gt; 10 páginas</th>
+            <td>1.6 € por pág.</td>
+          </tr>
+          <tr>
+            <th scope="row">Blanco y negro</th>
+            <td>0 €</td>
+          </tr>
+          <tr>
+            <th scope="row">Color</th>
+            <td>0.5 € por foto</td>
+          </tr>
+          <tr>
+            <th scope="row">Resolución &lt;&equals; 300 dpi</th>
+            <td>0 € por foto</td>
+          </tr>
+          <tr>
+            <th scope="row">Resolución &gt; 300 dpi</th>
+            <td>0.2€ por foto</td>
+          </tr>
+        </table>
+      </section>
+
+      <form action="ad-response.html" method="post">
+        <fieldset>
+          <legend>Personalización del folleto</legend>
+
+          <p>
+            <em>Los campos marcados con un asterisco (*) son obligatorios.</em>
+          </p>
+
+          <p>
+            <label for="anuncio">Anuncio propio:</label>
+            <select id="anuncio" name="anuncio" required>
+              <option value="">Selecciona uno de tus anuncios</option>
+              <option value="piso-alicante">
+                Piso luminoso en Alicante (5 páginas, 6 fotos)
+              </option>
+            </select>
+            (*)
+            <small
+              >Solo puedes solicitar folletos de anuncios publicados por
+              ti.</small
+            >
+          </p>
+
+          <p>
+            <label for="texto-adicional">
+              Texto adicional (opcional, máximo 4000 caracteres):
+            </label>
+            <textarea
+              id="texto-adicional"
+              name="texto_adicional"
+              rows="6"
+              maxlength="4000"
+            ></textarea>
+          </p>
+
+          <p>
+            <label for="color-portada">Color de la portada:</label>
+            <input
+              type="color"
+              id="color-portada"
+              name="color_portada"
+              value="#000000"
+            />
+            (*)
+          </p>
+
+          <p>
+            <label for="copias">Número de copias (1-99):</label>
+            <input
+              type="number"
+              id="copias"
+              name="copias"
+              min="1"
+              max="99"
+              value="1"
+              required
+            />
+            (*)
+          </p>
+
+          <p>
+            <label for="resolucion">Resolución de las fotos:</label>
+            <input
+              type="range"
+              id="resolucion"
+              name="resolucion"
+              min="150"
+              max="900"
+              step="150"
+              value="150"
+              oninput="
+                document.getElementById('salida_resolucion').value =
+                  this.value + ' DPI'
+              "
+            />
+            <output id="salida_resolucion">150 DPI</output>
+            (*)
+          </p>
+
+          <fieldset>
+            <legend>Impresión</legend>
+            <p>¿Cómo quieres imprimir el folleto?</p>
+            <p>
+              <input
+                type="radio"
+                id="blanco-negro"
+                name="impresion"
+                value="blanco-negro"
+                required
+              />
+              <label for="blanco-negro">Blanco y negro</label>
+            </p>
+            <p>
+              <input
+                type="radio"
+                id="todo-color"
+                name="impresion"
+                value="color"
+              />
+              <label for="todo-color">A todo color</label>
+            </p>
+
+            <p>¿Quieres que aparezca el precio del anuncio?</p>
+            <p>
+              <input
+                type="radio"
+                id="con-precio"
+                name="mostrar_precio"
+                value="si"
+                required
+              />
+              <label for="con-precio">Sí, imprimir el precio</label>
+            </p>
+            <p>
+              <input
+                type="radio"
+                id="sin-precio"
+                name="mostrar_precio"
+                value="no"
+              />
+              <label for="sin-precio">No imprimir el precio</label>
+            </p>
+          </fieldset>
+        </fieldset>
+
+        <fieldset>
+          <legend>Datos del destinatario</legend>
+
+          <p>
+            <label for="nombre"
+              >Nombre y apellidos (máximo 200 caracteres):</label
+            >
+            <input
+              type="text"
+              id="nombre"
+              name="nombre"
+              maxlength="200"
+              autocomplete="name"
+              required
+            />
+            (*)
+          </p>
+
+          <p>
+            <label for="email"
+              >Correo electrónico (máximo 200 caracteres):</label
+            >
+            <input
+              type="email"
+              id="email"
+              name="email"
+              maxlength="200"
+              autocomplete="email"
+              required
+            />
+            (*)
+          </p>
+
+          <p>
+            <label for="calle">Dirección:</label>
+            <input
+              type="text"
+              id="calle"
+              name="calle"
+              autocomplete="address-line1"
+              placeholder="Calle"
+              required
+            />
+            <input
+              type="text"
+              id="numero"
+              name="numero"
+              placeholder="Número"
+              required
+            />
+            <input
+              type="text"
+              id="piso"
+              name="piso"
+              placeholder="Piso"
+              required
+            />
+            <input
+              type="text"
+              id="puerta"
+              name="puerta"
+              placeholder="Puerta"
+              required
+            />
+            <input
+              type="text"
+              id="codigo-postal"
+              name="codigo_postal"
+              placeholder="Código postal"
+              autocomplete="postal-code"
+              required
+            />
+            <select id="localidad" name="localidad" required>
+              <option value="">Localidad</option>
+              <option value="alicante">Alicante</option>
+              <option value="elche">Elche</option>
+              <option value="benidorm">Benidorm</option>
+            </select>
+            <select id="provincia" name="provincia" required>
+              <option value="">Provincia</option>
+              <option value="alicante">Alicante</option>
+              <option value="valencia">Valencia</option>
+              <option value="castellon">Castellón</option>
+            </select>
+            <select id="pais" name="pais" required>
+              <option value="">País</option>
+              <option value="espana">España</option>
+              <option value="francia">Francia</option>
+              <option value="italia">Italia</option>
+              <option value="portugal">Portugal</option>
+            </select>
+            (*)
+          </p>
+
+          <p>
+            <label for="telefono">Teléfono (opcional):</label>
+            <input
+              type="tel"
+              id="telefono"
+              name="telefono"
+              autocomplete="tel"
+            />
+          </p>
+
+          <p>
+            <label for="fecha-recepcion">
+              Fecha aproximada de recepción (opcional):
+            </label>
+            <input type="date" id="fecha-recepcion" name="fecha_recepcion" />
+          </p>
+        </fieldset>
+
+        <p>
+          <button type="submit">Solicitar folleto</button>
+          <button type="reset">Limpiar formulario</button>
+        </p>
+      </form>
+    </main>
+
+    <footer>
+      <p>Pedro González Sánchez &amp; Alejandro Sánchez Martí</p>
+      <p>&copy; 2026 PI - Pisos e Inmuebles. Todos los derechos reservados.</p>
+    </footer>
+  </body>
+</html>
