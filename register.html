@@ -60,6 +60,7 @@
               id="email"
               name="email"
               pattern="(?=.{1,254}$)(?=.{1,64}@)[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+)*@[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?(?:\.[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?)*"
+              required
             />
           </p>
         </fieldset>
@@ -70,33 +71,44 @@
           <p><span>Sexo:</span></p>
 
           <p>
-            <input type="radio" id="hombre" name="sexo" value="hombre" />
+            <input
+              type="radio"
+              id="hombre"
+              name="sexo"
+              value="hombre"
+              required
+            />
             <label for="hombre">Hombre</label>
           </p>
 
           <p>
-            <input type="radio" id="mujer" name="sexo" value="mujer" />
+            <input type="radio" id="mujer" name="sexo" value="mujer" required />
             <label for="mujer">Mujer</label>
           </p>
 
           <p>
-            <input type="radio" id="otro" name="sexo" value="otro" />
+            <input type="radio" id="otro" name="sexo" value="otro" required />
             <label for="otro">Otro</label>
           </p>
 
           <p>
             <label for="fecha-nacimiento">Fecha de nacimiento:</label>
-            <input type="date" id="fecha-nacimiento" name="fecha-nacimiento" />
+            <input
+              type="date"
+              id="fecha-nacimiento"
+              name="fecha-nacimiento"
+              required
+            />
           </p>
 
           <p>
             <label for="ciudad">Ciudad de residencia:</label>
-            <input type="text" id="ciudad" name="ciudad" />
+            <input type="text" id="ciudad" name="ciudad" required />
           </p>
 
           <p>
             <label for="pais">País de residencia:</label>
-            <select id="pais" name="pais">
+            <select id="pais" name="pais" required>
               <option value="">Selecciona un país</option>
               <option value="espana">España</option>
               <option value="francia">Francia</option>
