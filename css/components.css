@@ -13,8 +13,13 @@
   transform: translateY(0);
 }
 
-nav i {
+nav i,
+label i {
   margin-right: 0.4rem;
+}
+
+label i {
+  color: var(--color-primary);
 }
 
 article,

@@ -12,8 +12,10 @@ body > header h1 {
 
 .brand-mark {
   display: inline-block;
+  width: 1.5em;
+  height: 1.5em;
   margin-right: 0.55rem;
-  color: var(--color-secondary);
+  vertical-align: -0.25em;
 }
 
 nav ul {
