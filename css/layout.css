@@ -1,0 +1,73 @@
+body > header {
+  padding: 1.25rem max(1rem, calc((100% - var(--content-width)) / 2));
+  background: var(--color-dark);
+  color: var(--color-light);
+}
+
+body > header h1 {
+  margin-bottom: 0.75rem;
+  color: var(--color-light);
+  font-size: 1.8rem;
+}
+
+body > header h1::before {
+  content: "⌂";
+  margin-right: 0.55rem;
+  color: #c9d9ca;
+}
+
+nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.15rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+nav a {
+  display: inline-block;
+  padding: 0.3rem 0;
+  color: var(--color-light);
+  text-decoration: none;
+}
+
+nav a:hover,
+nav a:focus-visible {
+  color: #d9e7d9;
+  text-decoration: underline;
+}
+
+main {
+  flex: 1;
+  width: min(calc(100% - 2rem), var(--content-width));
+  margin: 0 auto;
+  padding: 2rem 0;
+}
+
+main section {
+  margin-bottom: 1.5rem;
+}
+
+main section:has(> article) {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+main section:has(> article) > h2,
+main section:has(> article) > p {
+  grid-column: 1 / -1;
+  margin-bottom: 0;
+}
+
+body > footer {
+  padding: 1.25rem max(1rem, calc((100% - var(--content-width)) / 2));
+  background: var(--color-dark);
+  color: var(--color-light);
+  font-size: 0.9rem;
+}
+
+body > footer p:last-child {
+  margin-bottom: 0;
+}
