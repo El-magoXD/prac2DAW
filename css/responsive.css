@@ -1,3 +1,13 @@
+@media (min-width: 120rem) {
+  :root {
+    --content-width: 100rem;
+  }
+
+  main section:has(> article) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
 @media (max-width: 48rem) {
   body > header,
   body > footer {
@@ -13,8 +23,17 @@
     grid-template-columns: 1fr;
   }
 
-  form p:has(> label) {
+  form p:has(> label:first-child),
+  form p:has(> label + input + label) {
     grid-template-columns: 1fr;
+  }
+
+  form p:has(> label:first-child):not(:has(> label + input + label)) > :not(label) {
+    grid-column: 1;
+  }
+
+  article section:has(> figure) > img {
+    width: calc(50% - 0.4rem);
   }
 }
 
@@ -33,7 +52,7 @@
 
   article,
   fieldset,
-  .card {
+  .conBorde {
     padding: 0.8rem;
   }
 

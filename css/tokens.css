@@ -6,5 +6,12 @@
   --color-accent: #854a2e;
   --color-surface: #fffdf8;
   --color-border: #b9c9bd;
+  --color-input-bg: #ffffff;
+  --color-input-border: #78877e;
+  --color-on-primary: #ffffff;
+  --color-table-hover: #c6d9cc;
+  --color-focus: #b4512d;
+  --font-sans: "Trebuchet MS", Arial, sans-serif;
+  --font-serif: Georgia, "Times New Roman", serif;
   --content-width: 76rem;
 }

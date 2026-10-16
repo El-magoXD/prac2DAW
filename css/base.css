@@ -9,7 +9,7 @@ body {
   margin: 0;
   background: var(--color-light);
   color: var(--color-dark);
-  font: 1rem/1.6 "Trebuchet MS", Arial, sans-serif;
+  font: 1rem/1.6 var(--font-sans);
 }
 
 h1,
@@ -20,7 +20,7 @@ h5,
 h6 {
   margin: 0 0 0.65em;
   color: var(--color-primary);
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: var(--font-serif);
   line-height: 1.25;
 }
 
@@ -45,6 +45,6 @@ a:hover {
 }
 
 :focus-visible {
-  outline: 3px solid #b4512d;
+  outline: 3px solid var(--color-focus);
   outline-offset: 3px;
 }
