@@ -10,8 +10,8 @@ body > header h1 {
   font-size: 1.8rem;
 }
 
-body > header h1::before {
-  content: "⌂";
+.brand-mark {
+  display: inline-block;
   margin-right: 0.55rem;
   color: #c9d9ca;
 }

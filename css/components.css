@@ -15,34 +15,8 @@
   transform: translateY(0);
 }
 
-nav a::before {
-  display: inline-block;
-  width: 1.5em;
-  font-family: "Font Awesome 6 Free";
-  font-weight: 900;
-  text-align: left;
-}
-
-nav a[href*="index"]::before {
-  content: "\f015";
-}
-
-nav a[href*="search"]::before,
-nav a[href*="result"]::before {
-  content: "\f002";
-}
-
-nav a[href*="register"]::before {
-  content: "\f234";
-}
-
-nav a[href*="create-ad"]::before {
-  content: "\f15c";
-}
-
-nav a[href*="messages"]::before,
-nav a[href*="message"]::before {
-  content: "\f0e0";
+nav i {
+  margin-right: 0.4rem;
 }
 
 article,
