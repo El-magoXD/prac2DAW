@@ -1,244 +1,280 @@
+/* Enlace de accesibilidad "Saltar al contenido principal" al inicio de cada página */
 .skip-link {
-  position: absolute;
-  z-index: 10;
-  top: 0.5rem;
-  left: 0.5rem;
-  transform: translateY(-160%);
-  padding: 0.6rem 0.9rem;
-  background: var(--color-surface);
-  color: var(--color-dark);
+  position: absolute; /* Saca el enlace del flujo normal para no desplazar la cabecera */
+  z-index: 10; /* Asegura que cuando aparezca quede por encima del resto de elementos */
+  top: 0.5rem; /* Lo separa 0.5rem del borde superior de la ventana */
+  left: 0.5rem; /* Lo separa 0.5rem del borde izquierdo de la ventana */
+  transform: translateY(-160%); /* Lo oculta desplazándolo hacia arriba fuera de la pantalla */
+  padding: 0.6rem 0.9rem; /* Añade relleno interior para que se vea como una etiqueta legible */
+  background: var(--color-surface); /* Fondo claro para contrastar sobre la cabecera oscura */
+  color: var(--color-dark); /* Texto oscuro de alto contraste dentro del enlace */
 }
 
+/* Estado del enlace "Saltar al contenido" cuando recibe el foco del teclado (tecla Tab) */
 .skip-link:focus {
-  transform: translateY(0);
+  transform: translateY(0); /* Devuelve el enlace a su posición original para hacerlo visible */
 }
 
+/* Iconos de Font Awesome (<i>) dentro del menú de navegación (<nav>) y etiquetas (<label>) */
 nav i,
 label i {
-  margin-right: 0.4rem;
+  margin-right: 0.4rem; /* Añade una pequeña separación entre el icono y el texto que lo acompaña */
 }
 
+/* Iconos de Font Awesome dentro de las etiquetas de los formularios */
 label i {
-  color: var(--color-primary);
+  color: var(--color-primary); /* Pinta el icono de la etiqueta con el color verde principal */
 }
 
+/* Contenedores tipo tarjeta: anuncios (<article>), grupos de formulario (<fieldset>) y bloques con clase .conBorde */
 article,
 fieldset,
 .conBorde {
-  min-width: 0;
-  margin: 0 0 1rem;
-  padding: 1.1rem;
-  border: 1px solid var(--color-border);
-  border-top: 4px solid var(--color-primary);
-  border-radius: 6px;
-  background: var(--color-surface);
+  min-width: 0; /* Impide que el contenido interno ensanche la tarjeta más allá de su columna en CSS Grid */
+  margin: 0 0 1rem; /* Quita el margen superior y deja 1rem de separación inferior */
+  padding: 1.1rem; /* Espacio interior entre el borde de la tarjeta y su contenido */
+  border: 1px solid var(--color-border); /* Borde fino alrededor de toda la caja */
+  border-top: 4px solid var(--color-primary); /* Borde superior más grueso en color primario para destacar la tarjeta */
+  border-radius: 6px; /* Redondea suavemente las esquinas del contenedor */
+  background: var(--color-surface); /* Aplica el fondo blanco cálido de superficie */
 }
 
+/* Clase personalizada .anuncio para destacar el precio o el anunciante dentro de los anuncios */
 .anuncio {
-  padding: 0.45rem 0.7rem;
-  border-left: 3px solid var(--color-accent);
-  background: var(--color-secondary);
-  font-weight: 700;
+  padding: 0.45rem 0.7rem; /* Relleno interior para enmarcar el texto destacado */
+  border-left: 3px solid var(--color-accent); /* Franja lateral izquierda en color terracota */
+  background: var(--color-secondary); /* Fondo verde suave para resaltar el bloque */
+  font-weight: 700; /* Texto en negrita para dar mayor jerarquía visual */
 }
 
+/* Imágenes situadas dentro de las tarjetas de anuncios (<article>) */
 article img {
-  width: 100%;
-  max-height: 18rem;
-  object-fit: cover;
-  margin-bottom: 0.8rem;
+  width: 100%; /* Hace que la foto del anuncio ocupe todo el ancho disponible de la tarjeta */
+  max-height: 18rem; /* Limita la altura máxima de la foto para que las tarjetas sean uniformes */
+  object-fit: cover; /* Recorta proporcionalmente la imagen sin deformarla si supera la altura máxima */
+  margin-bottom: 0.8rem; /* Separación inferior entre la foto y el título del anuncio */
 }
 
+/* Sección de galería de fotos en el detalle del anuncio (aquella que contiene un <figure>) */
 article section:has(> figure) {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  align-items: flex-start;
+  display: flex; /* Usa Flexbox para colocar las miniaturas de fotos en fila horizontal */
+  flex-wrap: wrap; /* Permite que los elementos salten de línea (foto principal arriba, miniaturas abajo) */
+  gap: 0.75rem; /* Espacio de separación entre las miniaturas de la galería */
+  align-items: flex-start; /* Alinea las imágenes en la parte superior de su fila */
 }
 
+/* Figura principal (<figure>) y subtítulo (<h3>Miniaturas de fotos</h3>) dentro de la galería */
 article section:has(> figure) > figure,
 article section:has(> figure) > h3 {
-  flex: 1 1 100%;
-  margin-right: 0;
-  margin-left: 0;
+  flex: 1 1 100%; /* Obliga a que la foto grande y el subtítulo ocupen el 100% del ancho de su fila */
+  margin-right: 0; /* Quita el margen derecho por defecto de la etiqueta <figure> */
+  margin-left: 0; /* Quita el margen izquierdo por defecto de la etiqueta <figure> */
 }
 
+/* Imágenes en miniatura hijas directas de la sección de galería */
 article section:has(> figure) > img {
-  width: calc(25% - 0.6rem);
-  max-width: 11rem;
-  height: 7.5rem;
-  margin-bottom: 0;
-  border: 1px solid var(--color-border);
-  border-radius: 4px;
+  width: calc(25% - 0.6rem); /* Reparte hasta 4 miniaturas por fila descontando el espacio del gap */
+  max-width: 11rem; /* Limita el ancho máximo de cada miniatura en pantallas grandes */
+  height: 7.5rem; /* Fija una altura idéntica para todas las miniaturas */
+  margin-bottom: 0; /* Quita el margen inferior porque el espaciado ya lo controla gap */
+  border: 1px solid var(--color-border); /* Enmarca cada miniatura con un borde suave */
+  border-radius: 4px; /* Redondea ligeramente las esquinas de las miniaturas */
 }
 
+/* Enlaces (<a>) dentro de una tarjeta de anuncio (<article>) */
 article a {
-  text-decoration: none;
+  text-decoration: none; /* Quita el subrayado en los títulos/imágenes clicables de las tarjetas */
 }
 
+/* Títulos (<h3>) de cada anuncio dentro de su tarjeta */
 article h3 {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.5rem; /* Reduce el margen inferior debajo del título del inmueble */
 }
 
+/* Último párrafo (<p>) dentro de una tarjeta de anuncio */
 article p:last-child {
-  margin-bottom: 0;
+  margin-bottom: 0; /* Elimina el margen inferior del último dato para no dejar hueco extra al final */
 }
 
+/* Título (<legend>) de una agrupación de campos de formulario (<fieldset>) */
 legend {
-  padding: 0 0.4rem;
-  color: var(--color-primary);
-  font-weight: 700;
+  padding: 0 0.4rem; /* Deja un pequeño espacio a izquierda y derecha del texto donde corta el borde */
+  color: var(--color-primary); /* Pinta el título del grupo en color verde primario */
+  font-weight: 700; /* Pone el texto del legend en negrita */
 }
 
+/* Párrafos de formulario que empiezan por una etiqueta (<label>): filas normales del formulario */
 form p:has(> label:first-child) {
-  display: grid;
-  grid-template-columns: minmax(10rem, 13rem) minmax(0, 1fr);
-  align-items: center;
-  gap: 0.4rem 0.8rem;
+  display: grid; /* Crea una rejilla para alinear la etiqueta a la izquierda y el campo a la derecha */
+  grid-template-columns: minmax(10rem, 13rem) minmax(0, 1fr); /* 1ª columna fija (10-13rem) para el label y 2ª columna flexible para el control */
+  align-items: center; /* Centra verticalmente el texto de la etiqueta respecto al cuadro de entrada */
+  gap: 0.4rem 0.8rem; /* Separación de 0.4rem entre filas y 0.8rem entre la etiqueta y el control */
 }
 
+/* Controles secundarios o textos de ayuda (<small>, <output>, múltiples <input> en Dirección) dentro de un mismo párrafo de formulario */
 form p:has(> label:first-child):not(:has(> label + input + label)) > :not(label) {
-  grid-column: 2;
+  grid-column: 2; /* Fuerza a que todos los elementos que no sean el <label> se coloquen alineados en la segunda columna */
 }
 
+/* Filas de formulario con rangos dobles ("Precio entre [min] y [max]" o "Fecha entre [min] y [max]") */
 form p:has(> label + input + label) {
-  grid-template-columns: minmax(10rem, 13rem) minmax(0, 17.5rem) auto minmax(0, 17.5rem);
+  grid-template-columns: minmax(10rem, 13rem) minmax(0, 17.5rem) auto minmax(0, 17.5rem); /* Crea 4 columnas: etiqueta inicial, primer input, texto "y" y segundo input */
 }
 
+/* Párrafos de formulario que contienen botones de radio (radio) o casillas de verificación (checkbox) */
 form p:has(> input[type="radio"]),
 form p:has(> input[type="checkbox"]) {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  display: flex; /* Coloca el circulito/casilla y su texto uno al lado del otro en línea */
+  align-items: center; /* Alinea verticalmente el botón de opción con su etiqueta de texto */
+  gap: 0.5rem; /* Deja 0.5rem de separación entre el control y su texto */
 }
 
+/* Etiquetas de texto (<label>) de todos los controles de formulario */
 label {
-  font-weight: 600;
+  font-weight: 600; /* Aplica seminegrita para diferenciar las etiquetas del resto del texto */
 }
 
+/* Campos de entrada de texto/número/fecha/búsqueda/email/contraseña, desplegables (<select>) y áreas de texto (<textarea>) */
 input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="reset"]),
 select,
 textarea {
-  width: 100%;
-  min-width: 0;
-  max-width: 38rem;
-  min-height: 2.7rem;
-  padding: 0.55rem 0.65rem;
-  border: 1px solid var(--color-input-border);
-  border-radius: 4px;
-  background: var(--color-input-bg);
-  color: var(--color-dark);
-  font: inherit;
+  width: 100%; /* Hace que el campo ocupe todo el ancho disponible de su columna */
+  min-width: 0; /* Evita que el campo desborde su celda en pantallas estrechas */
+  max-width: 38rem; /* Limita el ancho máximo para que los campos no sean excesivamente largos en escritorio */
+  min-height: 2.7rem; /* Garantiza una altura mínima cómoda para hacer clic o tocar en móvil */
+  padding: 0.55rem 0.65rem; /* Relleno interior para que el texto escrito no se pegue al borde */
+  border: 1px solid var(--color-input-border); /* Borde visible alrededor del campo de entrada */
+  border-radius: 4px; /* Esquinas ligeramente redondeadas en los campos */
+  background: var(--color-input-bg); /* Fondo blanco para los cuadros de entrada */
+  color: var(--color-dark); /* Color oscuro para el texto que escribe el usuario */
+  font: inherit; /* Hereda la fuente y el tamaño de letra del body (los inputs no lo heredan por defecto) */
 }
 
+/* Selector de color (<input type="color">) en el formulario de solicitar folleto */
 input[type="color"] {
-  max-width: 5rem;
-  padding: 0.2rem;
-  cursor: pointer;
+  max-width: 5rem; /* Limita su anchura para que se vea como una muestra de color compacta */
+  padding: 0.2rem; /* Reduce el relleno interno alrededor de la muestra de color */
+  cursor: pointer; /* Muestra el cursor de mano al pasar por encima */
 }
 
+/* Áreas de texto multilínea (<textarea>) */
 textarea {
-  min-height: 8rem;
-  resize: vertical;
+  min-height: 8rem; /* Otorga una altura inicial amplia para escribir textos largos */
+  resize: vertical; /* Permite al usuario estirar la caja solo en vertical para no romper el ancho del diseño */
 }
 
+/* Botones de opción (<input type="radio">) y casillas (<input type="checkbox">) */
 input[type="radio"],
 input[type="checkbox"] {
-  width: 1.1rem;
-  height: 1.1rem;
-  margin: 0;
-  accent-color: var(--color-primary);
-  vertical-align: middle;
+  width: 1.1rem; /* Define un ancho ligeramente mayor al predeterminado para facilitar el clic */
+  height: 1.1rem; /* Define un alto igual al ancho para mantener la proporción cuadrada/circular */
+  margin: 0; /* Quita los márgenes nativos del navegador para alinearlos con precisión mediante Flexbox */
+  accent-color: var(--color-primary); /* Pinta el interior del radio/checkbox marcado con el color primario */
+  vertical-align: middle; /* Alinea el control al centro vertical respecto al texto */
 }
 
+/* Botones de acción (<button>, <input type="submit"> e <input type="reset">) */
 button,
 input[type="submit"],
 input[type="reset"] {
-  min-height: 2.7rem;
-  padding: 0.55rem 1rem;
-  border: 1px solid var(--color-primary);
-  border-radius: 4px;
-  background: var(--color-primary);
-  color: var(--color-on-primary);
-  font: inherit;
-  font-weight: 700;
-  cursor: pointer;
+  min-height: 2.7rem; /* Altura mínima equivalente a la de los campos de texto */
+  padding: 0.55rem 1rem; /* Relleno interno horizontal y vertical del botón */
+  border: 1px solid var(--color-primary); /* Borde del mismo tono que el fondo del botón */
+  border-radius: 4px; /* Esquinas redondeadas a juego con los inputs */
+  background: var(--color-primary); /* Fondo verde primario para destacar la acción */
+  color: var(--color-on-primary); /* Texto blanco sobre el fondo del botón */
+  font: inherit; /* Hereda la tipografía principal del documento */
+  font-weight: 700; /* Texto del botón en negrita */
+  cursor: pointer; /* Cambia el puntero a una mano para indicar que es pulsable */
 }
 
+/* Estado al pasar el ratón por encima de cualquier botón de formulario */
 button:hover,
 input[type="submit"]:hover,
 input[type="reset"]:hover {
-  background: var(--color-dark);
+  background: var(--color-dark); /* Oscurece el fondo del botón al pasar el cursor */
 }
 
+/* Tablas de datos (<table>), como la tabla de tarifas de impresión */
 table {
-  width: 100%;
-  margin: 1rem 0;
-  border-collapse: collapse;
-  background: var(--color-surface);
+  width: 100%; /* Hace que la tabla ocupe el 100% del ancho disponible */
+  margin: 1rem 0; /* Añade separación vertical arriba y abajo de la tabla */
+  border-collapse: collapse; /* Fusiona los bordes de las celdas contiguas en una única línea */
+  background: var(--color-surface); /* Aplica el color de fondo claro a la tabla */
 }
 
+/* Título descriptivo de la tabla (<caption>) */
 caption {
-  padding: 0.6rem;
-  color: var(--color-primary);
-  font-family: var(--font-serif);
-  font-size: 1.15rem;
-  font-weight: 700;
-  text-align: left;
+  padding: 0.6rem; /* Espacio alrededor del texto del título de la tabla */
+  color: var(--color-primary); /* Pinta el título de la tabla con el color primario */
+  font-family: var(--font-serif); /* Usa la tipografía con serifa de los encabezados */
+  font-size: 1.15rem; /* Aumenta ligeramente el tamaño de letra del título de la tabla */
+  font-weight: 700; /* Pone el título de la tabla en negrita */
+  text-align: left; /* Alinea el título de la tabla a la izquierda */
 }
 
+/* Celdas de cabecera (<th>) y celdas de datos (<td>) de las tablas */
 th,
 td {
-  padding: 0.7rem 0.85rem;
-  border: 1px solid var(--color-border);
-  text-align: left;
-  vertical-align: top;
+  padding: 0.7rem 0.85rem; /* Relleno interno de cada celda para que el texto respire */
+  border: 1px solid var(--color-border); /* Dibuja la cuadrícula de bordes de cada celda */
+  text-align: left; /* Alinea el contenido de las celdas a la izquierda */
+  vertical-align: top; /* Alinea el texto en la parte superior si una celda tiene varias líneas */
 }
 
+/* Cabecera de la tabla (<thead> o las celdas <th> de la primera fila) */
 thead,
 tr:first-child th {
-  background: var(--color-primary);
-  color: var(--color-on-primary);
+  background: var(--color-primary); /* Fondo verde primario para la fila de encabezados de columna */
+  color: var(--color-on-primary); /* Texto blanco para los encabezados de columna */
 }
 
+/* Filas pares (2ª, 4ª, 6ª...) del cuerpo de la tabla (<tbody>) */
 tbody tr:nth-child(even) {
-  background: var(--color-secondary);
+  background: var(--color-secondary); /* Aplica un fondo verde claro alterno (efecto cebra) para facilitar la lectura */
 }
 
+/* Fila del cuerpo de la tabla sobre la que está situado el ratón (:hover) */
 tbody tr:hover {
-  background: var(--color-table-hover);
+  background: var(--color-table-hover); /* Resalta toda la fila bajo el cursor del usuario */
 }
 
+/* Etiquetas tipo pastilla (.badge), usadas en el detalle del anuncio ("Venta", "Vivienda") */
 .badge {
-  display: inline-block;
-  padding: 0.2rem 0.55rem;
-  border-radius: 4px;
-  background: var(--color-secondary);
-  color: var(--color-dark);
-  font-size: 0.85em;
-  font-weight: 700;
+  display: inline-block; /* Permite aplicar relleno y bordes manteniendo las etiquetas en la misma línea */
+  padding: 0.2rem 0.55rem; /* Relleno compacto alrededor del texto de la etiqueta */
+  border-radius: 4px; /* Bordes redondeados para dar aspecto de pastilla */
+  background: var(--color-secondary); /* Fondo verde suave */
+  color: var(--color-dark); /* Texto oscuro en el interior de la etiqueta */
+  font-size: 0.85em; /* Tamaño de letra un poco menor que el texto normal */
+  font-weight: 700; /* Texto en negrita */
 }
 
+/* Propiedades comunes para enlaces estilizados como botones (.btn-primary y .btn-accent) */
 .btn-primary,
 .btn-accent {
-  display: inline-block;
-  padding: 0.6rem 1.1rem;
-  border: 0;
-  border-radius: 4px;
-  color: var(--color-on-primary);
-  font-weight: 700;
-  text-decoration: none;
+  display: inline-block; /* Permite que el enlace tenga dimensiones y relleno de botón */
+  padding: 0.6rem 1.1rem; /* Espacio interior del botón-enlace */
+  border: 0; /* Sin borde adicional */
+  border-radius: 4px; /* Esquinas redondeadas */
+  color: var(--color-on-primary); /* Texto en color blanco */
+  font-weight: 700; /* Texto en negrita */
+  text-decoration: none; /* Quita el subrayado típico de los enlaces */
 }
 
+/* Estado al pasar el ratón sobre los botones-enlace (.btn-primary y .btn-accent) */
 .btn-primary:hover,
 .btn-accent:hover {
-  background: var(--color-dark);
-  color: var(--color-on-primary);
+  background: var(--color-dark); /* Cambia el fondo al tono oscuro al pasar el ratón */
+  color: var(--color-on-primary); /* Mantiene el texto en color blanco */
 }
 
+/* Botón-enlace con el color principal (.btn-primary) */
 .btn-primary {
-  background: var(--color-primary);
+  background: var(--color-primary); /* Aplica el fondo verde primario */
 }
 
+/* Botón-enlace con el color de acento (.btn-accent) */
 .btn-accent {
-  background: var(--color-accent);
+  background: var(--color-accent); /* Aplica el fondo terracota de acento */
 }

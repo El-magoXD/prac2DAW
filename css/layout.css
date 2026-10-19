@@ -1,75 +1,87 @@
+/* Cabecera principal de cada página (solo el <header> hijo directo de <body>, no el de los <article>) */
 body > header {
-  padding: 1.25rem max(1rem, calc((100% - var(--content-width)) / 2));
-  background: var(--color-dark);
-  color: var(--color-light);
+  padding: 1.25rem max(1rem, calc((100% - var(--content-width)) / 2)); /* Relleno vertical de 1.25rem y lateral dinámico para alinear el contenido con <main> */
+  background: var(--color-dark); /* Fondo oscuro para destacar la franja superior de cabecera */
+  color: var(--color-light); /* Color claro para el texto dentro de la cabecera */
 }
 
+/* Título principal del sitio web (<h1>) situado dentro de la cabecera */
 body > header h1 {
-  margin-bottom: 0.75rem;
-  color: var(--color-light);
-  font-size: 1.8rem;
+  margin-bottom: 0.75rem; /* Espacio inferior entre el título del sitio y el menú de navegación */
+  color: var(--color-light); /* Sobrescribe el color de los h1 para que sea claro sobre el fondo oscuro */
+  font-size: 1.8rem; /* Tamaño de letra destacado para el nombre del portal inmobiliario */
 }
 
+/* Icono SVG del logotipo (.brand-mark) junto al título principal */
 .brand-mark {
-  display: inline-block;
-  width: 1.5em;
-  height: 1.5em;
-  margin-right: 0.55rem;
-  vertical-align: -0.25em;
+  display: inline-block; /* Permite que la imagen SVG se coloque en la misma línea que el texto del h1 */
+  width: 1.5em; /* Anchura del icono proporcional al tamaño de letra del título */
+  height: 1.5em; /* Altura del icono proporcional al tamaño de letra del título */
+  margin-right: 0.55rem; /* Separación a la derecha entre el icono y el texto "PI - Pisos e Inmuebles" */
+  vertical-align: -0.25em; /* Ajusta la alineación vertical del icono para centrarlo con las letras */
 }
 
+/* Lista de enlaces (<ul>) dentro de la barra de navegación (<nav>) */
 nav ul {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem 1.15rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
+  display: flex; /* Coloca los elementos del menú (<li>) en fila horizontal */
+  flex-wrap: wrap; /* Permite que los enlaces salten a otra línea si no caben en pantallas pequeñas */
+  gap: 0.4rem 1.15rem; /* Separación de 0.4rem entre filas y 1.15rem entre enlaces consecutivos */
+  margin: 0; /* Elimina el margen por defecto de la lista */
+  padding: 0; /* Elimina la sangría izquierda por defecto de la lista */
+  list-style: none; /* Quita los puntos (viñetas) de la lista de navegación */
 }
 
+/* Enlaces (<a>) dentro del menú de navegación */
 nav a {
-  display: inline-block;
-  padding: 0.3rem 0;
-  color: var(--color-light);
-  text-decoration: none;
+  display: inline-block; /* Facilita aplicar relleno vertical para ampliar el área clicable */
+  padding: 0.3rem 0; /* Añade relleno superior e inferior para hacer más cómodo el clic o toque */
+  color: var(--color-light); /* Pinta el texto de los enlaces del menú en color claro */
+  text-decoration: none; /* Quita el subrayado por defecto en los enlaces del menú */
 }
 
+/* Estado al pasar el ratón o enfocar con teclado los enlaces del menú */
 nav a:hover,
 nav a:focus-visible {
-  color: var(--color-secondary);
-  text-decoration: underline;
+  color: var(--color-secondary); /* Cambia el color del enlace a verde suave para dar respuesta visual */
+  text-decoration: underline; /* Muestra el subrayado al interactuar con la opción del menú */
 }
 
+/* Contenedor del contenido principal (<main>) de cada página */
 main {
-  flex: 1;
-  width: min(calc(100% - 2rem), var(--content-width));
-  margin: 0 auto;
-  padding: 2rem 0;
+  flex: 1; /* Hace que <main> crezca para ocupar todo el alto libre y empuje el <footer> al fondo */
+  width: min(calc(100% - 2rem), var(--content-width)); /* Ancho adaptable: máximo 76rem en escritorio y con 1rem de margen a cada lado en móvil */
+  margin: 0 auto; /* Centra horizontalmente el bloque <main> en la pantalla */
+  padding: 2rem 0; /* Añade espacio en blanco arriba y abajo del contenido principal */
 }
 
+/* Secciones (<section>) dentro del contenido principal */
 main section {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.5rem; /* Separa verticalmente unas secciones de otras */
 }
 
+/* Secciones que contienen tarjetas de anuncios (<article>) como hijos directos */
 main section:has(> article) {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem;
+  display: grid; /* Activa la maquetación en rejilla (CSS Grid) para distribuir los anuncios en columnas */
+  grid-template-columns: repeat(2, minmax(0, 1fr)); /* Divide la sección en 2 columnas del mismo ancho sin desbordamiento */
+  gap: 1rem; /* Deja 1rem de separación tanto entre columnas como entre filas de anuncios */
 }
 
+/* Títulos (<h2>) y párrafos introductorios (<p>) dentro de una sección con rejilla de anuncios */
 main section:has(> article) > h2,
 main section:has(> article) > p {
-  grid-column: 1 / -1;
-  margin-bottom: 0;
+  grid-column: 1 / -1; /* Hace que el título o párrafo ocupe todas las columnas de extremo a extremo */
+  margin-bottom: 0; /* Evita sumar margen extra al gap que ya aplica la rejilla */
 }
 
+/* Pie de página principal del sitio (solo el <footer> hijo directo de <body>) */
 body > footer {
-  padding: 1.25rem max(1rem, calc((100% - var(--content-width)) / 2));
-  background: var(--color-dark);
-  color: var(--color-light);
-  font-size: 0.9rem;
+  padding: 1.25rem max(1rem, calc((100% - var(--content-width)) / 2)); /* Relleno vertical de 1.25rem y lateral alineado con el bloque <main> */
+  background: var(--color-dark); /* Fondo oscuro igual que la cabecera para cerrar visualmente la página */
+  color: var(--color-light); /* Texto en color claro para contrastar sobre el fondo oscuro */
+  font-size: 0.9rem; /* Tamaño de letra ligeramente menor para los créditos y el copyright */
 }
 
+/* Último párrafo dentro del pie de página */
 body > footer p:last-child {
-  margin-bottom: 0;
+  margin-bottom: 0; /* Quita el margen inferior del último párrafo para no abultar el pie de página */
 }

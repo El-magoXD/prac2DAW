@@ -1,17 +1,18 @@
+/* Selector raíz (<html>) donde se declaran las variables globales para todo el sitio web */
 :root {
-  --color-primary: #416b65;
-  --color-secondary: #dce8df;
-  --color-dark: #303b36;
-  --color-light: #f2e3bc;
-  --color-accent: #854a2e;
-  --color-surface: #fffdf8;
-  --color-border: #b9c9bd;
-  --color-input-bg: #ffffff;
-  --color-input-border: #78877e;
-  --color-on-primary: #ffffff;
-  --color-table-hover: #c6d9cc;
-  --color-focus: #b4512d;
-  --font-sans: "Trebuchet MS", Arial, sans-serif;
-  --font-serif: Georgia, "Times New Roman", serif;
-  --content-width: 76rem;
+  --color-primary: #416b65; /* Color principal (verde azulado): títulos, bordes superiores de tarjetas, botones y cabeceras de tabla */
+  --color-secondary: #dce8df; /* Color secundario suave (verde claro): filas pares de tablas, etiquetas .badge, avisos .anuncio y hover del menú */
+  --color-dark: #303b36; /* Color oscuro: fondo de cabecera/pie de página y color del texto principal */
+  --color-light: #f2e3bc; /* Color claro (crema): fondo general de la página y texto sobre fondos oscuros */
+  --color-accent: #854a2e; /* Color de acento (terracota): enlaces del contenido, botones secundarios y borde de .anuncio */
+  --color-surface: #fffdf8; /* Color de superficie (blanco cálido): fondo de tarjetas, artículos, fieldsets y tablas */
+  --color-border: #b9c9bd; /* Color de los bordes de tarjetas, fieldsets y celdas de tabla */
+  --color-input-bg: #ffffff; /* Color de fondo de los campos de texto, desplegables y áreas de texto */
+  --color-input-border: #78877e; /* Color del borde de los controles de formulario */
+  --color-on-primary: #ffffff; /* Color del texto blanco sobre botones y cabeceras de tabla de color primario */
+  --color-table-hover: #c6d9cc; /* Color de fondo al pasar el ratón (hover) por encima de una fila de tabla */
+  --color-focus: #b4512d; /* Color del contorno de enfoque al navegar con el teclado (accesibilidad) */
+  --font-sans: "Trebuchet MS", Arial, sans-serif; /* Familia tipográfica sin serifa para el texto general y formularios */
+  --font-serif: Georgia, "Times New Roman", serif; /* Familia tipográfica con serifa para todos los títulos (h1-h6) y títulos de tabla */
+  --content-width: 76rem; /* Anchura máxima del bloque principal de contenido en pantallas de escritorio */
 }

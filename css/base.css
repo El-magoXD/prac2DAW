@@ -1,50 +1,58 @@
+/* Selector universal: afecta a todos los elementos HTML de la página */
 * {
-  box-sizing: border-box;
+  box-sizing: border-box; /* Hace que el ancho y alto incluyan el padding y el border para no desbordar contenedores */
 }
 
+/* Estilo general del cuerpo del documento (<body>) */
 body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  margin: 0;
-  background: var(--color-light);
-  color: var(--color-dark);
-  font: 1rem/1.6 var(--font-sans);
+  display: flex; /* Convierte el body en un contenedor flexible para organizar cabecera, contenido y pie */
+  flex-direction: column; /* Apila los hijos directos (header, main, footer) en columna vertical */
+  min-height: 100vh; /* Garantiza que la página ocupe como mínimo el 100% de la altura de la ventana */
+  margin: 0; /* Elimina el margen exterior que los navegadores aplican por defecto al body */
+  background: var(--color-light); /* Aplica el color de fondo crema claro a toda la página */
+  color: var(--color-dark); /* Define el color de texto predeterminado para todo el documento */
+  font: 1rem/1.6 var(--font-sans); /* Define tamaño base de 1rem (16px), interlineado 1.6 y fuente sin serifa */
 }
 
+/* Estilos comunes para todos los niveles de encabezados y títulos */
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-  margin: 0 0 0.65em;
-  color: var(--color-primary);
-  font-family: var(--font-serif);
-  line-height: 1.25;
+  margin: 0 0 0.65em; /* Quita el margen superior y deja una separación inferior proporcional al tamaño del título */
+  color: var(--color-primary); /* Pinta los títulos con el color verde principal de la paleta */
+  font-family: var(--font-serif); /* Aplica la tipografía con serifa (Georgia) para diferenciar títulos del texto */
+  line-height: 1.25; /* Ajusta el interlineado más compacto para títulos de varias líneas */
 }
 
+/* Estilo para todos los párrafos de texto */
 p {
-  margin: 0 0 1rem;
+  margin: 0 0 1rem; /* Quita el margen superior y añade 1rem de separación debajo de cada párrafo */
 }
 
+/* Estilo base para todas las imágenes del sitio */
 img {
-  display: block;
-  max-width: 100%;
-  height: auto;
+  display: block; /* Evita espacios en blanco indeseados debajo de las imágenes */
+  max-width: 100%; /* Impide que una imagen sea más ancha que el contenedor donde está metida */
+  height: auto; /* Mantiene la proporción original de la imagen al escalar su anchura */
 }
 
+/* Estilo para todos los enlaces (<a>) en su estado normal */
 a {
-  color: var(--color-accent);
-  text-decoration: underline;
-  text-underline-offset: 0.15em;
+  color: var(--color-accent); /* Pinta los enlaces con el color terracota de acento */
+  text-decoration: underline; /* Mantiene el subrayado para que los enlaces sean identificables */
+  text-underline-offset: 0.15em; /* Separa ligeramente la línea del subrayado respecto a las letras */
 }
 
+/* Estilo para los enlaces cuando el cursor pasa por encima */
 a:hover {
-  color: var(--color-primary);
+  color: var(--color-primary); /* Cambia el color del enlace al tono primario al pasar el ratón */
 }
 
+/* Indicador visual de foco para cualquier elemento interactivo al navegar con teclado (Tab) */
 :focus-visible {
-  outline: 3px solid var(--color-focus);
-  outline-offset: 3px;
+  outline: 3px solid var(--color-focus); /* Dibuja un borde exterior grueso y visible alrededor del elemento enfocado */
+  outline-offset: 3px; /* Deja 3px de aire entre el elemento y el borde de foco */
 }
