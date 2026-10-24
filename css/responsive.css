@@ -1,0 +1,85 @@
+/* Pantallas de alta resolución (1920px de ancho o más: 120rem * 16px = 1920px) */
+@media (min-width: 120rem) {
+  /* Selector raíz para ampliar el ancho del contenedor en monitores grandes */
+  :root {
+    --content-width: 100rem; /* Aumenta la anchura máxima del contenido principal a 100rem (1600px) */
+  }
+
+  /* Secciones con listados de anuncios (<article>) en pantallas grandes */
+  main section:has(> article) {
+    grid-template-columns: repeat(3, minmax(0, 1fr)); /* Muestra los anuncios distribuidos en 3 columnas iguales */
+  }
+}
+
+/* Pantallas medianas y pequeñas: tablets y móviles (hasta 768px de ancho: 48rem * 16px = 768px) */
+@media (max-width: 48rem) {
+  /* Cabecera y pie de página principales en tablets/móviles */
+  body > header,
+  body > footer {
+    padding-right: 1rem; /* Fija un margen interior derecho de 1rem para aprovechar el ancho de la pantalla */
+    padding-left: 1rem; /* Fija un margen interior izquierdo de 1rem */
+  }
+
+  /* Contenedor principal (<main>) en tablets/móviles */
+  main {
+    padding: 1.4rem 0; /* Reduce el espacio superior e inferior del contenido principal */
+  }
+
+  /* Secciones con listados de anuncios (<article>) en tablets/móviles */
+  main section:has(> article) {
+    grid-template-columns: 1fr; /* Pasa los anuncios de 2 columnas a 1 única columna vertical */
+  }
+
+  /* Filas de formulario normales y filas de rangos dobles en tablets/móviles */
+  form p:has(> label:first-child),
+  form p:has(> label + input + label) {
+    grid-template-columns: 1fr; /* Apila la etiqueta encima de su campo en 1 sola columna */
+  }
+
+  /* Controles secundarios o múltiples dentro de un párrafo de formulario en tablets/móviles */
+  form p:has(> label:first-child):not(:has(> label + input + label)) > :not(label) {
+    grid-column: 1; /* Coloca todos los controles en la columna 1 al no existir ya una segunda columna */
+  }
+
+  /* Miniaturas de fotos del detalle del anuncio en tablets/móviles */
+  article section:has(> figure) > img {
+    width: calc(50% - 0.4rem); /* Muestra 2 miniaturas por fila en lugar de 4 para que se vean más grandes */
+  }
+}
+
+/* Dispositivos móviles pequeños (hasta 480px de ancho: 30rem * 16px = 480px) */
+@media (max-width: 30rem) {
+  /* Título principal (<h1>) de la cabecera en móviles pequeños */
+  body > header h1 {
+    font-size: 1.45rem; /* Reduce el tamaño del título para que no ocupe demasiadas líneas */
+  }
+
+  /* Lista de enlaces del menú de navegación en móviles pequeños */
+  nav ul {
+    gap: 0.2rem 0.8rem; /* Reduce la separación entre enlaces del menú para aprovechar mejor el espacio */
+  }
+
+  /* Contenedor principal (<main>) en móviles de 480px o menos */
+  main {
+    width: calc(100% - 1.25rem); /* Ensancha el área útil dejando márgenes laterales más ajustados */
+  }
+
+  /* Tarjetas de anuncios (<article>), grupos (<fieldset>) y bloques .conBorde en móviles pequeños */
+  article,
+  fieldset,
+  .conBorde {
+    padding: 0.8rem; /* Reduce el relleno interior de las tarjetas para dar más ancho al texto y controles */
+  }
+
+  /* Tablas de datos en móviles pequeños */
+  table {
+    font-size: 0.88rem; /* Reduce ligeramente la letra de la tabla para que quepan todas las columnas */
+  }
+
+  /* Celdas de tabla (<th> y <td>) en móviles pequeños */
+  th,
+  td {
+    padding: 0.45rem; /* Compacta el relleno interior de cada celda de la tabla */
+    overflow-wrap: anywhere; /* Parte palabras largas si es necesario para evitar scroll horizontal */
+  }
+}

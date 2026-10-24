@@ -4,30 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Error 404 | PI - Pisos e Inmuebles</title>
+    <link rel="icon" type="image/svg+xml" href="icon.svg">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <a class="skip-link" href="#main-content">Saltar al contenido principal</a>
 
     <!-- Cabecera común para páginas secundarias -->
     <header>
-        <h1>PI Pisos & Inmuebles</h1>
+        <h1><img class="brand-mark" src="icon.svg" alt="" aria-hidden="true" />PI - Pisos e Inmuebles</h1>
         <nav>
             <ul>
-                <li><a href="index.html">Página principal</a></li>
-                <li><a href="search.html">Buscar vivienda</a></li>
-                <li><a href="register.html">Registrarse</a></li>
+                <li><a href="index.html"><i class="fa-solid fa-house" aria-label="Página principal" role="img"></i> Página principal</a></li>
+                <li><a href="search.html"><i class="fa-solid fa-magnifying-glass" aria-label="Buscar vivienda" role="img"></i> Buscar vivienda</a></li>
+                <li><a href="register.html"><i class="fa-solid fa-user-plus" aria-label="Registrarse" role="img"></i> Registrarse</a></li>
             </ul>
         </nav>
     </header>
 
     <!-- Contenido principal -->
-    <main>
-        <section>
+    <main id="main-content">
+        <section class="conBorde">
             <h2>Error 404 - Página no encontrada</h2>
             <p>Lo sentimos, la página que estás buscando no existe, ha sido movida o el enlace no es correcto.</p>
             <p>Puedes volver a la página principal utilizando el siguiente enlace:</p>
             <p>
-                <a href="index.html">Volver a la Página Principal</a>
+                <a class="btn-primary" href="index.html">Volver a la Página Principal</a>
             </p>
         </section>
     </main>
+
+    <footer>
+        <p>Pedro González Sánchez &amp; Alejandro Sánchez Martí</p>
+        <p>&copy; 2026 PI - Pisos e Inmuebles. Todos los derechos reservados.</p>
+    </footer>
+</body>
 </html>

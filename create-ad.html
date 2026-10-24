@@ -4,35 +4,30 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Solicitar folleto | PI - Pisos e Inmuebles</title>
-    <style>
-      table,
-      tr,
-      th,
-      td {
-        border: 1px solid black;
-      }
-    </style>
+    <link rel="icon" type="image/svg+xml" href="icon.svg" />
+    <link rel="stylesheet" href="style.css" />
   </head>
 
   <body>
+    <a class="skip-link" href="#main-content">Saltar al contenido principal</a>
     <header>
-      <h1>PI - Pisos e Inmuebles</h1>
+      <h1><img class="brand-mark" src="icon.svg" alt="" aria-hidden="true" />PI - Pisos e Inmuebles</h1>
 
       <nav>
         <ul>
-          <li><a href="index-reg.html">Inicio</a></li>
-          <li><a href="search.html">Buscar anuncios</a></li>
-          <li><a href="create-ad.html">Crear folleto</a></li>
-          <li><a href="404.html">Mis anuncios</a></li>
-          <li><a href="404.html">Crear anuncio</a></li>
-          <li><a href="my-messages.html">Mis mensajes</a></li>
-          <li><a href="404.html">Mi cuenta</a></li>
-          <li><a href="index.html">Cerrar sesión</a></li>
+          <li><a href="index-reg.html"><i class="fa-solid fa-house" aria-label="Inicio" role="img"></i> Inicio</a></li>
+          <li><a href="search.html"><i class="fa-solid fa-magnifying-glass" aria-label="Buscar anuncios" role="img"></i> Buscar anuncios</a></li>
+          <li><a href="create-ad.html"><i class="fa-solid fa-file-lines" aria-label="Crear folleto" role="img"></i> Crear folleto</a></li>
+          <li><a href="404.html"><i class="fa-solid fa-bullhorn" aria-label="Mis anuncios" role="img"></i> Mis anuncios</a></li>
+          <li><a href="404.html"><i class="fa-solid fa-circle-plus" aria-label="Crear anuncio" role="img"></i> Crear anuncio</a></li>
+          <li><a href="my-messages.html"><i class="fa-solid fa-envelope" aria-label="Mis mensajes" role="img"></i> Mis mensajes</a></li>
+          <li><a href="404.html"><i class="fa-solid fa-user" aria-label="Mi cuenta" role="img"></i> Mi cuenta</a></li>
+          <li><a href="index.html"><i class="fa-solid fa-right-from-bracket" aria-label="Cerrar sesión" role="img"></i> Cerrar sesión</a></li>
         </ul>
       </nav>
     </header>
 
-    <main>
+    <main id="main-content">
       <h2>Solicitar un folleto publicitario</h2>
       <p>
         Elige uno de tus anuncios y personaliza el folleto que enviaremos a la
@@ -102,14 +97,13 @@
           </p>
 
           <p>
-            <label for="anuncio">Anuncio propio:</label>
+            <label for="anuncio">Anuncio propio (*):</label>
             <select id="anuncio" name="anuncio" required>
               <option value="">Selecciona uno de tus anuncios</option>
               <option value="piso-alicante">
                 Piso luminoso en Alicante (5 páginas, 6 fotos)
               </option>
             </select>
-            (*)
             <small
               >Solo puedes solicitar folletos de anuncios publicados por
               ti.</small
@@ -129,18 +123,17 @@
           </p>
 
           <p>
-            <label for="color-portada">Color de la portada:</label>
+            <label for="color-portada">Color de la portada (*):</label>
             <input
               type="color"
               id="color-portada"
               name="color_portada"
               value="#000000"
             />
-            (*)
           </p>
 
           <p>
-            <label for="copias">Número de copias (1-99):</label>
+            <label for="copias">Número de copias (1-99) (*):</label>
             <input
               type="number"
               id="copias"
@@ -150,11 +143,10 @@
               value="1"
               required
             />
-            (*)
           </p>
 
           <p>
-            <label for="resolucion">Resolución de las fotos:</label>
+            <label for="resolucion">Resolución de las fotos (*):</label>
             <input
               type="range"
               id="resolucion"
@@ -169,7 +161,6 @@
               "
             />
             <output id="salida_resolucion">150 DPI</output>
-            (*)
           </p>
 
           <fieldset>
@@ -223,7 +214,7 @@
 
           <p>
             <label for="nombre"
-              >Nombre y apellidos (máximo 200 caracteres):</label
+              >Nombre y apellidos (máximo 200 caracteres) (*):</label
             >
             <input
               type="text"
@@ -233,12 +224,11 @@
               autocomplete="name"
               required
             />
-            (*)
           </p>
 
           <p>
             <label for="email"
-              >Correo electrónico (máximo 200 caracteres):</label
+              >Correo electrónico (máximo 200 caracteres) (*):</label
             >
             <input
               type="email"
@@ -248,11 +238,10 @@
               autocomplete="email"
               required
             />
-            (*)
           </p>
 
           <p>
-            <label for="calle">Dirección:</label>
+            <label for="calle">Dirección (*):</label>
             <input
               type="text"
               id="calle"
@@ -309,7 +298,6 @@
               <option value="italia">Italia</option>
               <option value="portugal">Portugal</option>
             </select>
-            (*)
           </p>
 
           <p>

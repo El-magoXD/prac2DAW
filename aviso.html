@@ -4,39 +4,42 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Acceso denegado | PI - Pisos e Inmuebles</title>
+    <link rel="icon" type="image/svg+xml" href="icon.svg" />
+    <link rel="stylesheet" href="style.css" />
   </head>
 
   <body>
+    <a class="skip-link" href="#main-content">Saltar al contenido principal</a>
     <header>
-      <h1>PI - Pisos e Inmuebles</h1>
+      <h1><img class="brand-mark" src="icon.svg" alt="" aria-hidden="true" />PI - Pisos e Inmuebles</h1>
 
       <nav>
         <ul>
-          <li><a href="index.html">Inicio</a></li>
-          <li><a href="search.html">Buscar anuncios</a></li>
-          <li><a href="register.html">Registrarse</a></li>
+          <li><a href="index.html"><i class="fa-solid fa-house" aria-label="Inicio" role="img"></i> Inicio</a></li>
+          <li><a href="search.html"><i class="fa-solid fa-magnifying-glass" aria-label="Buscar anuncios" role="img"></i> Buscar anuncios</a></li>
+          <li><a href="register.html"><i class="fa-solid fa-user-plus" aria-label="Registrarse" role="img"></i> Registrarse</a></li>
         </ul>
       </nav>
     </header>
 
-    <main>
+    <main id="main-content">
       <h2>Acceso restringido</h2>
 
       <p>
         Para poder consultar el detalle de este anuncio debes iniciar sesión.
       </p>
 
-      <section>
+      <section class="conBorde">
         <h2>Iniciar sesión</h2>
 
         <form action="index-reg.html" method="get">
           <p>
-            <label for="usuario">Nombre de usuario:</label>
+            <label for="usuario"><i class="fa-solid fa-user" aria-label="Usuario" role="img"></i> Nombre de usuario:</label>
             <input type="text" id="usuario" name="usuario" />
           </p>
 
           <p>
-            <label for="password">Contraseña:</label>
+            <label for="password"><i class="fa-solid fa-lock" aria-label="Contraseña" role="img"></i> Contraseña:</label>
             <input type="password" id="password" name="password" />
           </p>
 

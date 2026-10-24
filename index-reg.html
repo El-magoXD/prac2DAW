@@ -4,26 +4,29 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PI - Pisos e Inmuebles</title>
+    <link rel="icon" type="image/svg+xml" href="icon.svg" />
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <a class="skip-link" href="#main-content">Saltar al contenido principal</a>
     <header>
-      <h1>PI - Pisos e Inmuebles</h1>
+      <h1><img class="brand-mark" src="icon.svg" alt="" aria-hidden="true" />PI - Pisos e Inmuebles</h1>
 
       <nav>
         <ul>
-          <li><a href="index-reg.html">Inicio</a></li>
-          <li><a href="search.html">Buscar anuncios</a></li>
-          <li><a href="create-ad.html">Crear folleto</a></li>
-          <li><a href="404.html">Mis anuncios</a></li>
-          <li><a href="404.html">Crear anuncio</a></li>
-          <li><a href="my-messages.html">Mis mensajes</a></li>
-          <li><a href="404.html">Mi cuenta</a></li>
-          <li><a href="index.html">Cerrar sesión</a></li>
+          <li><a href="index-reg.html"><i class="fa-solid fa-house" aria-label="Inicio" role="img"></i> Inicio</a></li>
+          <li><a href="search.html"><i class="fa-solid fa-magnifying-glass" aria-label="Buscar anuncios" role="img"></i> Buscar anuncios</a></li>
+          <li><a href="create-ad.html"><i class="fa-solid fa-file-lines" aria-label="Crear folleto" role="img"></i> Crear folleto</a></li>
+          <li><a href="404.html"><i class="fa-solid fa-bullhorn" aria-label="Mis anuncios" role="img"></i> Mis anuncios</a></li>
+          <li><a href="404.html"><i class="fa-solid fa-circle-plus" aria-label="Crear anuncio" role="img"></i> Crear anuncio</a></li>
+          <li><a href="my-messages.html"><i class="fa-solid fa-envelope" aria-label="Mis mensajes" role="img"></i> Mis mensajes</a></li>
+          <li><a href="404.html"><i class="fa-solid fa-user" aria-label="Mi cuenta" role="img"></i> Mi cuenta</a></li>
+          <li><a href="index.html"><i class="fa-solid fa-right-from-bracket" aria-label="Cerrar sesión" role="img"></i> Cerrar sesión</a></li>
         </ul>
       </nav>
     </header>
 
-    <main>
+    <main id="main-content">
       <p>Bienvenido, usuario.</p>
 
       <section>
@@ -42,7 +45,7 @@
           <p>Fecha: 25/09/2026</p>
           <p>Ciudad: Alicante</p>
           <p>País: España</p>
-          <p>Precio: 185.000 €</p>
+          <p class="anuncio">Precio: 185.000 €</p>
         </article>
         <article>
           <a href="anuncio.html">
@@ -57,7 +60,7 @@
           <p>Fecha: 24/09/2026</p>
           <p>Ciudad: Valencia</p>
           <p>País: España</p>
-          <p>Precio: 950 € / mes</p>
+          <p class="anuncio">Precio: 950 € / mes</p>
         </article>
 
         <article>
@@ -73,7 +76,7 @@
           <p>Fecha: 23/09/2026</p>
           <p>Ciudad: Madrid</p>
           <p>País: España</p>
-          <p>Precio: 275.000 €</p>
+          <p class="anuncio">Precio: 275.000 €</p>
         </article>
 
         <article>
@@ -89,7 +92,7 @@
           <p>Fecha: 22/09/2026</p>
           <p>Ciudad: Sevilla</p>
           <p>País: España</p>
-          <p>Precio: 1.150 € / mes</p>
+          <p class="anuncio">Precio: 1.150 € / mes</p>
         </article>
 
         <article>
@@ -105,16 +108,16 @@
           <p>Fecha: 21/09/2026</p>
           <p>Ciudad: Barcelona</p>
           <p>País: España</p>
-          <p>Precio: 320.000 €</p>
+          <p class="anuncio">Precio: 320.000 €</p>
         </article>
       </section>
 
-      <section>
+      <section class="conBorde">
         <h2>Búsqueda rápida</h2>
 
         <form action="result.html" method="get">
           <p>
-            <label for="busqueda">Buscar:</label>
+            <label for="busqueda"><i class="fa-solid fa-magnifying-glass" aria-label="Buscar" role="img"></i> Buscar:</label>
             <input type="search" id="busqueda" name="busqueda" />
           </p>
 
