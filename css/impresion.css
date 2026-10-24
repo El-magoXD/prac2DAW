@@ -1,0 +1,170 @@
+@charset "UTF-8";
+
+/* Configuración de la página impresa en formato estándar A4 con márgenes en unidades absolutas */
+@page {
+  size: A4; /* Define el tamaño de hoja estándar A4 */
+  margin: 2cm; /* Establece un margen de 2 centímetros en los cuatro lados del papel */
+}
+
+/* Selector universal para impresión: elimina fondos e imprime en negro sobre blanco */
+* {
+  box-sizing: border-box; /* Mantiene el cálculo de anchuras incluyendo bordes y rellenos */
+  background: transparent !important; /* Elimina los colores de fondo para ahorrar tinta y mejorar el contraste en papel */
+  color: #000000 !important; /* Fuerza todo el texto a negro puro sobre el papel blanco */
+  box-shadow: none !important; /* Elimina cualquier sombra decorativa */
+  text-shadow: none !important; /* Elimina cualquier sombra en los textos */
+}
+
+/* Estilo general del cuerpo del documento para papel */
+body {
+  margin: 0; /* El margen ya lo gestiona la regla @page */
+  background: #ffffff !important; /* Fondo blanco para la página impresa */
+  color: #000000 !important; /* Texto negro para máxima nitidez en impresora */
+  font-family: Georgia, "Times New Roman", Times, serif; /* Tipo de letra con serifa (serif) recomendado para lectura en papel */
+  font-size: 12pt; /* Tamaño de texto mínimo de 12 puntos exigido para impresión */
+  line-height: 1.5; /* Interlineado cómodo para lectura impresa */
+}
+
+/* Oculta los elementos de navegación, enlaces de salto, iconos decorativos y botones interactivos */
+.skip-link,
+body > header nav,
+.brand-mark,
+nav i,
+label i,
+button,
+input[type="submit"],
+input[type="reset"],
+.btn-primary,
+.btn-accent,
+article section:has(> figure) > h3,
+article section:has(> figure) > img {
+  display: none !important; /* No imprime menús, botones ni miniaturas secundarias */
+}
+
+/* Oculta los formularios de inicio de sesión y búsqueda rápida en la portada impresa */
+main > section.conBorde:has(form) {
+  display: none !important; /* Evita imprimir los cuadros de login y búsqueda rápida en index.html */
+}
+
+/* Cabecera del sitio en la versión impresa */
+body > header {
+  padding: 0 0 8pt; /* Deja un espacio inferior de 8 puntos antes del contenido */
+  margin-bottom: 14pt; /* Separa la cabecera del bloque principal */
+  border-bottom: 2pt solid #000000; /* Línea divisoria negra debajo del nombre del portal */
+}
+
+/* Título principal del sitio en la cabecera impresa */
+body > header h1 {
+  margin: 0; /* Quita márgenes innecesarios al imprimir */
+  font-size: 18pt; /* Tamaño de 18 puntos para el encabezado del documento */
+}
+
+/* Contenedor principal (<main>) ocupando todo el ancho del papel */
+main {
+  width: 100%; /* Aprovecha el 100% del ancho útil del papel A4 */
+  margin: 0; /* Sin márgenes laterales automáticos */
+  padding: 0; /* Sin rellenos adicionales */
+}
+
+/* Encabezados y títulos en la hoja impresa */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  page-break-after: avoid; /* Evita que un título quede suelto al final de una página sin su texto debajo */
+  break-after: avoid; /* Equivalente moderno para evitar saltos de página justo después de un título */
+  margin: 12pt 0 6pt; /* Espaciado superior e inferior en puntos */
+  font-family: Georgia, "Times New Roman", Times, serif; /* Tipografía serif en todos los títulos */
+}
+
+/* Control de líneas viudas y huérfanas en párrafos */
+p {
+  margin: 0 0 8pt; /* Separación de 8 puntos entre párrafos */
+  orphans: 3; /* Obliga a dejar al menos 3 líneas al final de una página antes de partir un párrafo */
+  widows: 3; /* Obliga a llevar al menos 3 líneas a la página siguiente al partir un párrafo */
+}
+
+/* Enlaces en la versión impresa */
+a {
+  text-decoration: underline !important; /* Subraya todos los enlaces para distinguirlos en blanco y negro */
+  font-weight: 700; /* Destaca los enlaces en negrita */
+}
+
+/* Muestra entre paréntesis la dirección URL junto al texto de cada enlace */
+a[href]::after {
+  content: " (" attr(href) ")"; /* Extrae el valor del atributo href y lo escribe al lado del enlace */
+  font-size: 10pt; /* Tamaño ligeramente menor para la URL impresa */
+  font-weight: 400; /* Peso normal para diferenciar la URL del texto del enlace */
+}
+
+/* Tarjetas de anuncios (<article>), justificantes (<fieldset>) y bloques con borde en papel */
+article,
+fieldset,
+.conBorde {
+  page-break-inside: avoid; /* Evita que una tarjeta de anuncio o justificante se parta en dos páginas */
+  break-inside: avoid; /* Propiedad estándar para mantener el bloque íntegro en la misma página */
+  margin: 0 0 12pt; /* Separación de 12 puntos entre tarjetas */
+  padding: 10pt; /* Relleno interior de 10 puntos */
+  border: 1pt solid #000000 !important; /* Borde negro fino de 1 punto alrededor del anuncio o recibo */
+}
+
+/* Imágenes principales de los anuncios en la versión impresa */
+article img,
+figure img {
+  display: block; /* Muestra las fotografías principales de los inmuebles */
+  max-width: 8cm; /* Limita la anchura de la foto a 8 centímetros para no gastar una página entera */
+  max-height: 6cm; /* Limita la altura máxima a 6 centímetros */
+  object-fit: cover; /* Mantiene la proporción de la fotografía */
+  margin-bottom: 6pt; /* Espacio debajo de la imagen */
+}
+
+/* Párrafo destacado .anuncio (precio / anunciante) en versión impresa */
+.anuncio {
+  padding: 4pt 6pt; /* Relleno compacto en puntos */
+  border-left: 3pt solid #000000 !important; /* Borde izquierdo negro de 3 puntos */
+  font-weight: 700; /* Mantiene el precio en negrita */
+}
+
+/* Tablas de tarifas o datos en versión impresa */
+table {
+  width: 100%; /* La tabla ocupa todo el ancho del papel */
+  margin: 10pt 0; /* Separación vertical de 10 puntos */
+  border-collapse: collapse; /* Une los bordes de las celdas */
+  page-break-inside: avoid; /* Evita cortar la tabla entre dos páginas */
+}
+
+/* Celdas de tabla en versión impresa */
+th,
+td {
+  padding: 6pt; /* Relleno de 6 puntos en cada celda */
+  border: 1pt solid #000000 !important; /* Cuadrícula negra de 1 punto */
+  text-align: left; /* Alineación izquierda del contenido */
+}
+
+/* Controles de formulario cuando se imprime un formulario o el justificante (ad-response.html) */
+input,
+select,
+textarea {
+  border: 1pt solid #000000 !important; /* Borde negro de 1 punto para ver el valor seleccionado */
+  padding: 3pt 5pt; /* Relleno compacto en papel */
+  font: inherit; /* Mantiene la tipografía serif de impresión */
+}
+
+/* Pie de página impreso con aviso de derechos de autor (copyright) */
+body > footer {
+  margin-top: 16pt; /* Separación respecto al contenido principal */
+  padding-top: 8pt; /* Espacio bajo la línea divisoria */
+  border-top: 1pt solid #000000; /* Línea negra superior que separa el pie de página */
+  font-size: 10pt; /* Tamaño de 10 puntos para los créditos y el copyright */
+}
+
+/* Añade una nota impresa al final del pie de página indicando que es un documento impreso del portal */
+body > footer::after {
+  display: block; /* Coloca el aviso en una línea nueva */
+  margin-top: 4pt; /* Separación superior de 4 puntos */
+  content: "Documento impreso desde PI - Pisos e Inmuebles (versión para impresión)."; /* Mensaje informativo en la hoja impresa */
+  font-style: italic; /* Texto en cursiva */
+}
+

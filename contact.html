@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contacta con nosotros| PI - Pisos e Inmuebles</title>
+    <link rel="icon" type="image/svg+xml" href="icon.svg">
+    <link rel="stylesheet" href="style.css" media="screen" title="Estilo principal">
+    <link rel="alternate stylesheet" href="css/noche.css" media="screen" title="Modo noche">
+    <link rel="alternate stylesheet" href="css/contraste.css" media="screen" title="Alto contraste">
+    <link rel="alternate stylesheet" href="css/grande.css" media="screen" title="Texto grande">
+    <link rel="alternate stylesheet" href="css/contrasteygrande.css" media="screen" title="Alto contraste y texto grande">
+    <link rel="stylesheet" href="css/impresion.css" media="print">
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Saltar al contenido principal</a>
+    <header>
+      <h1><img class="brand-mark" src="icon.svg" alt="" aria-hidden="true" />PI - Pisos e Inmuebles</h1>
+
+      <nav>
+        <ul>
+          <li><a href="index-reg.html"><i class="fa-solid fa-house" aria-label="Página principal" role="img"></i> Página principal</a></li>
+          <li><a href="search.html"><i class="fa-solid fa-magnifying-glass" aria-label="Buscar" role="img"></i> Buscar</a></li>
+          <li><a href="register.html"><i class="fa-solid fa-user-plus" aria-label="Registrarse" role="img"></i> Registrarse</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="main-content">
+      <section>
+        <h2>Contacta con nosotros</h2>
+
+        <form action="message-sent.html" method="get">
+          <fieldset>
+            <legend>Detalles de tu mensaje</legend>
+
+            <p>
+              <label for="tipo_mensaje">Motivo de consulta:</label>
+              <select id="tipo_mensaje" name="tipo_mensaje">
+                <option value="mas_informacion">Ayuda</option>
+                <option value="solicitar_cita">Accesibilidad</option>
+                <option value="comunicar_oferta">Otro</option>
+              </select>
+            </p>
+
+            <p>
+              <label for="texto_mensaje">Texto:</label>
+              <textarea
+                id="texto_mensaje"
+                name="texto_mensaje"
+                rows="10"
+                cols="60"
+                placeholder="Escribe aquí tu mensaje ..."
+              ></textarea>
+            </p>
+
+            <p>
+              <button type="submit">Enviar mensaje</button>
+            </p>
+          </fieldset>
+        </form>
+      </section>
+    </main>
+
+    <footer>
+      <p>Pedro González Sánchez & Alejandro Sánchez Martí</p>
+      <p>&copy; 2026 PI - Pisos e Inmuebles. Todos los derechos reservados. | <a href="accesibilidad.html">Declaración de accesibilidad</a></p>
+    </footer>
+  </body>
+</html>
