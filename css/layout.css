@@ -97,3 +97,10 @@ body > footer a:hover,
 body > footer a:focus-visible {
   color: var(--color-secondary); /* Cambia el color a verde suave al interactuar con el enlace del pie */
 }
+
+/* Primer elemento del grupo derecho del menú (enlace a Accesibilidad, seguido de Contactar) */
+nav li:has(> a[href="accesibilidad.html"]) {
+  margin-left: auto; /* Empuja Accesibilidad y Contactar hacia el extremo derecho de la barra de navegación */
+  padding-left: 1.15rem; /* Añade espacio entre la barra divisoria vertical y el icono de Accesibilidad */
+  border-left: 1px solid var(--color-border); /* Dibuja la barra vertical separadora respecto a las demás opciones del menú */
+}
