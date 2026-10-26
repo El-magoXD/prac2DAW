@@ -35,9 +35,7 @@ button,
 input[type="submit"],
 input[type="reset"],
 .btn-primary,
-.btn-accent,
-article section:has(> figure) > h3,
-article section:has(> figure) > img {
+.btn-accent {
   display: none !important; /* No imprime menús, botones ni miniaturas secundarias */
 }
 
