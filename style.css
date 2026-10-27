@@ -1,6 +1,19 @@
+@charset "UTF-8";
+
+/* Importa la biblioteca de iconos Font Awesome para usar iconos en navegación y formularios */
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css");
+
+/* Importa las variables globales de colores, fuentes y anchura máxima */
 @import url("css/tokens.css");
+
+/* Importa los estilos base para las etiquetas HTML generales (body, encabezados, enlaces, imágenes) */
 @import url("css/base.css");
+
+/* Importa la estructura de maquetación principal (cabecera, menú, contenedor main, rejilla y pie) */
 @import url("css/layout.css");
+
+/* Importa los estilos de los componentes (tarjetas, anuncios, formularios, tablas y botones) */
 @import url("css/components.css");
+
+/* Importa las reglas de diseño adaptativo (media queries) para pantallas grandes, tablets y móviles */
 @import url("css/responsive.css");

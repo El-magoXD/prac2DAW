@@ -1,0 +1,70 @@
+@charset "UTF-8";
+
+/* Importa la fuente Atkinson Hyperlegible desde Google Fonts para mejorar la lectura en baja visión y dislexia */
+@import url("https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+
+/* Importa la hoja de estilo principal para mantener el diseño y colores del portal */
+@import url("../style.css");
+
+/* Redefine las variables tipográficas y de anchura para el estilo de letra mayor */
+:root {
+  --font-sans: "Atkinson Hyperlegible", Verdana, Arial, sans-serif; /* Tipografía hiperlegible sin ambigüedad entre caracteres (1, I, l, 0, O) */
+  --font-serif: "Atkinson Hyperlegible", Georgia, serif; /* Usa la misma fuente de alta legibilidad también en los títulos */
+  --content-width: 82rem; /* Amplía ligeramente el contenedor para acomodar el texto de mayor tamaño */
+}
+
+/* Elemento raíz (<html>) para escalar proporcionalmente todas las medidas en rem */
+html {
+  font-size: 125%; /* Aumenta el tamaño base de letra un 25% (de 16px pasa a 20px) */
+}
+
+/* Cuerpo del documento con mayor interlineado y alineación izquierda */
+body {
+  line-height: 1.8; /* Incrementa la separación entre líneas para facilitar el seguimiento visual */
+  letter-spacing: 0.02em; /* Añade un ligero espaciado entre letras para evitar que se junten */
+  word-spacing: 0.06em; /* Aumenta suavemente el espacio entre palabras */
+  text-align: left; /* Asegura alineación a la izquierda sin justificar (recomendación de accesibilidad) */
+}
+
+/* Párrafos y elementos de lista con límite de longitud de línea */
+p,
+li {
+  max-width: 80ch; /* Limita el ancho de lectura a un máximo de 80 caracteres por línea */
+  margin-bottom: 1.25rem; /* Aumenta la separación entre párrafos para distinguirlos mejor */
+}
+
+/* Enlaces más fáciles de identificar y pulsar */
+a {
+  text-decoration-thickness: 2px; /* Engrosa el subrayado de los enlaces */
+  text-underline-offset: 0.2em; /* Separa un poco más el subrayado respecto a las letras */
+}
+
+/* Filas de formulario adaptadas a etiquetas más grandes */
+form p:has(> label:first-child) {
+  grid-template-columns: minmax(12rem, 16rem) minmax(0, 1fr); /* Ensancha la columna de las etiquetas para que quepan con la letra grande */
+  gap: 0.6rem 1rem; /* Aumenta la separación entre controles de formulario */
+}
+
+/* Filas de formulario con rangos dobles en modo de letra grande */
+form p:has(> label + input + label) {
+  grid-template-columns: minmax(12rem, 16rem) minmax(0, 16rem) auto minmax(0, 16rem); /* Ajusta las 4 columnas de rangos al nuevo tamaño de texto */
+}
+
+/* Controles de formulario y botones más grandes para facilitar la interacción */
+input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="reset"]),
+select,
+textarea,
+button,
+input[type="submit"],
+input[type="reset"] {
+  min-height: 3rem; /* Incrementa la altura mínima de campos y botones */
+  padding: 0.7rem 0.9rem; /* Amplía el área interior de los controles */
+}
+
+/* Botones de radio y casillas de verificación ampliados */
+input[type="radio"],
+input[type="checkbox"] {
+  width: 1.35rem; /* Aumenta el ancho del botón de opción */
+  height: 1.35rem; /* Aumenta el alto del botón de opción */
+}
+

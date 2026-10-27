@@ -85,3 +85,22 @@ body > footer {
 body > footer p:last-child {
   margin-bottom: 0; /* Quita el margen inferior del último párrafo para no abultar el pie de página */
 }
+
+
+/* Enlaces situados dentro del pie de página (como el enlace a la Declaración de accesibilidad) */
+body > footer a {
+  color: var(--color-light); /* Pinta el enlace en color claro para que tenga alto contraste sobre el pie oscuro */
+}
+
+/* Estado al pasar el ratón o enfocar enlaces del pie de página */
+body > footer a:hover,
+body > footer a:focus-visible {
+  color: var(--color-secondary); /* Cambia el color a verde suave al interactuar con el enlace del pie */
+}
+
+/* Primer elemento del grupo derecho del menú (enlace a Accesibilidad, seguido de Contactar) */
+nav li:has(> a[href="accesibilidad.html"]) {
+  margin-left: auto; /* Empuja Accesibilidad y Contactar hacia el extremo derecho de la barra de navegación */
+  padding-left: 1.15rem; /* Añade espacio entre la barra divisoria vertical y el icono de Accesibilidad */
+  border-left: 1px solid var(--color-border); /* Dibuja la barra vertical separadora respecto a las demás opciones del menú */
+}

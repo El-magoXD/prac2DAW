@@ -1,0 +1,49 @@
+@charset "UTF-8";
+
+/* Importa la hoja de estilo principal completa para mantener la maquetación, iconos y diseño adaptativo */
+@import url("../style.css");
+
+/* Redefine las variables globales en :root con una paleta de bajo brillo para el modo noche */
+:root {
+  --color-primary: #7ab8ad; /* Verde agua luminoso para títulos y elementos principales sobre fondo oscuro */
+  --color-secondary: #22302d; /* Verde grisáceo oscuro para filas pares de tablas y bloques destacados */
+  --color-dark: #e2e8e5; /* Blanco desaturado suave (no blanco puro #fff) para el texto general sin fatiga visual */
+  --color-light: #141a19; /* Gris carbón muy oscuro para el fondo general de la página */
+  --color-accent: #e09f7d; /* Terracota claro para que los enlaces destaquen con buen contraste */
+  --color-surface: #1d2624; /* Gris verdoso oscuro para el fondo de tarjetas, formularios y tablas */
+  --color-border: #384945; /* Borde oscuro sutil para delimitar tarjetas y celdas de tabla */
+  --color-input-bg: #111716; /* Fondo oscuro para los cuadros de texto, desplegables y áreas de texto */
+  --color-input-border: #566e69; /* Borde visible para los controles de formulario en modo oscuro */
+  --color-on-primary: #111716; /* Texto oscuro sobre botones de color primario claro */
+  --color-table-hover: #2c3e3a; /* Color de resaltado al pasar el ratón por las filas de una tabla */
+  --color-focus: #f4b266; /* Contorno ámbar brillante para el enfoque con teclado */
+}
+
+/* Cabecera y pie de página principales en modo noche */
+body > header,
+body > footer {
+  background: #0d1211; /* Fondo aún más oscuro para diferenciar cabecera y pie del resto de la página */
+  color: var(--color-dark); /* Texto claro desaturado en cabecera y pie */
+  border-color: var(--color-border); /* Color de borde acorde a la paleta oscura */
+}
+
+/* Título principal de la cabecera en modo noche */
+body > header h1 {
+  color: var(--color-primary); /* Aplica el verde agua suave al título principal del portal */
+}
+
+/* Enlaces del menú de navegación en modo noche */
+nav a {
+  color: var(--color-dark); /* Texto claro desaturado para los enlaces del menú */
+}
+
+/* Estado hover y focus de los enlaces del menú en modo noche */
+nav a:hover,
+nav a:focus-visible {
+  color: var(--color-primary); /* Resalta en verde agua al pasar el ratón o enfocar con teclado */
+}
+
+/* Imágenes del sitio web en modo noche */
+img {
+  filter: brightness(0.9); /* Atenúa ligeramente el brillo de las fotografías para no deslumbrar en entornos oscuros */
+}

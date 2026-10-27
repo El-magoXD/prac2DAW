@@ -1,0 +1,27 @@
+@charset "UTF-8";
+
+/* Importa el estilo de alto contraste (que a su vez importa el estilo base) */
+@import url("contraste.css");
+
+/* Importa el estilo de tipo de letra mayor con la fuente Atkinson Hyperlegible */
+@import url("grande.css");
+
+/* Reafirma los valores combinados de alto contraste + tipografía grande en :root */
+:root {
+  --color-primary: #ffff00; /* Amarillo de alto contraste para títulos y bordes superiores */
+  --color-secondary: #1f1f1f; /* Gris oscuro para bloques secundarios */
+  --color-dark: #ffffff; /* Texto blanco puro sobre fondo negro */
+  --color-light: #000000; /* Fondo general negro puro */
+  --color-accent: #00ffff; /* Enlaces en color cian brillante */
+  --color-surface: #000000; /* Superficie negra en tarjetas y formularios */
+  --color-border: #ffffff; /* Bordes blancos definidos */
+  --color-input-bg: #000000; /* Fondo negro en campos de entrada */
+  --color-input-border: #ffff00; /* Borde amarillo en campos de entrada */
+  --color-on-primary: #000000; /* Texto negro sobre botones amarillos */
+  --color-table-hover: #333300; /* Resaltado de fila de tabla en tono oscuro amarillento */
+  --color-focus: #00ffff; /* Indicador de foco cian brillante */
+  --font-sans: "Atkinson Hyperlegible", Verdana, Arial, sans-serif; /* Fuente de alta legibilidad para texto */
+  --font-serif: "Atkinson Hyperlegible", Georgia, serif; /* Fuente de alta legibilidad para títulos */
+  --content-width: 82rem; /* Anchura ampliada para acomodar la letra al 125% */
+}
+

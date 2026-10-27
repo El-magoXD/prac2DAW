@@ -1,0 +1,97 @@
+@charset "UTF-8";
+
+/* Importa la hoja de estilo principal para conservar la estructura y maquetación base */
+@import url("../style.css");
+
+/* Redefine las variables globales para lograr un contraste extremo (nivel WCAG AAA > 7:1) */
+:root {
+  --color-primary: #ffff00; /* Amarillo puro sobre negro para títulos, bordes principales y elementos clave */
+  --color-secondary: #1f1f1f; /* Gris muy oscuro para diferenciar bloques secundarios y filas pares */
+  --color-dark: #ffffff; /* Blanco puro para el texto principal sobre el fondo negro */
+  --color-light: #000000; /* Negro puro para el fondo general de la página */
+  --color-accent: #00ffff; /* Cian brillante para distinguir claramente todos los hipervínculos */
+  --color-surface: #000000; /* Fondo negro en tarjetas, fieldsets y tablas para maximizar el contraste */
+  --color-border: #ffffff; /* Bordes blancos nítidos para separar todos los apartados */
+  --color-input-bg: #000000; /* Fondo negro en todos los controles de formulario */
+  --color-input-border: #ffff00; /* Borde amarillo en campos de formulario para localizarlos fácilmente */
+  --color-on-primary: #000000; /* Texto negro sobre botones de fondo amarillo brillante */
+  --color-table-hover: #333300; /* Fondo oscuro amarillento al situar el cursor sobre una fila de tabla */
+  --color-focus: #00ffff; /* Contorno cian de alta visibilidad al navegar con teclado */
+}
+
+/* Cabecera y pie de página en modo de alto contraste */
+body > header,
+body > footer {
+  background: #000000; /* Fondo negro puro en cabecera y pie */
+  color: #ffffff; /* Texto blanco puro en cabecera y pie */
+  border-top: 2px solid #ffffff; /* Línea blanca superior para delimitar el bloque */
+  border-bottom: 2px solid #ffffff; /* Línea blanca inferior para separar claramente la cabecera del contenido */
+}
+
+/* Título principal de la cabecera en alto contraste */
+body > header h1 {
+  color: #ffff00; /* Título principal en amarillo brillante sobre negro */
+}
+
+/* Enlaces del menú de navegación en alto contraste */
+nav a {
+  color: #00ffff; /* Enlaces del menú en cian brillante */
+  text-decoration: underline; /* Subrayado permanente también en el menú para identificar que son enlaces */
+}
+
+/* Estado al pasar el ratón o enfocar enlaces del menú en alto contraste */
+nav a:hover,
+nav a:focus-visible {
+  background: #ffff00; /* Fondo amarillo al seleccionar una opción del menú */
+  color: #000000; /* Texto negro sobre el fondo amarillo para máximo contraste */
+}
+
+/* Tarjetas, grupos de formulario y bloques con borde en alto contraste */
+article,
+fieldset,
+.conBorde {
+  border: 2px solid #ffffff; /* Borde blanco más grueso (2px) para delimitar cada bloque */
+  border-top: 5px solid #ffff00; /* Franja superior amarilla de 5px */
+}
+
+/* Todos los enlaces del documento en alto contraste */
+a {
+  font-weight: 700; /* Pone los enlaces en negrita para mejorar su legibilidad */
+  text-decoration-thickness: 2px; /* Hace que la línea de subrayado sea más gruesa y visible */
+}
+
+/* Estado al pasar el ratón sobre los enlaces en alto contraste */
+a:hover {
+  background: #ffff00; /* Resalta el fondo del enlace en amarillo */
+  color: #000000; /* Cambia el texto del enlace a negro sobre fondo amarillo */
+}
+
+/* Campos de entrada, desplegables y áreas de texto en alto contraste */
+input:not([type="radio"]):not([type="checkbox"]):not([type="submit"]):not([type="reset"]),
+select,
+textarea {
+  border-width: 2px; /* Duplica el grosor del borde de los controles de formulario */
+}
+
+/* Botones y enlaces con aspecto de botón en alto contraste */
+button,
+input[type="submit"],
+input[type="reset"],
+.btn-primary,
+.btn-accent {
+  border: 2px solid #ffffff; /* Añade un borde blanco alrededor de todos los botones */
+  background: #ffff00; /* Unifica el fondo de los botones en amarillo de alto contraste */
+  color: #000000; /* Texto negro en negrita dentro de los botones */
+  text-decoration: none; /* Sin subrayado dentro del botón */
+}
+
+/* Estado hover de los botones en alto contraste */
+button:hover,
+input[type="submit"]:hover,
+input[type="reset"]:hover,
+.btn-primary:hover,
+.btn-accent:hover {
+  background: #00ffff; /* Cambia el fondo a cian brillante al situar el cursor encima */
+  color: #000000; /* Mantiene el texto negro para no perder contraste */
+}
+
