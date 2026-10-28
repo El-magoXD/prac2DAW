@@ -34,10 +34,10 @@
       <section class="conBorde">
         <h2>Iniciar sesión</h2>
 
-        <form action="index-reg.html" method="get">
+        <form id="form-login" action="index-reg.html" method="get" novalidate>
           <p>
             <label for="usuario"><i class="fa-solid fa-user" aria-label="Usuario" role="img"></i> Nombre de usuario:</label>
-            <input type="text" id="usuario" name="usuario" required />
+            <input type="text" id="usuario" name="usuario" />
           </p>
 
           <p>
@@ -46,8 +46,8 @@
               type="password"
               id="password"
               name="password"
-              pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])[A-Za-z0-9_-]{6,15}"
-              required
+
+
             />
           </p>
 

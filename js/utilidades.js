@@ -10,8 +10,7 @@
  * @returns {HTMLElement|null} Elemento del DOM o null si no existe.
  */
 function $(id) {
-  // TODO: Corresponde a PEDRO
-  // Devolver el elemento usando document.getElementById(id).
+  return document.getElementById(id);
 }
 
 /**
@@ -32,10 +31,15 @@ function esSoloEspacios(cadena) {
  * @param {string} mensaje - Mensaje descriptivo del error para ayudar al usuario.
  */
 function mostrarErrorCampo(idCampo, mensaje) {
+  const campo = $(idCampo);
+  if (!campo) {
+    return;
+  }
+
   // TODO: Corresponde a PEDRO
-  // 1. Seleccionar el campo con $(idCampo) y cambiar su presentación visual (ej. className o style).
-  // 2. Crear un nodo de elemento (ej. <span> o <p>) y un nodo de texto (createTextNode) con el mensaje.
-  // 3. Insertarlo en el DOM al lado del campo o en el contenedor de errores del formulario.
+  // 1. Cambiar la presentación visual de 'campo' o su etiqueta (ej. campo.className o campo.style.borderColor).
+  // 2. Crear un nodo de elemento (document.createElement) y un nodo de texto (document.createTextNode(mensaje)).
+  // 3. Insertarlo en el DOM junto a 'campo' (ej. campo.parentNode.appendChild(...)).
 }
 
 /**
@@ -44,8 +48,12 @@ function mostrarErrorCampo(idCampo, mensaje) {
  * @param {string} idFormulario - ID del formulario a limpiar.
  */
 function limpiarErroresFormulario(idFormulario) {
+  const formulario = $(idFormulario);
+  if (!formulario) {
+    return;
+  }
+
   // TODO: Corresponde a SÁNCHEZ
-  // 1. Buscar y eliminar del DOM (remove / removeChild) los nodos de mensajes de error previos.
+  // 1. Buscar dentro de 'formulario' los nodos de mensajes de error previos y eliminarlos del DOM.
   // 2. Restaurar las clases o estilos originales de los campos del formulario.
 }
-

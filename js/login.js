@@ -11,30 +11,37 @@
  */
 function validarCampoLogin(valor) {
   // TODO: Corresponde a PEDRO
-  // Comprobar que 'valor' no sea vacío ni contenga solo espacios en blanco o tabuladores.
+  // Comprobar que 'valor' no sea vacío ni contenga únicamente espacios en blanco o tabuladores (apoyándose en esSoloEspacios).
 }
 
 /**
- * Manejador del evento submit del formulario de inicio de sesión.
- * Valida los campos de nombre de usuario y contraseña antes de permitir el envío.
+ * Manejador del evento submit del formulario de inicio de sesión (#form-login).
+ * Obtiene los valores del HTML y los envía a comprobar antes de permitir el envío.
  * @param {Event} event - Objeto del evento submit.
  */
 function validarFormularioLogin(event) {
+  limpiarErroresFormulario("form-login");
+
+  const usuario = $("usuario").value;
+  const password = $("password").value;
+
+  const usuarioValido = validarCampoLogin(usuario);
+  const passwordValido = validarCampoLogin(password);
+
   // TODO: Corresponde a SÁNCHEZ
-  // 1. Limpiar los errores previos del formulario.
-  // 2. Obtener los valores de los campos 'usuario' y 'password'.
-  // 3. Comprobar ambos con validarCampoLogin().
-  // 4. Si alguno falla, mostrar mensaje de error con mostrarErrorCampo() y cancelar el envío con event.preventDefault().
+  // 1. Si !usuarioValido, llamar a mostrarErrorCampo("usuario", "...") con un mensaje claro.
+  // 2. Si !passwordValido, llamar a mostrarErrorCampo("password", "...") con un mensaje claro.
+  // 3. Si alguno de los dos no es válido, cancelar el envío del formulario con event.preventDefault().
 }
 
 /**
- * Inicializa los eventos de validación del formulario de login cuando el DOM está listo.
+ * Conecta el formulario #form-login del HTML con la función validarFormularioLogin al cargar el DOM.
  */
 function inicializarLogin() {
-  // TODO: Corresponde a PEDRO
-  // 1. Desactivar la validación nativa de HTML (ej. form.noValidate = true) para que actúe la validación JS.
-  // 2. Asociar validarFormularioLogin al evento "submit" del formulario de login con addEventListener.
+  const formLogin = $("form-login");
+  if (formLogin) {
+    formLogin.addEventListener("submit", validarFormularioLogin, false);
+  }
 }
 
 document.addEventListener("DOMContentLoaded", inicializarLogin, false);
-

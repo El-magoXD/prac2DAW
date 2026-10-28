@@ -34,7 +34,7 @@ function calcularCosteFolleto(paginas, fotos, enColor, altaResolucion) {
  */
 function crearEncabezadoTablaCostes() {
   // TODO: Corresponde a SÁNCHEZ
-  // Crear <thead>, las dos filas <tr> y las celdas <th> con colSpan/rowSpan y createTextNode sin usar innerHTML.
+  // Crear <thead>, las dos filas <tr> y las celdas <th> con colSpan y createTextNode sin usar innerHTML.
 }
 
 /**
@@ -45,30 +45,35 @@ function crearEncabezadoTablaCostes() {
  */
 function crearTablaCostes() {
   // TODO: Corresponde a PEDRO
-  // 1. Crear <table>, <caption> y añadir el <thead> devuelto por crearEncabezadoTablaCostes().
+  // 1. Crear <table id="tabla-costes-folleto">, <caption> y añadir el <thead> devuelto por crearEncabezadoTablaCostes().
   // 2. Crear <tbody> y recorrer de 1 a 15 páginas (fotos = paginas * 3).
   // 3. En cada fila, calcular los 4 costes con calcularCosteFolleto(), formatearlos con 2 decimales y ' €' y añadirlos con createElement/createTextNode/appendChild.
 }
 
 /**
- * Muestra u oculta la tabla de posibles costes al pulsar el botón correspondiente,
- * actualizando también el texto del botón (ej. "Mostrar tabla de posibles costes" / "Ocultar tabla de posibles costes").
+ * Manejador del evento click del botón #btn-tabla-costes en create-ad.html.
+ * Muestra u oculta la tabla dentro de #contenedor-tabla-costes y actualiza el texto del botón.
  */
 function alternarTablaCostes() {
+  const boton = $("btn-tabla-costes");
+  const contenedor = $("contenedor-tabla-costes");
+  if (!boton || !contenedor) {
+    return;
+  }
+
   // TODO: Corresponde a SÁNCHEZ
-  // Comprobar si la tabla está oculta o visible (con style.display o classList/className) y alternar su visibilidad.
+  // 1. Si la tabla aún no se ha creado dentro de 'contenedor', crearla llamando a crearTablaCostes() y añadirla con contenedor.appendChild(...).
+  // 2. Alternar la visibilidad de 'contenedor' (con style.display o className/classList) y cambiar el texto de 'boton' entre "Mostrar..." y "Ocultar...".
 }
 
 /**
- * Inicializa la sección de posibles costes en la página "Solicitar folleto" (create-ad.html):
- * crea el botón para mostrar/ocultar la tabla, genera la tabla (inicialmente oculta) y asocia el evento click.
+ * Conecta el botón #btn-tabla-costes del HTML con la función alternarTablaCostes al cargar el DOM.
  */
 function inicializarFolleto() {
-  // TODO: Corresponde a SÁNCHEZ
-  // 1. Crear o localizar el botón de mostrar/ocultar tabla en create-ad.html.
-  // 2. Generar la tabla con crearTablaCostes(), ocultarla inicialmente y añadirla al DOM.
-  // 3. Asociar alternarTablaCostes al evento "click" del botón con addEventListener.
+  const botonTabla = $("btn-tabla-costes");
+  if (botonTabla) {
+    botonTabla.addEventListener("click", alternarTablaCostes, false);
+  }
 }
 
 document.addEventListener("DOMContentLoaded", inicializarFolleto, false);
-
