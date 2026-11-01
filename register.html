@@ -32,13 +32,14 @@
     <main id="main-content">
       <h2>Registro de nuevo usuario</h2>
 
-      <form action="index-reg.html" method="get">
+      <form action="index-reg.html" method="get" novalidate>
         <fieldset>
           <legend>Datos de acceso</legend>
 
           <p>
             <label for="usuario">Nombre de usuario:</label>
             <input type="text" id="usuario" name="usuario" />
+            <small>De 3 a 15 caracteres (letras sin tildes/ñ y números; no puede empezar por número).</small>
           </p>
 
           <p>
@@ -47,9 +48,8 @@
               type="password"
               id="password"
               name="password"
-              pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])[A-Za-z0-9_-]{6,15}"
-              required
             />
+            <small>De 6 a 15 caracteres (letras, números, - y _). Debe incluir mayúscula, minúscula y número.</small>
           </p>
 
           <p>
@@ -58,19 +58,16 @@
               type="password"
               id="password2"
               name="password2"
-              pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])[A-Za-z0-9_-]{6,15}"
-              required
             />
           </p>
 
           <p>
             <label for="email">Dirección de email:</label>
             <input
-              type="email"
+              type="text"
               id="email"
               name="email"
-              pattern="(?=.{1,254}$)(?=.{1,64}@)[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+)*@[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?(?:\.[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?)*"
-              required
+              placeholder="ejemplo@dominio.com"
             />
           </p>
         </fieldset>
@@ -78,7 +75,7 @@
         <fieldset>
           <legend>Datos personales</legend>
 
-          <p><span>Sexo:</span></p>
+          <p><span id="etiqueta-sexo">Sexo:</span></p>
 
           <p>
             <input
@@ -86,39 +83,39 @@
               id="hombre"
               name="sexo"
               value="hombre"
-              required
             />
             <label for="hombre">Hombre</label>
           </p>
 
           <p>
-            <input type="radio" id="mujer" name="sexo" value="mujer" required />
+            <input type="radio" id="mujer" name="sexo" value="mujer" />
             <label for="mujer">Mujer</label>
           </p>
 
-          <p>
-            <input type="radio" id="otro" name="sexo" value="otro" required />
+          <p id="contenedor-error-sexo">
+            <input type="radio" id="otro" name="sexo" value="otro" />
             <label for="otro">Otro</label>
           </p>
 
           <p>
             <label for="fecha-nacimiento">Fecha de nacimiento:</label>
             <input
-              type="date"
+              type="text"
               id="fecha-nacimiento"
               name="fecha-nacimiento"
-              required
+              placeholder="DD/MM/AAAA"
             />
+            <small>Formato DD/MM/AAAA (debes ser mayor de 18 años).</small>
           </p>
 
           <p>
             <label for="ciudad">Ciudad de residencia:</label>
-            <input type="text" id="ciudad" name="ciudad" required />
+            <input type="text" id="ciudad" name="ciudad" />
           </p>
 
           <p>
             <label for="pais">País de residencia:</label>
-            <select id="pais" name="pais" required>
+            <select id="pais" name="pais">
               <option value="">Selecciona un país</option>
               <option value="espana">España</option>
               <option value="francia">Francia</option>
@@ -150,5 +147,7 @@
       <p>Pedro González Sánchez & Alejandro Sánchez Martí</p>
       <p>&copy; 2026 PI - Pisos e Inmuebles. Todos los derechos reservados. | <a href="accesibilidad.html">Declaración de accesibilidad</a></p>
     </footer>
+    <script src="js/utilidades.js"></script>
+    <script src="js/registro.js"></script>
   </body>
 </html>

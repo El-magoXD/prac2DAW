@@ -93,6 +93,13 @@
             <td>0.2€ por foto</td>
           </tr>
         </table>
+
+        <p>
+          <button type="button" id="btn-mostrar-costes" aria-expanded="false">
+            Mostrar tabla de posibles costes
+          </button>
+        </p>
+        <div id="contenedor-tabla-costes" hidden></div>
       </section>
 
       <form action="ad-response.html" method="post">
@@ -162,10 +169,6 @@
               max="900"
               step="150"
               value="150"
-              oninput="
-                document.getElementById('salida_resolucion').value =
-                  this.value + ' DPI'
-              "
             />
             <output id="salida_resolucion">150 DPI</output>
           </p>
@@ -336,5 +339,7 @@
       <p>Pedro González Sánchez &amp; Alejandro Sánchez Martí</p>
       <p>&copy; 2026 PI - Pisos e Inmuebles. Todos los derechos reservados. | <a href="accesibilidad.html">Declaración de accesibilidad</a></p>
     </footer>
+    <script src="js/utilidades.js"></script>
+    <script src="js/folleto.js"></script>
   </body>
 </html>
