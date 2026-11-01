@@ -11,8 +11,6 @@
     <link rel="alternate stylesheet" href="css/grande.css" media="screen" title="Texto grande" />
     <link rel="alternate stylesheet" href="css/contrasteygrande.css" media="screen" title="Alto contraste y texto grande" />
     <link rel="stylesheet" href="css/impresion.css" media="print" />
-    <script src="js/utilidades.js"></script>
-    <script src="js/login.js"></script>
   </head>
   <body>
     <a class="skip-link" href="#main-content">Saltar al contenido principal</a>
@@ -34,10 +32,10 @@
       <section class="conBorde">
         <h2>Iniciar sesión</h2>
 
-        <form id="form-login" action="index-reg.html" method="get" novalidate>
+        <form action="index-reg.html" method="get">
           <p>
             <label for="usuario"><i class="fa-solid fa-user" aria-label="Usuario" role="img"></i> Nombre de usuario:</label>
-            <input type="text" id="usuario" name="usuario" />
+            <input type="text" id="usuario" name="usuario" required />
           </p>
 
           <p>
@@ -46,8 +44,8 @@
               type="password"
               id="password"
               name="password"
-
-
+              pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])[A-Za-z0-9_-]{6,15}"
+              required
             />
           </p>
 
