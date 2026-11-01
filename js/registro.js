@@ -6,7 +6,7 @@
 
 "use strict";
 
-var CARACTERES_ESPECIALES_PARTE_LOCAL = "!#$%&'*+-/=?^_`{|}~";
+const CARACTERES_ESPECIALES_PARTE_LOCAL = "!#$%&'*+-/=?^_`{|}~";
 
 /**
  * Valida el nombre de usuario:
@@ -30,8 +30,8 @@ function validarNombreUsuario(valor) {
     return "El nombre de usuario no puede comenzar con un número.";
   }
 
-  for (var i = 0; i < valor.length; i++) {
-    var c = valor.charAt(i);
+  for (let i = 0; i < valor.length; i++) {
+    const c = valor.charAt(i);
     if (!esAlfanumericoIngles(c)) {
       return "El nombre de usuario solo puede contener letras del alfabeto inglés (A-Z, a-z) y números (0-9), sin espacios ni eñes o tildes.";
     }
@@ -57,12 +57,12 @@ function validarContrasena(valor) {
     return "La contraseña debe tener entre 6 y 15 caracteres.";
   }
 
-  var tieneMayuscula = false;
-  var tieneMinuscula = false;
-  var tieneNumero = false;
+  let tieneMayuscula = false;
+  let tieneMinuscula = false;
+  let tieneNumero = false;
 
-  for (var i = 0; i < valor.length; i++) {
-    var c = valor.charAt(i);
+  for (let i = 0; i < valor.length; i++) {
+    const c = valor.charAt(i);
     if (esLetraMayusculaInglesa(c)) {
       tieneMayuscula = true;
     } else if (esLetraMinusculaInglesa(c)) {
@@ -137,7 +137,7 @@ function validarDireccionEmail(valor) {
     return "La dirección de email no puede superar los 254 caracteres en total.";
   }
 
-  var posArroba = valor.indexOf("@");
+  const posArroba = valor.indexOf("@");
   if (posArroba === -1) {
     return "La dirección de email debe tener el formato parte-local@dominio (falta el símbolo @).";
   }
@@ -146,8 +146,8 @@ function validarDireccionEmail(valor) {
     return "La dirección de email solo puede contener un único símbolo @.";
   }
 
-  var parteLocal = valor.substring(0, posArroba);
-  var dominio = valor.substring(posArroba + 1);
+  const parteLocal = valor.substring(0, posArroba);
+  const dominio = valor.substring(posArroba + 1);
 
   // Validación de parte-local
   if (parteLocal.length < 1 || parteLocal.length > 64) {
@@ -165,7 +165,7 @@ function validarDireccionEmail(valor) {
     return "La parte local del email no puede contener dos o más puntos seguidos (..).";
   }
 
-  for (var i = 0; i < parteLocal.length; i++) {
+  for (let i = 0; i < parteLocal.length; i++) {
     if (!esCaracterValidoParteLocal(parteLocal.charAt(i))) {
       return "La parte local del email contiene caracteres no permitidos.";
     }
@@ -176,9 +176,9 @@ function validarDireccionEmail(valor) {
     return "El dominio del email (después de @) debe tener entre 1 y 255 caracteres.";
   }
 
-  var subdominios = dominio.split(".");
-  for (var j = 0; j < subdominios.length; j++) {
-    var sub = subdominios[j];
+  const subdominios = dominio.split(".");
+  for (let j = 0; j < subdominios.length; j++) {
+    const sub = subdominios[j];
     if (sub.length < 1 || sub.length > 63) {
       return "Cada subdominio del email debe tener entre 1 y 63 caracteres (sin puntos vacíos al inicio, final o consecutivos).";
     }
@@ -187,8 +187,8 @@ function validarDireccionEmail(valor) {
       return "El guion (-) no puede estar al principio ni al final de un subdominio del email.";
     }
 
-    for (var k = 0; k < sub.length; k++) {
-      var cs = sub.charAt(k);
+    for (let k = 0; k < sub.length; k++) {
+      const cs = sub.charAt(k);
       if (!esAlfanumericoIngles(cs) && cs !== "-") {
         return "El dominio del email solo puede contener letras del alfabeto inglés, números, guiones (-) y puntos separadores.";
       }
@@ -204,8 +204,8 @@ function validarDireccionEmail(valor) {
  * @returns {string} Cadena vacía si hay una opción marcada, o mensaje de error.
  */
 function validarSexoSeleccionado(formulario) {
-  var opcionesSexo = formulario.querySelectorAll('input[name="sexo"]');
-  for (var i = 0; i < opcionesSexo.length; i++) {
+  const opcionesSexo = formulario.querySelectorAll('input[name="sexo"]');
+  for (let i = 0; i < opcionesSexo.length; i++) {
     if (opcionesSexo[i].checked) {
       return "";
     }
@@ -220,8 +220,8 @@ function validarSexoSeleccionado(formulario) {
  * @returns {{dia: number, mes: number, anio: number}|null}
  */
 function descomponerFecha(texto) {
-  var limpio = texto.trim();
-  var separador = "";
+  const limpio = texto.trim();
+  let separador = "";
 
   if (limpio.indexOf("/") !== -1 && limpio.indexOf("-") === -1) {
     separador = "/";
@@ -231,7 +231,7 @@ function descomponerFecha(texto) {
     return null;
   }
 
-  var partes = limpio.split(separador);
+  const partes = limpio.split(separador);
   if (partes.length !== 3) {
     return null;
   }
@@ -244,9 +244,9 @@ function descomponerFecha(texto) {
     return null;
   }
 
-  var dia = 0;
-  var mes = 0;
-  var anio = 0;
+  let dia = 0;
+  let mes = 0;
+  let anio = 0;
 
   if (partes[0].length === 4) {
     // Formato AAAA-MM-DD o AAAA/MM/DD
@@ -293,21 +293,21 @@ function validarFechaNacimiento(valor) {
     return "La fecha de nacimiento es obligatoria.";
   }
 
-  var datosFecha = descomponerFecha(valor);
+  const datosFecha = descomponerFecha(valor);
   if (!datosFecha) {
     return "Introduce una fecha de nacimiento con formato válido (por ejemplo, DD/MM/AAAA o AAAA-MM-DD).";
   }
 
-  var dia = datosFecha.dia;
-  var mes = datosFecha.mes;
-  var anio = datosFecha.anio;
+  const dia = datosFecha.dia;
+  const mes = datosFecha.mes;
+  const anio = datosFecha.anio;
 
   if (anio < 1900 || mes < 1 || mes > 12 || dia < 1 || dia > 31) {
     return "La fecha de nacimiento introducida no es una fecha real válida.";
   }
 
   // Comprobación con el objeto Date para detectar fechas inexistentes como 30/02 o 31/04
-  var fechaNacimiento = new Date(anio, mes - 1, dia);
+  const fechaNacimiento = new Date(anio, mes - 1, dia);
   fechaNacimiento.setFullYear(anio);
 
   if (
@@ -319,17 +319,17 @@ function validarFechaNacimiento(valor) {
   }
 
   // Comprobación de mayoría de edad (>= 18 años en el día exacto actual)
-  var hoy = new Date();
-  var anioActual = hoy.getFullYear();
-  var mesActual = hoy.getMonth() + 1;
-  var diaActual = hoy.getDate();
+  const hoy = new Date();
+  const anioActual = hoy.getFullYear();
+  const mesActual = hoy.getMonth() + 1;
+  const diaActual = hoy.getDate();
 
-  var fechaHoySinHora = new Date(anioActual, mesActual - 1, diaActual);
+  const fechaHoySinHora = new Date(anioActual, mesActual - 1, diaActual);
   if (fechaNacimiento > fechaHoySinHora) {
     return "La fecha de nacimiento no puede ser posterior a la fecha actual.";
   }
 
-  var edad = anioActual - anio;
+  let edad = anioActual - anio;
   if (mesActual < mes || (mesActual === mes && diaActual < dia)) {
     edad--;
   }
@@ -346,35 +346,35 @@ function validarFechaNacimiento(valor) {
  * @param {Event} evento Evento submit del formulario.
  */
 function validarFormularioRegistro(evento) {
-  var formulario = evento.currentTarget;
+  const formulario = evento.currentTarget;
   limpiarErroresFormulario(formulario);
 
-  var campoUsuario = $id("usuario");
-  var campoPassword = $id("password");
-  var campoPassword2 = $id("password2");
-  var campoEmail = $id("email");
-  var campoFecha = $id("fecha-nacimiento");
-  var primerRadioSexo = $id("hombre");
-  var etiquetaGrupoSexo = $id("etiqueta-sexo");
+  const campoUsuario = $id("usuario");
+  const campoPassword = $id("password");
+  const campoPassword2 = $id("password2");
+  const campoEmail = $id("email");
+  const campoFecha = $id("fecha-nacimiento");
+  const primerRadioSexo = $id("hombre");
+  const etiquetaGrupoSexo = $id("etiqueta-sexo");
 
-  var errores = [];
+  const errores = [];
 
   // 1. Nombre de usuario
-  var errorUsuario = validarNombreUsuario(campoUsuario ? campoUsuario.value : "");
+  const errorUsuario = validarNombreUsuario(campoUsuario ? campoUsuario.value : "");
   if (errorUsuario !== "") {
     mostrarErrorCampo(campoUsuario, errorUsuario);
     errores.push({ campo: campoUsuario, mensaje: errorUsuario });
   }
 
   // 2. Contraseña
-  var errorPass = validarContrasena(campoPassword ? campoPassword.value : "");
+  const errorPass = validarContrasena(campoPassword ? campoPassword.value : "");
   if (errorPass !== "") {
     mostrarErrorCampo(campoPassword, errorPass);
     errores.push({ campo: campoPassword, mensaje: errorPass });
   }
 
   // 3. Repetir contraseña
-  var errorPass2 = validarRepetirContrasena(
+  const errorPass2 = validarRepetirContrasena(
     campoPassword ? campoPassword.value : "",
     campoPassword2 ? campoPassword2.value : ""
   );
@@ -384,25 +384,25 @@ function validarFormularioRegistro(evento) {
   }
 
   // 4. Email
-  var errorEmail = validarDireccionEmail(campoEmail ? campoEmail.value : "");
+  const errorEmail = validarDireccionEmail(campoEmail ? campoEmail.value : "");
   if (errorEmail !== "") {
     mostrarErrorCampo(campoEmail, errorEmail);
     errores.push({ campo: campoEmail, mensaje: errorEmail });
   }
 
   // 5. Sexo
-  var errorSexo = validarSexoSeleccionado(formulario);
+  const errorSexo = validarSexoSeleccionado(formulario);
   if (errorSexo !== "") {
     if (etiquetaGrupoSexo) {
       etiquetaGrupoSexo.classList.add("etiqueta-error");
     }
-    var contenedorSexo = $id("contenedor-error-sexo") || primerRadioSexo;
+    const contenedorSexo = $id("contenedor-error-sexo") || primerRadioSexo;
     mostrarErrorCampo(contenedorSexo, errorSexo);
     errores.push({ campo: primerRadioSexo, mensaje: errorSexo });
   }
 
   // 6. Fecha de nacimiento
-  var errorFecha = validarFechaNacimiento(campoFecha ? campoFecha.value : "");
+  const errorFecha = validarFechaNacimiento(campoFecha ? campoFecha.value : "");
   if (errorFecha !== "") {
     mostrarErrorCampo(campoFecha, errorFecha);
     errores.push({ campo: campoFecha, mensaje: errorFecha });
@@ -415,11 +415,11 @@ function validarFormularioRegistro(evento) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  var campoUsuario = $id("usuario");
-  var campoPassword2 = $id("password2");
+  const campoUsuario = $id("usuario");
+  const campoPassword2 = $id("password2");
 
   if (campoUsuario && campoPassword2) {
-    var formulario = campoUsuario.form;
+    const formulario = campoUsuario.form;
     if (formulario) {
       formulario.addEventListener("submit", validarFormularioRegistro);
 
@@ -427,32 +427,30 @@ document.addEventListener("DOMContentLoaded", function () {
         limpiarErroresFormulario(formulario);
       });
 
-      var idsCampos = [
+      const idsCampos = [
         "usuario",
         "password",
         "password2",
         "email",
         "fecha-nacimiento"
       ];
-      for (var i = 0; i < idsCampos.length; i++) {
-        (function (idCampo) {
-          var el = $id(idCampo);
-          if (el) {
-            el.addEventListener("input", function () {
-              limpiarErrorCampo(el);
-            });
-          }
-        })(idsCampos[i]);
+      for (let i = 0; i < idsCampos.length; i++) {
+        const el = $id(idsCampos[i]);
+        if (el) {
+          el.addEventListener("input", function () {
+            limpiarErrorCampo(el);
+          });
+        }
       }
 
-      var radiosSexo = formulario.querySelectorAll('input[name="sexo"]');
-      for (var j = 0; j < radiosSexo.length; j++) {
+      const radiosSexo = formulario.querySelectorAll('input[name="sexo"]');
+      for (let j = 0; j < radiosSexo.length; j++) {
         radiosSexo[j].addEventListener("change", function () {
-          var etiquetaGrupoSexo = $id("etiqueta-sexo");
+          const etiquetaGrupoSexo = $id("etiqueta-sexo");
           if (etiquetaGrupoSexo) {
             etiquetaGrupoSexo.classList.remove("etiqueta-error");
           }
-          var contenedorSexo = $id("contenedor-error-sexo") || $id("hombre");
+          const contenedorSexo = $id("contenedor-error-sexo") || $id("hombre");
           limpiarErrorCampo(contenedorSexo);
         });
       }

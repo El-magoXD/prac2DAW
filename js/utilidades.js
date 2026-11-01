@@ -23,7 +23,7 @@ function esLetraMayusculaInglesa(c) {
   if (typeof c !== "string" || c.length !== 1) {
     return false;
   }
-  var codigo = c.charCodeAt(0);
+  const codigo = c.charCodeAt(0);
   return codigo >= 65 && codigo <= 90; // 'A' (65) a 'Z' (90)
 }
 
@@ -36,7 +36,7 @@ function esLetraMinusculaInglesa(c) {
   if (typeof c !== "string" || c.length !== 1) {
     return false;
   }
-  var codigo = c.charCodeAt(0);
+  const codigo = c.charCodeAt(0);
   return codigo >= 97 && codigo <= 122; // 'a' (97) a 'z' (122)
 }
 
@@ -58,7 +58,7 @@ function esDigito(c) {
   if (typeof c !== "string" || c.length !== 1) {
     return false;
   }
-  var codigo = c.charCodeAt(0);
+  const codigo = c.charCodeAt(0);
   return codigo >= 48 && codigo <= 57; // '0' (48) a '9' (57)
 }
 
@@ -80,8 +80,8 @@ function tieneContenidoSinEspacios(texto) {
   if (typeof texto !== "string" || texto.length === 0) {
     return false;
   }
-  for (var i = 0; i < texto.length; i++) {
-    var c = texto.charAt(i);
+  for (let i = 0; i < texto.length; i++) {
+    const c = texto.charAt(i);
     if (c !== " " && c !== "\t" && c !== "\n" && c !== "\r") {
       return true;
     }
@@ -98,7 +98,7 @@ function esCadenaSoloDigitos(cadena) {
   if (typeof cadena !== "string" || cadena.length === 0) {
     return false;
   }
-  for (var i = 0; i < cadena.length; i++) {
+  for (let i = 0; i < cadena.length; i++) {
     if (!esDigito(cadena.charAt(i))) {
       return false;
     }
@@ -123,23 +123,23 @@ function mostrarErrorCampo(campo, mensaje) {
   campo.setAttribute("aria-invalid", "true");
 
   if (campo.id) {
-    var etiqueta = document.querySelector('label[for="' + campo.id + '"]');
+    const etiqueta = document.querySelector(`label[for="${campo.id}"]`);
     if (etiqueta) {
       etiqueta.classList.add("etiqueta-error");
     }
   }
 
-  var contenedor = campo.closest("p") || campo.parentElement;
+  const contenedor = campo.closest("p") || campo.parentElement;
   if (contenedor) {
-    var spanError = document.createElement("span");
+    const spanError = document.createElement("span");
     spanError.className = "mensaje-error";
     spanError.setAttribute("role", "alert");
     if (campo.id) {
-      var idError = "error-" + campo.id;
+      const idError = `error-${campo.id}`;
       spanError.id = idError;
       campo.setAttribute("aria-describedby", idError);
     }
-    var nodoTexto = document.createTextNode(mensaje);
+    const nodoTexto = document.createTextNode(mensaje);
     spanError.appendChild(nodoTexto);
     contenedor.appendChild(spanError);
   }
@@ -159,16 +159,16 @@ function limpiarErrorCampo(campo) {
   campo.removeAttribute("aria-describedby");
 
   if (campo.id) {
-    var etiqueta = document.querySelector('label[for="' + campo.id + '"]');
+    const etiqueta = document.querySelector(`label[for="${campo.id}"]`);
     if (etiqueta) {
       etiqueta.classList.remove("etiqueta-error");
     }
   }
 
-  var contenedor = campo.closest("p") || campo.parentElement;
+  const contenedor = campo.closest("p") || campo.parentElement;
   if (contenedor) {
-    var erroresPrevios = contenedor.querySelectorAll(".mensaje-error");
-    for (var i = 0; i < erroresPrevios.length; i++) {
+    const erroresPrevios = contenedor.querySelectorAll(".mensaje-error");
+    for (let i = 0; i < erroresPrevios.length; i++) {
       erroresPrevios[i].parentNode.removeChild(erroresPrevios[i]);
     }
   }
@@ -184,17 +184,17 @@ function mostrarResumenErrores(formulario, errores) {
     return;
   }
 
-  var resumenPrevio = formulario.querySelector(".resumen-errores");
+  const resumenPrevio = formulario.querySelector(".resumen-errores");
   if (resumenPrevio && resumenPrevio.parentNode) {
     resumenPrevio.parentNode.removeChild(resumenPrevio);
   }
 
-  var cajaResumen = document.createElement("div");
+  const cajaResumen = document.createElement("div");
   cajaResumen.className = "resumen-errores";
   cajaResumen.setAttribute("role", "alert");
   cajaResumen.setAttribute("tabindex", "-1");
 
-  var titulo = document.createElement("p");
+  const titulo = document.createElement("p");
   titulo.className = "resumen-errores-titulo";
   titulo.appendChild(
     document.createTextNode(
@@ -203,9 +203,9 @@ function mostrarResumenErrores(formulario, errores) {
   );
   cajaResumen.appendChild(titulo);
 
-  var lista = document.createElement("ul");
-  for (var i = 0; i < errores.length; i++) {
-    var item = document.createElement("li");
+  const lista = document.createElement("ul");
+  for (let i = 0; i < errores.length; i++) {
+    const item = document.createElement("li");
     item.appendChild(document.createTextNode(errores[i].mensaje));
     lista.appendChild(item);
   }
@@ -227,25 +227,25 @@ function limpiarErroresFormulario(formulario) {
     return;
   }
 
-  var resumenPrevio = formulario.querySelector(".resumen-errores");
+  const resumenPrevio = formulario.querySelector(".resumen-errores");
   if (resumenPrevio && resumenPrevio.parentNode) {
     resumenPrevio.parentNode.removeChild(resumenPrevio);
   }
 
-  var camposConError = formulario.querySelectorAll(".campo-error");
-  for (var i = 0; i < camposConError.length; i++) {
+  const camposConError = formulario.querySelectorAll(".campo-error");
+  for (let i = 0; i < camposConError.length; i++) {
     camposConError[i].classList.remove("campo-error");
     camposConError[i].removeAttribute("aria-invalid");
     camposConError[i].removeAttribute("aria-describedby");
   }
 
-  var etiquetasConError = formulario.querySelectorAll(".etiqueta-error");
-  for (var j = 0; j < etiquetasConError.length; j++) {
+  const etiquetasConError = formulario.querySelectorAll(".etiqueta-error");
+  for (let j = 0; j < etiquetasConError.length; j++) {
     etiquetasConError[j].classList.remove("etiqueta-error");
   }
 
-  var mensajesError = formulario.querySelectorAll(".mensaje-error");
-  for (var k = 0; k < mensajesError.length; k++) {
+  const mensajesError = formulario.querySelectorAll(".mensaje-error");
+  for (let k = 0; k < mensajesError.length; k++) {
     if (mensajesError[k].parentNode) {
       mensajesError[k].parentNode.removeChild(mensajesError[k]);
     }

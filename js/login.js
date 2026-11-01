@@ -11,23 +11,23 @@
  * @param {Event} evento Evento submit del formulario.
  */
 function validarFormularioLogin(evento) {
-  var formulario = evento.currentTarget;
-  var campoUsuario = $id("usuario");
-  var campoPassword = $id("password");
+  const formulario = evento.currentTarget;
+  const campoUsuario = $id("usuario");
+  const campoPassword = $id("password");
 
   limpiarErroresFormulario(formulario);
 
-  var errores = [];
+  const errores = [];
 
   if (campoUsuario && !tieneContenidoSinEspacios(campoUsuario.value)) {
-    var msgUsuario =
+    const msgUsuario =
       "El nombre de usuario no puede estar vacío ni contener solo espacios o tabuladores.";
     mostrarErrorCampo(campoUsuario, msgUsuario);
     errores.push({ campo: campoUsuario, mensaje: msgUsuario });
   }
 
   if (campoPassword && !tieneContenidoSinEspacios(campoPassword.value)) {
-    var msgPassword =
+    const msgPassword =
       "La contraseña no puede estar vacía ni contener solo espacios o tabuladores.";
     mostrarErrorCampo(campoPassword, msgPassword);
     errores.push({ campo: campoPassword, mensaje: msgPassword });
@@ -40,13 +40,13 @@ function validarFormularioLogin(evento) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  var campoUsuario = $id("usuario");
-  var campoPassword = $id("password");
-  var campoPassword2 = $id("password2");
+  const campoUsuario = $id("usuario");
+  const campoPassword = $id("password");
+  const campoPassword2 = $id("password2");
 
   // Solo inicializar en formularios de login (donde no existe password2)
   if (campoUsuario && campoPassword && !campoPassword2) {
-    var formulario = campoUsuario.form;
+    const formulario = campoUsuario.form;
     if (formulario) {
       formulario.addEventListener("submit", validarFormularioLogin);
 

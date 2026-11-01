@@ -22,17 +22,17 @@
  * @returns {number} Coste total en euros.
  */
 function calcularCosteFolleto(numPaginas, numFotos, esColor, esAltaResolucion) {
-  var costeFijoEnvio = 10.0;
+  const costeFijoEnvio = 10.0;
 
-  var paginasTramo1 = Math.min(numPaginas, 4);
-  var paginasTramo2 = Math.max(0, Math.min(numPaginas - 4, 6));
-  var paginasTramo3 = Math.max(0, numPaginas - 10);
+  const paginasTramo1 = Math.min(numPaginas, 4);
+  const paginasTramo2 = Math.max(0, Math.min(numPaginas - 4, 6));
+  const paginasTramo3 = Math.max(0, numPaginas - 10);
 
-  var costePaginas =
+  const costePaginas =
     paginasTramo1 * 2.0 + paginasTramo2 * 1.8 + paginasTramo3 * 1.6;
 
-  var costeImpresionColor = esColor ? numFotos * 0.5 : 0.0;
-  var costeResolucionFotos = esAltaResolucion ? numFotos * 0.2 : 0.0;
+  const costeImpresionColor = esColor ? numFotos * 0.5 : 0.0;
+  const costeResolucionFotos = esAltaResolucion ? numFotos * 0.2 : 0.0;
 
   return (
     costeFijoEnvio +
@@ -48,7 +48,8 @@ function calcularCosteFolleto(numPaginas, numFotos, esColor, esAltaResolucion) {
  * @returns {string} Importe formateado.
  */
 function formatearEuros(importe) {
-  return importe.toFixed(2).replace(".", ",") + " €";
+  const importeConComa = importe.toFixed(2).replace(".", ",");
+  return `${importeConComa} €`;
 }
 
 /**
@@ -59,7 +60,7 @@ function formatearEuros(importe) {
  * @returns {HTMLTableCellElement}
  */
 function crearCeldaTabla(tipoEtiqueta, texto, scope) {
-  var celda = document.createElement(tipoEtiqueta);
+  const celda = document.createElement(tipoEtiqueta);
   if (scope) {
     celda.setAttribute("scope", scope);
   }
@@ -72,12 +73,12 @@ function crearCeldaTabla(tipoEtiqueta, texto, scope) {
  * @returns {HTMLTableElement} Elemento <table> construido nodo a nodo.
  */
 function construirTablaCostesDOM() {
-  var tabla = document.createElement("table");
+  const tabla = document.createElement("table");
   tabla.id = "tabla-costes-calculados";
   tabla.className = "tabla-costes";
 
   // Título / caption de la tabla
-  var caption = document.createElement("caption");
+  const caption = document.createElement("caption");
   caption.appendChild(
     document.createTextNode(
       "Tabla de posibles costes de un folleto en función del número de páginas y fotos, tipo de impresión y resolución de las fotos"
@@ -86,29 +87,29 @@ function construirTablaCostesDOM() {
   tabla.appendChild(caption);
 
   // Cabecera (thead) con dos filas de encabezados
-  var thead = document.createElement("thead");
+  const thead = document.createElement("thead");
 
-  var filaCabecera1 = document.createElement("tr");
+  const filaCabecera1 = document.createElement("tr");
 
-  var thPaginas = crearCeldaTabla("th", "Número de páginas", "col");
+  const thPaginas = crearCeldaTabla("th", "Número de páginas", "col");
   thPaginas.setAttribute("rowspan", "2");
   filaCabecera1.appendChild(thPaginas);
 
-  var thFotos = crearCeldaTabla("th", "Número de fotos", "col");
+  const thFotos = crearCeldaTabla("th", "Número de fotos", "col");
   thFotos.setAttribute("rowspan", "2");
   filaCabecera1.appendChild(thFotos);
 
-  var thBlancoNegro = crearCeldaTabla("th", "Blanco y negro", "colgroup");
+  const thBlancoNegro = crearCeldaTabla("th", "Blanco y negro", "colgroup");
   thBlancoNegro.setAttribute("colspan", "2");
   filaCabecera1.appendChild(thBlancoNegro);
 
-  var thColor = crearCeldaTabla("th", "Color", "colgroup");
+  const thColor = crearCeldaTabla("th", "Color", "colgroup");
   thColor.setAttribute("colspan", "2");
   filaCabecera1.appendChild(thColor);
 
   thead.appendChild(filaCabecera1);
 
-  var filaCabecera2 = document.createElement("tr");
+  const filaCabecera2 = document.createElement("tr");
   filaCabecera2.appendChild(crearCeldaTabla("th", "150-300 dpi", "col"));
   filaCabecera2.appendChild(crearCeldaTabla("th", "450-900 dpi", "col"));
   filaCabecera2.appendChild(crearCeldaTabla("th", "150-300 dpi", "col"));
@@ -118,30 +119,30 @@ function construirTablaCostesDOM() {
   tabla.appendChild(thead);
 
   // Cuerpo de la tabla (tbody): de 1 a 15 páginas (3 fotos por página)
-  var tbody = document.createElement("tbody");
+  const tbody = document.createElement("tbody");
 
-  for (var paginas = 1; paginas <= 15; paginas++) {
-    var fotos = paginas * 3;
-    var fila = document.createElement("tr");
+  for (let paginas = 1; paginas <= 15; paginas++) {
+    const fotos = paginas * 3;
+    const fila = document.createElement("tr");
 
     // Columnas de número de páginas y número de fotos
-    fila.appendChild(crearCeldaTabla("td", String(paginas)));
-    fila.appendChild(crearCeldaTabla("td", String(fotos)));
+    fila.appendChild(crearCeldaTabla("td", `${paginas}`));
+    fila.appendChild(crearCeldaTabla("td", `${fotos}`));
 
     // 1. Blanco y negro, 150-300 dpi
-    var costeBN150 = calcularCosteFolleto(paginas, fotos, false, false);
+    const costeBN150 = calcularCosteFolleto(paginas, fotos, false, false);
     fila.appendChild(crearCeldaTabla("td", formatearEuros(costeBN150)));
 
     // 2. Blanco y negro, 450-900 dpi
-    var costeBN450 = calcularCosteFolleto(paginas, fotos, false, true);
+    const costeBN450 = calcularCosteFolleto(paginas, fotos, false, true);
     fila.appendChild(crearCeldaTabla("td", formatearEuros(costeBN450)));
 
     // 3. Color, 150-300 dpi
-    var costeColor150 = calcularCosteFolleto(paginas, fotos, true, false);
+    const costeColor150 = calcularCosteFolleto(paginas, fotos, true, false);
     fila.appendChild(crearCeldaTabla("td", formatearEuros(costeColor150)));
 
     // 4. Color, 450-900 dpi
-    var costeColor450 = calcularCosteFolleto(paginas, fotos, true, true);
+    const costeColor450 = calcularCosteFolleto(paginas, fotos, true, true);
     fila.appendChild(crearCeldaTabla("td", formatearEuros(costeColor450)));
 
     tbody.appendChild(fila);
@@ -155,16 +156,16 @@ function construirTablaCostesDOM() {
  * Alterna la visualización de la tabla de posibles costes al pulsar el botón.
  */
 function alternarTablaCostes() {
-  var boton = $id("btn-mostrar-costes");
-  var contenedor = $id("contenedor-tabla-costes");
+  const boton = $id("btn-mostrar-costes");
+  const contenedor = $id("contenedor-tabla-costes");
   if (!boton || !contenedor) {
     return;
   }
 
-  var tablaExistente = $id("tabla-costes-calculados");
+  const tablaExistente = $id("tabla-costes-calculados");
 
   if (!tablaExistente) {
-    var nuevaTabla = construirTablaCostesDOM();
+    const nuevaTabla = construirTablaCostesDOM();
     contenedor.appendChild(nuevaTabla);
     contenedor.hidden = false;
     boton.textContent = "Ocultar tabla de posibles costes";
@@ -181,17 +182,17 @@ function alternarTablaCostes() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  var botonCostes = $id("btn-mostrar-costes");
+  const botonCostes = $id("btn-mostrar-costes");
   if (botonCostes) {
     botonCostes.addEventListener("click", alternarTablaCostes);
   }
 
   // Actualizar salida del control range de resolución desde JavaScript externo
-  var inputResolucion = $id("resolucion");
-  var salidaResolucion = $id("salida_resolucion");
+  const inputResolucion = $id("resolucion");
+  const salidaResolucion = $id("salida_resolucion");
   if (inputResolucion && salidaResolucion) {
     inputResolucion.addEventListener("input", function () {
-      salidaResolucion.value = inputResolucion.value + " DPI";
+      salidaResolucion.value = `${inputResolucion.value} DPI`;
     });
   }
 });
