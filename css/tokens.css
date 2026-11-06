@@ -12,6 +12,8 @@
   --color-on-primary: #ffffff; /* Color del texto blanco sobre botones y cabeceras de tabla de color primario */
   --color-table-hover: #c6d9cc; /* Color de fondo al pasar el ratón (hover) por encima de una fila de tabla */
   --color-focus: #b4512d; /* Color del contorno de enfoque al navegar con el teclado (accesibilidad) */
+  --color-error: #b42318; /* Color rojo intenso para bordes, etiquetas y textos de error en la validación de formularios */
+  --color-error-bg: #fef3f2; /* Color de fondo suave rojizo para resaltar campos inválidos y cuadros resumen de errores */
   --font-sans: "Trebuchet MS", Arial, sans-serif; /* Familia tipográfica sin serifa para el texto general y formularios */
   --font-serif: Georgia, "Times New Roman", serif; /* Familia tipográfica con serifa para todos los títulos (h1-h6) y títulos de tabla */
   --content-width: 76rem; /* Anchura máxima del bloque principal de contenido en pantallas de escritorio */

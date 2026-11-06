@@ -278,3 +278,68 @@ tbody tr:hover {
 .btn-accent {
   background: var(--color-accent); /* Aplica el fondo terracota de acento */
 }
+
+/* Campo de formulario que no ha superado la validación de JavaScript (.campo-error) */
+input.campo-error,
+select.campo-error,
+textarea.campo-error {
+  border-color: var(--color-error); /* Cambia el borde del control a rojo intenso para señalar el error */
+  background-color: var(--color-error-bg); /* Aplica un fondo rojizo muy suave al campo con error */
+}
+
+/* Etiqueta asociada a un campo que presenta un error de validación (.etiqueta-error) */
+.etiqueta-error {
+  color: var(--color-error); /* Pinta el texto de la etiqueta en rojo intenso para reforzar el aviso visual */
+  font-weight: 700; /* Asegura que la etiqueta con error se muestre en negrita */
+}
+
+/* Mensaje de error individual insertado mediante el DOM junto a cada campo inválido (.mensaje-error) */
+.mensaje-error {
+  display: block; /* Muestra el mensaje en su propia línea debajo del campo */
+  margin-top: 0.35rem; /* Separa ligeramente el mensaje de error respecto al control superior */
+  color: var(--color-error); /* Texto en color rojo intenso para identificar claramente el fallo */
+  font-size: 0.9rem; /* Tamaño de letra ligeramente menor pero totalmente legible */
+  font-weight: 700; /* Texto en negrita para destacar la indicación de corrección */
+}
+
+/* Caja resumen de errores insertada al inicio del formulario cuando falla la validación (.resumen-errores) */
+.resumen-errores {
+  margin-bottom: 1.25rem; /* Espacio inferior para separar el resumen del primer campo del formulario */
+  padding: 0.9rem 1.1rem; /* Espacio interior cómodo alrededor de la lista de errores */
+  border: 2px solid var(--color-error); /* Borde continuo rojo alrededor del bloque de alerta */
+  border-left-width: 6px; /* Borde izquierdo más grueso para destacar como aviso importante */
+  border-radius: 6px; /* Esquinas suavemente redondeadas */
+  background-color: var(--color-error-bg); /* Fondo rojizo claro para diferenciarlo del resto del formulario */
+  color: var(--color-dark); /* Texto oscuro para garantizar buen contraste de lectura */
+}
+
+/* Párrafo de encabezado dentro de la caja resumen de errores (.resumen-errores-titulo) */
+.resumen-errores-titulo {
+  margin: 0 0 0.5rem; /* Margen únicamente debajo del título del resumen */
+  color: var(--color-error); /* Color rojo para el encabezado del bloque de errores */
+  font-weight: 700; /* Texto en negrita para el aviso general */
+}
+
+/* Lista de errores dentro de la caja resumen (.resumen-errores ul) */
+.resumen-errores ul {
+  margin: 0; /* Elimina márgenes exteriores sobrantes de la lista */
+  padding-left: 1.25rem; /* Sangría izquierda para las viñetas de cada error */
+}
+
+/* Contenedor de la tabla dinámica de posibles costes del folleto (#contenedor-tabla-costes) */
+#contenedor-tabla-costes {
+  margin-top: 1rem; /* Separa la tabla generada dinámicamente del botón que la muestra u oculta */
+  overflow-x: auto; /* Permite desplazamiento horizontal en pantallas pequeñas si la tabla es ancha */
+}
+
+/* Celdas numéricas de la tabla de posibles costes del folleto (.tabla-costes td) */
+.tabla-costes td {
+  text-align: right; /* Alinea las cifras y precios en euros a la derecha para facilitar su comparación */
+}
+
+/* Dos primeras columnas (páginas y fotos) de la tabla de posibles costes (.tabla-costes td:nth-child(1), .tabla-costes td:nth-child(2)) */
+.tabla-costes td:nth-child(1),
+.tabla-costes td:nth-child(2) {
+  text-align: center; /* Centra el número de páginas y el número de fotos en sus columnas */
+  font-weight: 700; /* Destaca en negrita los valores de referencia de páginas y fotos */
+}
