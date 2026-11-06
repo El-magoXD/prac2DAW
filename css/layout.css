@@ -99,6 +99,7 @@ body > footer a:focus-visible {
 }
 
 /* Primer elemento del grupo derecho del menú (enlace a Accesibilidad, seguido de Contactar) */
+nav li:has(> a[href="accesibilidad.php"]),
 nav li:has(> a[href="accesibilidad.html"]) {
   margin-left: auto; /* Empuja Accesibilidad y Contactar hacia el extremo derecho de la barra de navegación */
   padding-left: 1.15rem; /* Añade espacio entre la barra divisoria vertical y el icono de Accesibilidad */
