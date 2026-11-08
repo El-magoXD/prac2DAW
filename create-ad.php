@@ -1,55 +1,30 @@
-<!doctype html>
-<html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Solicitar folleto | PI - Pisos e Inmuebles</title>
-    <link rel="icon" type="image/svg+xml" href="icon.svg" />
-    <link rel="stylesheet" href="style.css" media="screen" title="Estilo principal" />
-    <link rel="alternate stylesheet" href="css/noche.css" media="screen" title="Modo noche" />
-    <link rel="alternate stylesheet" href="css/contraste.css" media="screen" title="Alto contraste" />
-    <link rel="alternate stylesheet" href="css/grande.css" media="screen" title="Texto grande" />
-    <link rel="alternate stylesheet" href="css/contrasteygrande.css" media="screen" title="Alto contraste y texto grande" />
-    <link rel="stylesheet" href="css/impresion.css" media="print" />
-  </head>
+<?php
+/**
+ * Práctica 7 - Página "Solicitar folleto" (create-ad.php).
+ * Muestra la tabla de tarifas, la tabla de posibles costes calculada con PHP (Figura 2),
+ * conserva la tabla generada con JavaScript para comparar que coinciden, y el formulario de solicitud.
+ */
+$tituloPagina = 'Solicitar folleto | PI - Pisos e Inmuebles';
+$esPaginaPrivada = true;
+$scriptsPagina = ['js/utilidades.js', 'js/folleto.js'];
 
-  <body>
-    <a class="skip-link" href="#main-content">Saltar al contenido principal</a>
-    <header>
-      <h1><img class="brand-mark" src="icon.svg" alt="" aria-hidden="true" />PI - Pisos e Inmuebles</h1>
-
-      <nav>
-        <ul>
-          <li><a href="index-reg.html"><i class="fa-solid fa-house" aria-label="Inicio" role="img"></i> Inicio</a></li>
-          <li><a href="search.html"><i class="fa-solid fa-magnifying-glass" aria-label="Buscar anuncios" role="img"></i> Buscar anuncios</a></li>
-          <li><a href="create-ad.html"><i class="fa-solid fa-file-lines" aria-label="Crear folleto" role="img"></i> Crear folleto</a></li>
-          <li><a href="404.html"><i class="fa-solid fa-bullhorn" aria-label="Mis anuncios" role="img"></i> Mis anuncios</a></li>
-          <li><a href="404.html"><i class="fa-solid fa-circle-plus" aria-label="Crear anuncio" role="img"></i> Crear anuncio</a></li>
-          <li><a href="my-messages.html"><i class="fa-solid fa-envelope" aria-label="Mis mensajes" role="img"></i> Mis mensajes</a></li>
-          <li><a href="404.html"><i class="fa-solid fa-user" aria-label="Mi cuenta" role="img"></i> Mi cuenta</a></li>
-          <li><a href="index.html"><i class="fa-solid fa-right-from-bracket" aria-label="Cerrar sesión" role="img"></i> Cerrar sesión</a></li>
-          <li><a href="accesibilidad.html"><i class="fa-solid fa-universal-access" aria-label="Accesibilidad" role="img"></i> Accesibilidad</a></li>
-          <li><a href="contact.html"><i class="fa-solid fa-envelope" aria-label="Contactar" role="img"></i> Contactar</a></li>
-        </ul>
-      </nav>
-    </header>
-
-    <main id="main-content">
+require_once __DIR__ . '/includes/cabecera.php';
+require_once __DIR__ . '/includes/inicio.php';
+?>
       <h2>Solicitar un folleto publicitario</h2>
       <p>
         Elige uno de tus anuncios y personaliza el folleto que enviaremos a la
         dirección indicada. El número de páginas y fotos depende del anuncio
-        seleccionado. El coste de impresión se calcula por página y foto, por
-        copia, según el tipo de impresión y la resolución; el coste de
-        procesamiento y envío se añade una sola vez y es fijo, con independencia
-        del número de páginas y de copias.
+        seleccionado. El coste de impresión se calcula por página y foto, según
+        el tipo de impresión y la resolución, y el número de copias multiplica el
+        precio unitario del folleto publicitario.
       </p>
 
       <section>
         <h3>Tarifas de impresión</h3>
         <p>
-          Tarifas de referencia en euros por página o foto y por copia. La
-          resolución elegida se aplica a las fotos.
+          Tarifas de referencia en euros por página o foto. La resolución elegida
+          se aplica a las fotos.
         </p>
 
         <table>
@@ -85,24 +60,64 @@
             <td>0.5 € por foto</td>
           </tr>
           <tr>
-            <th scope="row">Resolución &lt;&equals; 300 dpi</th>
+            <th scope="row">Resolución &lt;= 300 dpi</th>
             <td>0 € por foto</td>
           </tr>
           <tr>
             <th scope="row">Resolución &gt; 300 dpi</th>
-            <td>0.2€ por foto</td>
+            <td>0.2 € por foto</td>
           </tr>
+        </table>
+
+        <h3>Tabla con posibles costes de un folleto impreso (calculada con PHP)</h3>
+        <table class="tabla-costes">
+          <caption>
+            Tabla con posibles costes de un álbum impreso calculada en servidor mediante PHP
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col" rowspan="2">Número de páginas</th>
+              <th scope="col" rowspan="2">Número de fotos</th>
+              <th scope="colgroup" colspan="2">Blanco y negro</th>
+              <th scope="colgroup" colspan="2">Color</th>
+            </tr>
+            <tr>
+              <th scope="col">150-300 dpi</th>
+              <th scope="col">450-900 dpi</th>
+              <th scope="col">150-300 dpi</th>
+              <th scope="col">450-900 dpi</th>
+            </tr>
+          </thead>
+          <tbody>
+<?php for ($paginas = 1; $paginas <= 15; $paginas++): ?>
+<?php
+    $fotos = $paginas * 3;
+    $costeBN150 = calcularCosteFolleto($paginas, $fotos, false, false);
+    $costeBN450 = calcularCosteFolleto($paginas, $fotos, false, true);
+    $costeColor150 = calcularCosteFolleto($paginas, $fotos, true, false);
+    $costeColor450 = calcularCosteFolleto($paginas, $fotos, true, true);
+?>
+            <tr>
+              <td><?= $paginas ?></td>
+              <td><?= $fotos ?></td>
+              <td><?= e(formatearEuros($costeBN150)) ?></td>
+              <td><?= e(formatearEuros($costeBN450)) ?></td>
+              <td><?= e(formatearEuros($costeColor150)) ?></td>
+              <td><?= e(formatearEuros($costeColor450)) ?></td>
+            </tr>
+<?php endfor; ?>
+          </tbody>
         </table>
 
         <p>
           <button type="button" id="btn-mostrar-costes" aria-expanded="false">
-            Mostrar tabla de posibles costes
+            Mostrar tabla de posibles costes (JavaScript)
           </button>
         </p>
         <div id="contenedor-tabla-costes" hidden></div>
       </section>
 
-      <form action="ad-response.html" method="post">
+      <form action="ad-response.php" method="post">
         <fieldset>
           <legend>Personalización del folleto</legend>
 
@@ -117,11 +132,11 @@
               <option value="piso-alicante">
                 Piso luminoso en Alicante (5 páginas, 6 fotos)
               </option>
+              <option value="apartamento-valencia">
+                Apartamento moderno en Valencia (8 páginas, 15 fotos)
+              </option>
             </select>
-            <small
-              >Solo puedes solicitar folletos de anuncios publicados por
-              ti.</small
-            >
+            <small>Solo puedes solicitar folletos de anuncios publicados por ti.</small>
           </p>
 
           <p>
@@ -182,6 +197,7 @@
                 id="blanco-negro"
                 name="impresion"
                 value="blanco-negro"
+                checked
                 required
               />
               <label for="blanco-negro">Blanco y negro</label>
@@ -203,6 +219,7 @@
                 id="con-precio"
                 name="mostrar_precio"
                 value="si"
+                checked
                 required
               />
               <label for="con-precio">Sí, imprimir el precio</label>
@@ -223,9 +240,7 @@
           <legend>Datos del destinatario</legend>
 
           <p>
-            <label for="nombre"
-              >Nombre y apellidos (máximo 200 caracteres) (*):</label
-            >
+            <label for="nombre">Nombre y apellidos (máximo 200 caracteres) (*):</label>
             <input
               type="text"
               id="nombre"
@@ -237,9 +252,7 @@
           </p>
 
           <p>
-            <label for="email"
-              >Correo electrónico (máximo 200 caracteres) (*):</label
-            >
+            <label for="email">Correo electrónico (máximo 200 caracteres) (*):</label>
             <input
               type="email"
               id="email"
@@ -291,15 +304,16 @@
             />
             <select id="localidad" name="localidad" required>
               <option value="">Localidad</option>
-              <option value="alicante">Alicante</option>
-              <option value="elche">Elche</option>
-              <option value="benidorm">Benidorm</option>
+              <option value="Alicante">Alicante</option>
+              <option value="Elche">Elche</option>
+              <option value="Benidorm">Benidorm</option>
+              <option value="San Vicente del Raspeig">San Vicente del Raspeig</option>
             </select>
             <select id="provincia" name="provincia" required>
               <option value="">Provincia</option>
-              <option value="alicante">Alicante</option>
-              <option value="valencia">Valencia</option>
-              <option value="castellon">Castellón</option>
+              <option value="Alicante">Alicante</option>
+              <option value="Valencia">Valencia</option>
+              <option value="Castellón">Castellón</option>
             </select>
             <select id="pais" name="pais" required>
               <option value="">País</option>
@@ -333,13 +347,6 @@
           <button type="reset">Limpiar formulario</button>
         </p>
       </form>
-    </main>
-
-    <footer>
-      <p>Pedro González Sánchez &amp; Alejandro Sánchez Martí</p>
-      <p>&copy; 2026 PI - Pisos e Inmuebles. Todos los derechos reservados. | <a href="accesibilidad.html">Declaración de accesibilidad</a></p>
-    </footer>
-    <script src="js/utilidades.js"></script>
-    <script src="js/folleto.js"></script>
-  </body>
-</html>
+<?php
+require_once __DIR__ . '/includes/pie.php';
+?>

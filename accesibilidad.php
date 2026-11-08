@@ -1,34 +1,13 @@
-<!doctype html>
-<html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Declaración de accesibilidad | PI - Pisos e Inmuebles</title>
-    <link rel="icon" type="image/svg+xml" href="icon.svg" />
-    <link rel="stylesheet" href="style.css" media="screen" title="Estilo principal" />
-    <link rel="alternate stylesheet" href="css/noche.css" media="screen" title="Modo noche" />
-    <link rel="alternate stylesheet" href="css/contraste.css" media="screen" title="Alto contraste" />
-    <link rel="alternate stylesheet" href="css/grande.css" media="screen" title="Texto grande" />
-    <link rel="alternate stylesheet" href="css/contrasteygrande.css" media="screen" title="Alto contraste y texto grande" />
-    <link rel="stylesheet" href="css/impresion.css" media="print" />
-  </head>
-  <body>
-    <a class="skip-link" href="#main-content">Saltar al contenido principal</a>
-    <header>
-      <h1><img class="brand-mark" src="icon.svg" alt="" aria-hidden="true" />PI - Pisos e Inmuebles</h1>
+<?php
+/**
+ * Práctica 7 - Página de Declaración de accesibilidad (accesibilidad.php).
+ */
+$tituloPagina = 'Declaración de accesibilidad | PI - Pisos e Inmuebles';
+$esPaginaPrivada = false;
 
-      <nav>
-        <ul>
-          <li><a href="index.html"><i class="fa-solid fa-house" aria-label="Página principal" role="img"></i> Página principal</a></li>
-          <li><a href="search.html"><i class="fa-solid fa-magnifying-glass" aria-label="Buscar" role="img"></i> Buscar</a></li>
-          <li><a href="register.html"><i class="fa-solid fa-user-plus" aria-label="Registrarse" role="img"></i> Registrarse</a></li>
-          <li><a href="accesibilidad.html"><i class="fa-solid fa-universal-access" aria-label="Accesibilidad" role="img"></i> Accesibilidad</a></li>
-          <li><a href="contact.html"><i class="fa-solid fa-envelope" aria-label="Contactar" role="img"></i> Contactar</a></li>
-        </ul>
-      </nav>
-    </header>
-
-    <main id="main-content">
+require_once __DIR__ . '/includes/cabecera.php';
+require_once __DIR__ . '/includes/inicio.php';
+?>
       <h2>Declaración de accesibilidad</h2>
       <p>
         <strong>PI - Pisos e Inmuebles</strong> se ha comprometido a hacer accesible su sitio web de conformidad con las
@@ -69,7 +48,7 @@
           La paleta de colores se ha diseñado evitando transmitir información importante únicamente a través del color:
         </p>
         <ul>
-          <li>Los campos obligatorios de los formularios se indican explícitamente con el símbolo <code>(*)</code> dentro de su etiqueta además del atributo <code>required</code>.</li>
+          <li>Los campos obligatorios de los formularios se indican explícitamente con el símbolo <code>(*)</code> dentro de su etiqueta.</li>
           <li>Los enlaces se distinguen del texto normal tanto por su color como por su subrayado permanente (<code>text-decoration: underline</code>).</li>
           <li>Se proporciona una hoja de estilo específica de <strong>Alto contraste</strong> que supera la relación de contraste 7:1 (nivel AAA de WCAG 2.1) empleando texto blanco y amarillo sobre fondo negro.</li>
           <li>Se incluye un estilo de <strong>Modo noche</strong> con tonos oscuros y texto blanco desaturado para reducir la fatiga visual en entornos de baja iluminación.</li>
@@ -147,18 +126,12 @@
         <h3>6. Contacto y sugerencias sobre accesibilidad</h3>
         <p>
           Si encuentras alguna barrera de acceso o deseas realizar cualquier consulta o sugerencia sobre la accesibilidad de este portal,
-          puedes ponerte en contacto con los responsables del sitio web a través del formulario de <a href="contact.html">envío de mensajes</a>.
+          puedes ponerte en contacto con los responsables del sitio web a través del formulario de <a href="contact.php">envío de mensajes</a>.
         </p>
         <p>
-          <a class="btn-primary" href="index.html">Volver a la página principal</a>
+          <a class="btn-primary" href="index.php">Volver a la página principal</a>
         </p>
       </section>
-    </main>
-
-    <footer>
-      <p>Pedro González Sánchez &amp; Alejandro Sánchez Martí</p>
-      <p>&copy; 2026 PI - Pisos e Inmuebles. Todos los derechos reservados. | <a href="accesibilidad.html">Declaración de accesibilidad</a></p>
-    </footer>
-  </body>
-</html>
-
+<?php
+require_once __DIR__ . '/includes/pie.php';
+?>
