@@ -3,6 +3,11 @@
  * Práctica 7 - Funciones auxiliares comunes (seguridad, validación, tarifas y redirecciones).
  */
 
+// Configuración de visualización de errores en entorno de desarrollo (apartado 4.10.1)
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 /**
  * Escapa caracteres especiales en HTML para prevenir ataques XSS (Cross-Site Scripting).
  *

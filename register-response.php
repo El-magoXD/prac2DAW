@@ -59,6 +59,8 @@ $nombresSexo = [
 // Construir URL con parámetros para volver al formulario inicial en caso de error
 $queryRetorno = http_build_query([
     'usuario'          => $usuario,
+    'password'         => $password,
+    'password2'        => $password2,
     'email'            => $email,
     'sexo'             => $sexo,
     'fecha-nacimiento' => $fechaNacimiento,

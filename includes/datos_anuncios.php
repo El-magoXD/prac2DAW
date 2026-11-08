@@ -48,8 +48,6 @@ $anunciosDetalle = [
             ],
         ],
         'usuario'            => 'juan',
-        'paginas_folleto'    => 5,
-        'fotos_folleto'      => 6,
     ],
     'par' => [
         'id'                 => 2,
@@ -93,7 +91,5 @@ $anunciosDetalle = [
             ],
         ],
         'usuario'            => 'maria',
-        'paginas_folleto'    => 8,
-        'fotos_folleto'      => 15,
     ],
 ];

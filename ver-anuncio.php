@@ -99,6 +99,9 @@ require_once __DIR__ . '/includes/inicio.php';
             <a class="btn-accent" href="anadir-foto.php?anuncio=<?= $idAnuncio ?>">
               <i class="fa-solid fa-camera" aria-hidden="true"></i> Añadir foto a anuncio
             </a>
+            <a class="btn-primary" href="my-messages.php">
+              <i class="fa-solid fa-envelope" aria-hidden="true"></i> Ver mensajes
+            </a>
             <a class="btn-primary" href="mis-anuncios.php">Volver a Mis anuncios</a>
           </p>
         </footer>

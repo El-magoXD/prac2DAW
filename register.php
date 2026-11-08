@@ -12,6 +12,8 @@ require_once __DIR__ . '/includes/inicio.php';
 
 // Si se vuelve desde la página de respuesta con parámetros en la URL, inicializar los campos
 $usuarioPrevio = $_GET['usuario'] ?? '';
+$passwordPrevio = $_GET['password'] ?? '';
+$password2Previo = $_GET['password2'] ?? '';
 $emailPrevio = $_GET['email'] ?? '';
 $sexoPrevio = $_GET['sexo'] ?? '';
 $fechaPrevio = $_GET['fecha-nacimiento'] ?? '';
@@ -62,6 +64,7 @@ $mensajesErrorUrl = array_filter([$errUsuario, $errPassword, $errPassword2]);
               type="password"
               id="password"
               name="password"
+              value="<?= e($passwordPrevio) ?>"
               class="<?= $errPassword !== '' ? 'campo-error' : '' ?>"
             />
             <small>De 6 a 15 caracteres (letras, números, - y _). Debe incluir mayúscula, minúscula y número.</small>
@@ -76,6 +79,7 @@ $mensajesErrorUrl = array_filter([$errUsuario, $errPassword, $errPassword2]);
               type="password"
               id="password2"
               name="password2"
+              value="<?= e($password2Previo) ?>"
               class="<?= $errPassword2 !== '' ? 'campo-error' : '' ?>"
             />
 <?php if ($errPassword2 !== ''): ?>
