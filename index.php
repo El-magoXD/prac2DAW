@@ -79,10 +79,6 @@ if ($codigoError === 'ambos_vacios') {
           </p>
 
           <p>
-            <small>Usuarios de prueba permitidos: <code>usuario1</code> / <code>Pass123</code>, <code>juan</code> / <code>Juan123</code>, <code>maria</code> / <code>Maria123</code>, <code>admin</code> / <code>Admin123</code>.</small>
-          </p>
-
-          <p>
             <button type="submit">Entrar</button>
           </p>
         </form>

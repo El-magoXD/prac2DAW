@@ -5,8 +5,8 @@
  */
 
 $usuariosPermitidos = [
-    'usuario1' => 'Pass123',
-    'juan'     => 'Juan123',
-    'maria'    => 'Maria123',
-    'admin'    => 'Admin123',
+    'pedro' => 'ped123',
+    'sanchez'     => 'san123',
+    'usuario'    => 'usu123',
+    'admin'    => 'admin123',
 ];
