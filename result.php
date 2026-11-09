@@ -91,7 +91,7 @@ $nombresTipoVivienda = [
         <h2>Resultados de la búsqueda</h2>
         <p>Mostrando anuncios que cumplen con los criterios seleccionados:</p>
 
-        <!-- Resultado 1 (ID impar = 1): Muestra el primer anuncio en anuncio.php -->
+        <!-- Resultado 1 (ID 1): Enlaza al detalle del anuncio -->
         <article>
           <a href="anuncio.php?id=1">
             <img
@@ -99,7 +99,7 @@ $nombresTipoVivienda = [
               width="300"
               alt="Vista miniatura del piso luminoso en Alicante"
             />
-            <h3>Piso luminoso en Alicante (ID 1 - Impar)</h3>
+            <h3>Piso luminoso en Alicante</h3>
           </a>
 
           <p><strong>Fecha:</strong> 25/09/2026</p>
@@ -108,7 +108,7 @@ $nombresTipoVivienda = [
           <p class="anuncio"><strong>Precio:</strong> 185.000 €</p>
         </article>
 
-        <!-- Resultado 2 (ID par = 2): Muestra el segundo anuncio en anuncio.php -->
+        <!-- Resultado 2 (ID 2): Enlaza al detalle del anuncio -->
         <article>
           <a href="anuncio.php?id=2">
             <img
@@ -116,7 +116,7 @@ $nombresTipoVivienda = [
               width="300"
               alt="Vista miniatura del apartamento moderno en Valencia"
             />
-            <h3>Apartamento moderno en Valencia (ID 2 - Par)</h3>
+            <h3>Apartamento moderno en Valencia</h3>
           </a>
 
           <p><strong>Fecha:</strong> 24/09/2026</p>

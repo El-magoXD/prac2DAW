@@ -40,7 +40,6 @@ require_once __DIR__ . '/includes/inicio.php';
           <p>
             <span class="badge"><?= e($anuncio['tipo_anuncio']) ?></span>
             <span class="badge"><?= e($anuncio['tipo_vivienda']) ?></span>
-            <span class="badge">ID recibido: <?= $idRecibido ?> (<?= $esPar ? 'Par' : 'Impar' ?>)</span>
           </p>
         </header>
 
@@ -97,7 +96,6 @@ require_once __DIR__ . '/includes/inicio.php';
           <p class="anuncio">Usuario anunciante: <strong><?= e($anuncio['usuario']) ?></strong></p>
           <p>
             <a class="btn-accent" href="message.php?id=<?= $idRecibido ?>">Contactar al anunciante (Enviar mensaje)</a>
-            <a class="btn-primary" href="anuncio.php?id=<?= $esPar ? 1 : 2 ?>">Ver anuncio <?= $esPar ? 'impar (ID 1)' : 'par (ID 2)' ?></a>
           </p>
         </footer>
       </article>

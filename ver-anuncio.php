@@ -41,7 +41,6 @@ require_once __DIR__ . '/includes/inicio.php';
           <p>
             <span class="badge"><?= e($anuncio['tipo_anuncio']) ?></span>
             <span class="badge"><?= e($anuncio['tipo_vivienda']) ?></span>
-            <span class="badge">Mi anuncio #<?= $idAnuncio ?></span>
           </p>
         </header>
 
