@@ -1,13 +1,11 @@
 <?php
 /**
- * Práctica 7 - Página "Añadir foto a anuncio" (anadir-foto.php).
- * Contiene un formulario con los datos necesarios para añadir una foto (foto, texto alternativo
- * obligatorio de mínimo 10 caracteres, título y anuncio al que se añade la foto).
- * - Si se accede desde el menú de la parte privada (sin parámetro 'anuncio'), muestra la lista desplegable
- *   sin ningún anuncio seleccionado por defecto para que el usuario lo elija.
- * - Si se accede desde "Mis anuncios" o "Ver anuncio" (con $_GET['anuncio']), el anuncio ya aparece
- *   seleccionado en la lista desplegable y no se puede cambiar.
+ * Práctica 7 y 8 - Página "Añadir foto a anuncio" (anadir-foto.php - parte privada).
+ * Protegida mediante sesión PHP (exigirAutenticacion()).
  */
+require_once __DIR__ . '/includes/funciones.php';
+exigirAutenticacion();
+
 $tituloPagina = 'Añadir foto a anuncio | PI - Pisos e Inmuebles';
 $esPaginaPrivada = true;
 

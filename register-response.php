@@ -1,17 +1,15 @@
 <?php
 /**
- * Práctica 7 - Respuesta "Página con el formulario de registro como nuevo usuario" (register-response.php).
- * Muestra los datos que el usuario ha introducido en el formulario de registro (sin la foto de perfil).
+ * Práctica 7 y 8 - Respuesta "Página con el formulario de registro como nuevo usuario" (register-response.php).
  * Comprueba mediante PHP que se ha escrito algo en nombre de usuario, contraseña y repetir contraseña,
- * y que contraseña y repetir contraseña coinciden.
- * Si hay algún error de validación, se muestra en esta página con indicación de los campos erróneos
- * y un enlace para volver al formulario inicial pasando la información por la URL.
+ * y que contraseña y repetir contraseña coinciden:
+ * - Si hay errores: guarda los mensajes de error y los datos previos en Flashdata ($_SESSION['flash'])
+ *   y redirige inmediatamente a register.php sin usar la URL.
+ * - Si todo es correcto: muestra los datos que el usuario ha introducido (sin la foto de perfil).
  */
-$tituloPagina = 'Respuesta de registro | PI - Pisos e Inmuebles';
-$esPaginaPrivada = false;
+require_once __DIR__ . '/includes/funciones.php';
 
-require_once __DIR__ . '/includes/cabecera.php';
-require_once __DIR__ . '/includes/inicio.php';
+iniciarSesionYRecordar();
 
 $datos = !empty($_POST) ? $_POST : $_GET;
 
@@ -50,44 +48,37 @@ if (!tieneContenidoSinEspacios($password2)) {
     $errores[] = $errPassword2;
 }
 
+// Si hay errores, almacenar en Flashdata y redirigir a register.php (Práctica 8, pág. 4)
+if (!empty($errores)) {
+    establecerFlash('registro_error', [
+        'usuario'          => $usuario,
+        'password'         => $password,
+        'password2'        => $password2,
+        'email'            => $email,
+        'sexo'             => $sexo,
+        'fecha-nacimiento' => $fechaNacimiento,
+        'ciudad'           => $ciudad,
+        'pais'             => $pais,
+        'err_usuario'      => $errUsuario,
+        'err_password'     => $errPassword,
+        'err_password2'    => $errPassword2,
+        'mensajes'         => $errores,
+    ]);
+    redirigir('register.php');
+}
+
+$tituloPagina = 'Respuesta de registro | PI - Pisos e Inmuebles';
+$esPaginaPrivada = false;
+
+require_once __DIR__ . '/includes/cabecera.php';
+require_once __DIR__ . '/includes/inicio.php';
+
 $nombresSexo = [
     'hombre' => 'Hombre',
     'mujer'  => 'Mujer',
     'otro'   => 'Otro',
 ];
-
-// Construir URL con parámetros para volver al formulario inicial en caso de error
-$queryRetorno = http_build_query([
-    'usuario'          => $usuario,
-    'password'         => $password,
-    'password2'        => $password2,
-    'email'            => $email,
-    'sexo'             => $sexo,
-    'fecha-nacimiento' => $fechaNacimiento,
-    'ciudad'           => $ciudad,
-    'pais'             => $pais,
-    'err_usuario'      => $errUsuario,
-    'err_password'     => $errPassword,
-    'err_password2'    => $errPassword2,
-]);
 ?>
-<?php if (!empty($errores)): ?>
-      <section>
-        <h2>Error en el registro de nuevo usuario</h2>
-        <div class="resumen-errores" role="alert">
-          <p class="resumen-errores-titulo">Se han detectado errores en los siguientes campos del formulario de registro:</p>
-          <ul>
-<?php foreach ($errores as $error): ?>
-            <li><?= e($error) ?></li>
-<?php endforeach; ?>
-          </ul>
-        </div>
-        <p>
-          <a class="btn-primary" href="register.php?<?= e($queryRetorno) ?>">Volver al formulario de registro para corregir los datos</a>
-          <a class="btn-primary" href="register.php">Volver al formulario de registro vacío</a>
-        </p>
-      </section>
-<?php else: ?>
       <section>
         <h2>Registro completado correctamente</h2>
         <p>Inserción realizada, tus datos recibidos son los siguientes:</p>
@@ -121,11 +112,9 @@ $queryRetorno = http_build_query([
         </fieldset>
 
         <p>
-          <a class="btn-primary" href="index-reg.php?usuario=<?= e(urlencode(trim($usuario))) ?>">Ir al menú de usuario registrado</a>
           <a class="btn-primary" href="index.php">Volver a la página principal</a>
         </p>
       </section>
-<?php endif; ?>
 <?php
 require_once __DIR__ . '/includes/pie.php';
 ?>

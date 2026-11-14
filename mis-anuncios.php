@@ -1,9 +1,11 @@
 <?php
 /**
- * Práctica 7 - Página "Mis anuncios" (mis-anuncios.php).
- * Muestra un listado con todos los anuncios del usuario (foto principal en miniatura, título, ciudad, país y precio),
- * con enlaces para ver el detalle privado del anuncio, añadirle una foto o crear un anuncio nuevo.
+ * Práctica 7 y 8 - Página "Mis anuncios" (mis-anuncios.php - parte privada).
+ * Protegida mediante sesión PHP (exigirAutenticacion()).
  */
+require_once __DIR__ . '/includes/funciones.php';
+exigirAutenticacion();
+
 $tituloPagina = 'Mis anuncios | PI - Pisos e Inmuebles';
 $esPaginaPrivada = true;
 

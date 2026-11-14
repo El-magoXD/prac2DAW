@@ -1,8 +1,8 @@
 <?php
 /**
- * Práctica 7 - Página con el formulario de registro como nuevo usuario (register.php).
- * Nota: Se han desactivado las validaciones de HTML y JavaScript para poder comprobar
- * las validaciones en el servidor mediante PHP (register-response.php).
+ * Práctica 7 y 8 - Página con el formulario de registro como nuevo usuario (register.php).
+ * Recupera los errores de validación y los valores previos mediante Flashdata en sesión
+ * (sin pasar datos ni errores en la URL).
  */
 $tituloPagina = 'Registrarse | PI - Pisos e Inmuebles';
 $esPaginaPrivada = false;
@@ -10,30 +10,31 @@ $esPaginaPrivada = false;
 require_once __DIR__ . '/includes/cabecera.php';
 require_once __DIR__ . '/includes/inicio.php';
 
-// Si se vuelve desde la página de respuesta con parámetros en la URL, inicializar los campos
-$usuarioPrevio = $_GET['usuario'] ?? '';
-$passwordPrevio = $_GET['password'] ?? '';
-$password2Previo = $_GET['password2'] ?? '';
-$emailPrevio = $_GET['email'] ?? '';
-$sexoPrevio = $_GET['sexo'] ?? '';
-$fechaPrevio = $_GET['fecha-nacimiento'] ?? '';
-$ciudadPrevio = $_GET['ciudad'] ?? '';
-$paisPrevio = $_GET['pais'] ?? '';
+$flashRegistro = obtenerFlash('registro_error', []);
 
-$errUsuario = $_GET['err_usuario'] ?? '';
-$errPassword = $_GET['err_password'] ?? '';
-$errPassword2 = $_GET['err_password2'] ?? '';
+$usuarioPrevio = $flashRegistro['usuario'] ?? '';
+$passwordPrevio = $flashRegistro['password'] ?? '';
+$password2Previo = $flashRegistro['password2'] ?? '';
+$emailPrevio = $flashRegistro['email'] ?? '';
+$sexoPrevio = $flashRegistro['sexo'] ?? '';
+$fechaPrevio = $flashRegistro['fecha-nacimiento'] ?? '';
+$ciudadPrevio = $flashRegistro['ciudad'] ?? '';
+$paisPrevio = $flashRegistro['pais'] ?? '';
 
-$mensajesErrorUrl = array_filter([$errUsuario, $errPassword, $errPassword2]);
+$errUsuario = $flashRegistro['err_usuario'] ?? '';
+$errPassword = $flashRegistro['err_password'] ?? '';
+$errPassword2 = $flashRegistro['err_password2'] ?? '';
+
+$mensajesError = $flashRegistro['mensajes'] ?? array_values(array_filter([$errUsuario, $errPassword, $errPassword2]));
 ?>
       <h2>Registro de nuevo usuario</h2>
 
       <form action="register-response.php" method="post" novalidate>
-<?php if (!empty($mensajesErrorUrl)): ?>
+<?php if (!empty($mensajesError)): ?>
         <div class="resumen-errores" role="alert">
           <p class="resumen-errores-titulo">Por favor, corrige los siguientes errores detectados:</p>
           <ul>
-<?php foreach ($mensajesErrorUrl as $msg): ?>
+<?php foreach ($mensajesError as $msg): ?>
             <li><?= e($msg) ?></li>
 <?php endforeach; ?>
           </ul>

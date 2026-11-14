@@ -1,9 +1,11 @@
 <?php
 /**
- * Práctica 7 - Página "Solicitar folleto" (create-ad.php).
- * Muestra la tabla de tarifas, la tabla de posibles costes calculada con PHP (Figura 2),
- * conserva la tabla generada con JavaScript para comparar que coinciden, y el formulario de solicitud.
+ * Práctica 7 y 8 - Página "Solicitar folleto" (create-ad.php - parte privada).
+ * Protegida mediante sesión PHP (exigirAutenticacion()).
  */
+require_once __DIR__ . '/includes/funciones.php';
+exigirAutenticacion();
+
 $tituloPagina = 'Solicitar folleto | PI - Pisos e Inmuebles';
 $esPaginaPrivada = true;
 $scriptsPagina = ['js/utilidades.js', 'js/folleto.js'];

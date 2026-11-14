@@ -1,8 +1,11 @@
 <?php
 /**
- * Práctica 7 - Página "Crear anuncio" (crear-anuncio.php).
- * Contiene un formulario con todos los datos necesarios para crear un anuncio nuevo.
+ * Práctica 7 y 8 - Página "Crear anuncio" (crear-anuncio.php - parte privada).
+ * Protegida mediante sesión PHP (exigirAutenticacion()).
  */
+require_once __DIR__ . '/includes/funciones.php';
+exigirAutenticacion();
+
 $tituloPagina = 'Crear anuncio | PI - Pisos e Inmuebles';
 $esPaginaPrivada = true;
 

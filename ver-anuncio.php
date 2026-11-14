@@ -1,27 +1,21 @@
 <?php
 /**
- * Práctica 7 - Página "Ver anuncio" de la parte privada (ver-anuncio.php).
- * Muestra toda la información del anuncio (tipo de anuncio, tipo de vivienda, foto principal,
- * título, precio, texto, fecha, ciudad, país, características y miniaturas de fotos)
- * y contiene un enlace a "Añadir foto a anuncio" con el anuncio actual preseleccionado y bloqueado.
+ * Práctica 7 y 8 - Página "Ver anuncio" de la parte privada (ver-anuncio.php).
+ * Protegida mediante sesión PHP (exigirAutenticacion()).
  */
 require_once __DIR__ . '/includes/funciones.php';
+exigirAutenticacion();
 
 $idAnuncio = isset($_GET['id']) && is_numeric($_GET['id']) ? (int) $_GET['id'] : 1;
-$esPar = ($idAnuncio % 2 === 0);
-$claveAnuncio = $esPar ? 'par' : 'impar';
+$anuncio = obtenerDatosAnuncioPorId($idAnuncio);
 
-$rutaDatosAnuncios = __DIR__ . '/includes/datos_anuncios.php';
-$errorFichero = false;
-$anuncio = null;
-
-if (!file_exists($rutaDatosAnuncios) || !is_readable($rutaDatosAnuncios)) {
-    $errorFichero = true;
-    $tituloPagina = 'Error al ver anuncio | PI - Pisos e Inmuebles';
+if ($anuncio !== null) {
+    registrarVisitaAnuncio($idAnuncio);
+    $tituloPagina = 'Ver anuncio: ' . $anuncio['titulo'] . ' | PI - Pisos e Inmuebles';
+    $errorFichero = false;
 } else {
-    require_once $rutaDatosAnuncios;
-    $anuncio = $anunciosDetalle[$claveAnuncio] ?? null;
-    $tituloPagina = 'Ver anuncio: ' . ($anuncio ? $anuncio['titulo'] : '') . ' | PI - Pisos e Inmuebles';
+    $tituloPagina = 'Error al ver anuncio | PI - Pisos e Inmuebles';
+    $errorFichero = true;
 }
 
 $esPaginaPrivada = true;

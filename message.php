@@ -1,8 +1,11 @@
 <?php
 /**
- * Práctica 7 - Página enviar mensaje al anunciante (message.php).
- * Nota: Validaciones HTML y JS desactivadas para comprobar la validación con PHP en message-sent.php.
+ * Práctica 7 y 8 - Página enviar mensaje al anunciante (message.php - parte pública restringida).
+ * Solo accesible para usuarios autenticados o recordados mediante sesión PHP.
  */
+require_once __DIR__ . '/includes/funciones.php';
+exigirAutenticacion();
+
 $tituloPagina = 'Enviar mensaje | PI - Pisos e Inmuebles';
 $esPaginaPrivada = false;
 

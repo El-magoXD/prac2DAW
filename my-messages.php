@@ -1,14 +1,18 @@
 <?php
 /**
- * Práctica 7 - Página "Mis mensajes" (my-messages.php).
+ * Práctica 7 y 8 - Página "Mis mensajes" (my-messages.php - parte privada).
+ * Protegida mediante sesión PHP (exigirAutenticacion()).
  */
+require_once __DIR__ . '/includes/funciones.php';
+exigirAutenticacion();
+
 $tituloPagina = 'Mis mensajes | PI - Pisos e Inmuebles';
 $esPaginaPrivada = true;
 
 require_once __DIR__ . '/includes/cabecera.php';
 require_once __DIR__ . '/includes/inicio.php';
 ?>
-      <p>Bienvenido/a, usuario registrado.</p>
+      <p><strong><?= e(obtenerSaludoHorario(obtenerUsuarioActual())) ?></strong></p>
 
       <section>
         <h2><u>Mensajes enviados</u></h2>

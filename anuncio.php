@@ -1,33 +1,27 @@
 <?php
 /**
- * Práctica 7 - Página detalle anuncio (anuncio.php).
- * Muestra el detalle de uno de los dos anuncios almacenados en includes/datos_anuncios.php
- * dependiendo de si el identificador recibido por la URL ($_GET['id']) es un número par o impar.
+ * Práctica 7 y 8 - Página detalle anuncio (anuncio.php - parte pública restringida).
+ * - Solo visible para usuarios autenticados o recordados (exigirAutenticacion()).
+ * - Registra la visita al anuncio en la cookie 'ultimos_anuncios' (1 semana de duración, máx. 4 anuncios).
  */
 require_once __DIR__ . '/includes/funciones.php';
+exigirAutenticacion();
 
 $idRecibido = isset($_GET['id']) && is_numeric($_GET['id']) ? (int) $_GET['id'] : 1;
-$esPar = ($idRecibido % 2 === 0);
-$claveAnuncio = $esPar ? 'par' : 'impar';
 
-$rutaDatosAnuncios = __DIR__ . '/includes/datos_anuncios.php';
-$errorFichero = false;
-$anuncio = null;
-
-if (!file_exists($rutaDatosAnuncios) || !is_readable($rutaDatosAnuncios)) {
-    $errorFichero = true;
-    $tituloPagina = 'Error al cargar anuncio | PI - Pisos e Inmuebles';
+$anuncio = obtenerDatosAnuncioPorId($idRecibido);
+if ($anuncio !== null) {
+    registrarVisitaAnuncio($idRecibido);
+    $tituloPagina = $anuncio['titulo'] . ' | PI - Pisos e Inmuebles';
 } else {
-    require_once $rutaDatosAnuncios;
-    $anuncio = $anunciosDetalle[$claveAnuncio] ?? null;
-    $tituloPagina = ($anuncio ? $anuncio['titulo'] : 'Detalle de anuncio') . ' | PI - Pisos e Inmuebles';
+    $tituloPagina = 'Error al cargar anuncio | PI - Pisos e Inmuebles';
 }
 
 $esPaginaPrivada = false;
 require_once __DIR__ . '/includes/cabecera.php';
 require_once __DIR__ . '/includes/inicio.php';
 ?>
-<?php if ($errorFichero || !$anuncio): ?>
+<?php if (!$anuncio): ?>
       <section class="conBorde">
         <h2>Error al cargar el anuncio</h2>
         <p>No se ha podido acceder al fichero de datos de anuncios o el anuncio solicitado no está disponible.</p>
