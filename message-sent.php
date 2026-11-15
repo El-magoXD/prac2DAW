@@ -1,17 +1,24 @@
 <?php
 /**
- * Práctica 7 - Respuesta "Página enviar mensaje" (message-sent.php).
+ * Práctica 7 y 8 - Respuesta "Página enviar mensaje" (message-sent.php - parte pública restringida).
+ * Protegida mediante sesión PHP (exigirAutenticacion()).
  * Muestra una confirmación de que se ha enviado el mensaje y los datos introducidos por el usuario.
  * Comprueba mediante PHP que el tipo de mensaje es válido y que se ha escrito algo en el texto del mensaje.
  */
+require_once __DIR__ . '/includes/funciones.php';
+
+$datos = !empty($_POST) ? $_POST : $_GET;
+$origen = ($datos['origen'] ?? '') === 'contact.php' ? 'contact.php' : 'message.php';
+if ($origen !== 'contact.php') {
+    exigirAutenticacion();
+}
+
 $tituloPagina = 'Respuesta envío de mensaje | PI - Pisos e Inmuebles';
 $esPaginaPrivada = false;
 
 require_once __DIR__ . '/includes/cabecera.php';
 require_once __DIR__ . '/includes/inicio.php';
 
-$datos = !empty($_POST) ? $_POST : $_GET;
-$origen = ($datos['origen'] ?? '') === 'contact.php' ? 'contact.php' : 'message.php';
 $idAnuncio = isset($datos['id_anuncio']) && is_numeric($datos['id_anuncio']) ? (int) $datos['id_anuncio'] : 1;
 
 $tipoMensaje = $datos['tipo_mensaje'] ?? '';

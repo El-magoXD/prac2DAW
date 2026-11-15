@@ -1,7 +1,8 @@
 <?php
 /**
- * Práctica 7 - Página de aviso de acceso restringido con formulario de control de acceso.
- * Validaciones HTML y JS desactivadas para comprobar la validación en servidor (acceso.php).
+ * Práctica 7 y 8 - Página de aviso de acceso restringido (aviso.php).
+ * Muestra el mensaje de acceso denegado (y los errores recuperados mediante Flashdata)
+ * junto con el formulario de inicio de sesión y la opción "Recordarme en este equipo".
  */
 $tituloPagina = 'Acceso denegado | PI - Pisos e Inmuebles';
 $esPaginaPrivada = false;
@@ -9,34 +10,26 @@ $esPaginaPrivada = false;
 require_once __DIR__ . '/includes/cabecera.php';
 require_once __DIR__ . '/includes/inicio.php';
 
-$codigoError = $_GET['error'] ?? '';
-$usuarioPrevio = $_GET['usuario'] ?? '';
-$mensajesError = [];
-$errorCampoUsuario = '';
-$errorCampoPassword = '';
+$datosErrorFlash = obtenerFlash('login_error', []);
+$codigoError = $datosErrorFlash['codigo'] ?? '';
+$mensajesError = $datosErrorFlash['mensajes'] ?? [];
+$errorCampoUsuario = $datosErrorFlash['error_usuario'] ?? '';
+$errorCampoPassword = $datosErrorFlash['error_password'] ?? '';
+$usuarioPrevio = $datosErrorFlash['usuario_previo'] ?? '';
 
-if ($codigoError === 'ambos_vacios') {
-    $errorCampoUsuario = 'El nombre de usuario no puede estar vacío ni contener solo espacios o tabuladores.';
-    $errorCampoPassword = 'La contraseña no puede estar vacía ni contener solo espacios o tabuladores.';
-    $mensajesError[] = $errorCampoUsuario;
-    $mensajesError[] = $errorCampoPassword;
-} elseif ($codigoError === 'usuario_vacio') {
-    $errorCampoUsuario = 'El nombre de usuario no puede estar vacío ni contener solo espacios o tabuladores.';
-    $mensajesError[] = $errorCampoUsuario;
-} elseif ($codigoError === 'password_vacio') {
-    $errorCampoPassword = 'La contraseña no puede estar vacía ni contener solo espacios o tabuladores.';
-    $mensajesError[] = $errorCampoPassword;
-} elseif ($codigoError === 'credenciales') {
-    $mensajesError[] = 'Acceso denegado: el nombre de usuario no está registrado o la contraseña no es correcta.';
-} elseif ($codigoError === 'fichero_usuarios') {
-    $mensajesError[] = 'Error interno: no se ha podido acceder al fichero de usuarios permitidos.';
-}
+$mensajeAccesoRestringido = obtenerFlash('error_acceso', '');
 ?>
       <h2>Acceso restringido</h2>
 
+<?php if ($mensajeAccesoRestringido !== ''): ?>
+      <div class="resumen-errores" role="alert">
+        <p class="resumen-errores-titulo"><?= e($mensajeAccesoRestringido) ?></p>
+      </div>
+<?php else: ?>
       <p>
-        Para poder acceder a esta funcionalidad debes iniciar sesión con un usuario registrado.
+        Para poder acceder a esta página o consultar el detalle de un anuncio debes iniciar sesión como usuario registrado.
       </p>
+<?php endif; ?>
 
       <section class="conBorde">
         <h2>Iniciar sesión</h2>
@@ -83,6 +76,11 @@ if ($codigoError === 'ambos_vacios') {
 <?php if ($errorCampoPassword !== ''): ?>
             <span class="mensaje-error" role="alert"><?= e($errorCampoPassword) ?></span>
 <?php endif; ?>
+          </p>
+
+          <p>
+            <input type="checkbox" id="recordarme" name="recordarme" value="1" />
+            <label for="recordarme">Recordarme en este equipo</label>
           </p>
 
           <p>

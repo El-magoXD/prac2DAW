@@ -1,7 +1,10 @@
 <?php
 /**
- * Práctica 7 - Página principal con formulario de acceso, últimos anuncios y búsqueda rápida.
- * Nota: Se han desactivado las validaciones HTML y JS del formulario de login para comprobar la validación en PHP (acceso.php).
+ * Práctica 7 y 8 - Página principal (index.php).
+ * - Si el usuario no está autenticado ni recordado: muestra el formulario de acceso con la opción
+ *   "Recordarme en este equipo" y los posibles mensajes de error recuperados mediante Flashdata.
+ * - Si el usuario está autenticado o recordado (Figura 2): muestra su saludo, la fecha y hora de su
+ *   última visita (cuando está siendo recordado) y los botones "Acceder" y "Salir".
  */
 $tituloPagina = 'PI - Pisos e Inmuebles';
 $esPaginaPrivada = false;
@@ -9,30 +12,37 @@ $esPaginaPrivada = false;
 require_once __DIR__ . '/includes/cabecera.php';
 require_once __DIR__ . '/includes/inicio.php';
 
-$codigoError = $_GET['error'] ?? '';
-$usuarioPrevio = $_GET['usuario'] ?? '';
-$mensajesError = [];
-$errorCampoUsuario = '';
-$errorCampoPassword = '';
+$datosErrorFlash = obtenerFlash('login_error', []);
+$codigoError = $datosErrorFlash['codigo'] ?? '';
+$mensajesError = $datosErrorFlash['mensajes'] ?? [];
+$errorCampoUsuario = $datosErrorFlash['error_usuario'] ?? '';
+$errorCampoPassword = $datosErrorFlash['error_password'] ?? '';
+$usuarioPrevio = $datosErrorFlash['usuario_previo'] ?? '';
 
-if ($codigoError === 'ambos_vacios') {
-    $errorCampoUsuario = 'El nombre de usuario no puede estar vacío ni contener solo espacios o tabuladores.';
-    $errorCampoPassword = 'La contraseña no puede estar vacía ni contener solo espacios o tabuladores.';
-    $mensajesError[] = $errorCampoUsuario;
-    $mensajesError[] = $errorCampoPassword;
-} elseif ($codigoError === 'usuario_vacio') {
-    $errorCampoUsuario = 'El nombre de usuario no puede estar vacío ni contener solo espacios o tabuladores.';
-    $mensajesError[] = $errorCampoUsuario;
-} elseif ($codigoError === 'password_vacio') {
-    $errorCampoPassword = 'La contraseña no puede estar vacía ni contener solo espacios o tabuladores.';
-    $mensajesError[] = $errorCampoPassword;
-} elseif ($codigoError === 'credenciales') {
-    $mensajesError[] = 'Acceso denegado: el nombre de usuario no está registrado o la contraseña no es correcta.';
-} elseif ($codigoError === 'fichero_usuarios') {
-    $mensajesError[] = 'Error interno: no se ha podido acceder al fichero de usuarios permitidos.';
+$mensajeAccesoFlash = obtenerFlash('error_acceso', '');
+if ($mensajeAccesoFlash !== '') {
+    $mensajesError[] = $mensajeAccesoFlash;
 }
+
+$autenticado = usuarioAutenticado();
+$usuarioActual = obtenerUsuarioActual();
+$estaSiendoRecordado = !empty($_SESSION['recordado']) && !empty($_SESSION['ultima_visita']);
 ?>
       <section class="conBorde">
+<?php if ($autenticado): ?>
+        <h2>Sesión iniciada</h2>
+        <p><strong><?= e(obtenerSaludoHorario($usuarioActual)) ?></strong></p>
+<?php if ($estaSiendoRecordado): ?>
+        <p>
+          Hola <strong><?= e($usuarioActual) ?></strong>, su última visita fue el
+          <strong><?= e($_SESSION['ultima_visita']) ?></strong>.
+        </p>
+<?php endif; ?>
+        <p>
+          <a class="btn-primary" href="index-reg.php">Acceder</a>
+          <a class="btn-accent" href="salir.php">Salir</a>
+        </p>
+<?php else: ?>
         <h2>Iniciar sesión</h2>
 
         <form action="acceso.php" method="post" novalidate>
@@ -79,9 +89,15 @@ if ($codigoError === 'ambos_vacios') {
           </p>
 
           <p>
+            <input type="checkbox" id="recordarme" name="recordarme" value="1" />
+            <label for="recordarme">Recordarme en este equipo</label>
+          </p>
+
+          <p>
             <button type="submit">Entrar</button>
           </p>
         </form>
+<?php endif; ?>
       </section>
 
 <?php

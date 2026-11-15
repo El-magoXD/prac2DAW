@@ -1,10 +1,11 @@
 <?php
 /**
- * Práctica 7 - Respuesta "Solicitar folleto" (ad-response.php).
- * Muestra la confirmación del registro de la solicitud, los datos reales recibidos del formulario
- * y el coste final calculado aplicando las tarifas sobre valores ficticios de páginas y fotos
- * junto con los parámetros elegidos por el usuario (el número de copias multiplica el precio unitario).
+ * Práctica 7 y 8 - Respuesta "Solicitar folleto" (ad-response.php - parte privada).
+ * Protegida mediante sesión PHP (exigirAutenticacion()).
  */
+require_once __DIR__ . '/includes/funciones.php';
+exigirAutenticacion();
+
 $tituloPagina = 'Folleto solicitado | PI - Pisos e Inmuebles';
 $esPaginaPrivada = true;
 

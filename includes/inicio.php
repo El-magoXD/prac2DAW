@@ -1,10 +1,12 @@
 <?php
 /**
- * Práctica 7 - Fragmento de plantilla: inicio de página (<body>, enlace de salto, <header>, logotipo, <nav> y apertura de <main>).
- * Si $esPaginaPrivada es true, muestra la barra de navegación completa de usuario registrado;
- * en caso contrario, muestra la barra de navegación pública.
+ * Práctica 7 y 8 - Fragmento de plantilla: inicio de página (<body>, enlace de salto, <header>, logotipo, <nav> y apertura de <main>).
+ * Cuando el usuario está autenticado o recordado mediante cookie, se muestra la barra de navegación
+ * de usuario autenticado (con su saludo horario y la opción Salir).
  */
-$mostrarMenuPrivado = isset($esPaginaPrivada) && $esPaginaPrivada === true;
+$estaAutenticado = usuarioAutenticado();
+$usuarioSesion = obtenerUsuarioActual();
+$mostrarMenuPrivado = $estaAutenticado || (isset($esPaginaPrivada) && $esPaginaPrivada === true);
 ?>
   <body>
     <a class="skip-link" href="#main-content">Saltar al contenido principal</a>
@@ -14,14 +16,15 @@ $mostrarMenuPrivado = isset($esPaginaPrivada) && $esPaginaPrivada === true;
       <nav aria-label="Navegación principal">
         <ul>
 <?php if ($mostrarMenuPrivado): ?>
-          <li><a href="index-reg.php"><i class="fa-solid fa-house" aria-label="Inicio" role="img"></i> Inicio</a></li>
+          <li><a href="index.php"><i class="fa-solid fa-house" aria-label="Página principal" role="img"></i> Página principal</a></li>
+          <li><a href="index-reg.php"><i class="fa-solid fa-user" aria-label="Menú usuario" role="img"></i> <?= e(obtenerSaludoHorario($usuarioSesion)) ?></a></li>
           <li><a href="search.php"><i class="fa-solid fa-magnifying-glass" aria-label="Buscar anuncios" role="img"></i> Buscar anuncios</a></li>
           <li><a href="mis-anuncios.php"><i class="fa-solid fa-bullhorn" aria-label="Mis anuncios" role="img"></i> Mis anuncios</a></li>
           <li><a href="crear-anuncio.php"><i class="fa-solid fa-circle-plus" aria-label="Crear anuncio" role="img"></i> Crear anuncio</a></li>
           <li><a href="anadir-foto.php"><i class="fa-solid fa-camera" aria-label="Añadir foto" role="img"></i> Añadir foto</a></li>
           <li><a href="create-ad.php"><i class="fa-solid fa-file-lines" aria-label="Solicitar folleto" role="img"></i> Solicitar folleto</a></li>
           <li><a href="my-messages.php"><i class="fa-solid fa-envelope" aria-label="Mis mensajes" role="img"></i> Mis mensajes</a></li>
-          <li><a href="index.php"><i class="fa-solid fa-right-from-bracket" aria-label="Cerrar sesión" role="img"></i> Salir</a></li>
+          <li><a href="salir.php"><i class="fa-solid fa-right-from-bracket" aria-label="Salir" role="img"></i> Salir</a></li>
           <li><a href="accesibilidad.php"><i class="fa-solid fa-universal-access" aria-label="Accesibilidad" role="img"></i> Accesibilidad</a></li>
           <li><a href="contact.php"><i class="fa-solid fa-envelope" aria-label="Contactar" role="img"></i> Contactar</a></li>
 <?php else: ?>
