@@ -8,9 +8,7 @@
  */
 require_once __DIR__ . '/includes/funciones.php';
 
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+asegurarSesionIniciada();
 
 $origen = $_POST['origen'] ?? ($_GET['origen'] ?? 'index.php');
 if ($origen !== 'aviso.php') {

@@ -9,7 +9,7 @@ $usuariosPermitidos = [
         'password'      => 'pedro123',
         'estilo'        => 'style.css',
         'titulo_estilo' => 'Estilo principal',
-        'token'         => 'tok_u1_9f8a7b6c5d4e3f2a1b',
+        'token'         => 'tok_pe_9f8a7b6c5d4e3f2a1b',
     ],
     'juan' => [
         'password'      => 'Juan123',
