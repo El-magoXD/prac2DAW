@@ -106,6 +106,27 @@ function borrarCookiesRecordar()
 }
 
 /**
+ * Inicia la sesión PHP si aún no está activa, configurando la cookie de sesión (PHPSESSID)
+ * con HttpOnly y SameSite=Lax para proteger el identificador de sesión frente a XSS y CSRF.
+ *
+ * @return void
+ */
+function asegurarSesionIniciada()
+{
+    if (session_status() === PHP_SESSION_NONE) {
+        session_set_cookie_params([
+            'lifetime' => 0,
+            'path'     => '/',
+            'domain'   => '',
+            'secure'   => false,
+            'httponly' => true,
+            'samesite' => 'Lax',
+        ]);
+        session_start();
+    }
+}
+
+/**
  * Inicia la sesión PHP (si aún no está activa) y comprueba si existe la cookie de
  * "Recordarme en este equipo" para autenticar automáticamente al usuario sin pedir credenciales.
  * Cumple la nota 10: no extiende los 90 días de caducidad en sucesivos accesos y actualiza
@@ -115,9 +136,7 @@ function borrarCookiesRecordar()
  */
 function iniciarSesionYRecordar()
 {
-    if (session_status() === PHP_SESSION_NONE) {
-        session_start();
-    }
+    asegurarSesionIniciada();
 
     // Si el usuario ya tiene sesión activa en el servidor, no es necesario recuperarla de la cookie
     if (!empty($_SESSION['usuario'])) {
@@ -237,9 +256,7 @@ function obtenerSaludoHorario($nombreUsuario)
  */
 function establecerFlash($clave, $valor)
 {
-    if (session_status() === PHP_SESSION_NONE) {
-        session_start();
-    }
+    asegurarSesionIniciada();
 
     if (!isset($_SESSION['flash']) || !is_array($_SESSION['flash'])) {
         $_SESSION['flash'] = [];
@@ -257,9 +274,7 @@ function establecerFlash($clave, $valor)
  */
 function obtenerFlash($clave, $defecto = null)
 {
-    if (session_status() === PHP_SESSION_NONE) {
-        session_start();
-    }
+    asegurarSesionIniciada();
 
     if (isset($_SESSION['flash']) && is_array($_SESSION['flash']) && array_key_exists($clave, $_SESSION['flash'])) {
         $valor = $_SESSION['flash'][$clave];

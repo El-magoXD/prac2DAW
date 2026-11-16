@@ -6,9 +6,7 @@
  */
 require_once __DIR__ . '/includes/funciones.php';
 
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+asegurarSesionIniciada();
 
 // 1. Borrar cookies de "Recordarme en este equipo" (si existían)
 borrarCookiesRecordar();
@@ -20,9 +18,7 @@ borrarCookieSegura('ultimos_anuncios');
 $_SESSION = array();
 
 // 4. Borrar la cookie que almacena el identificador de la sesión (PHPSESSID)
-if (isset($_COOKIE[session_name()])) {
-    setcookie(session_name(), '', time() - 42000, '/');
-}
+borrarCookieSegura(session_name());
 
 // 5. Destruir finalmente la sesión en el servidor
 session_destroy();
