@@ -13,7 +13,7 @@
 ### 2. Mensaje de fecha y hora de la última visita y cambio del formulario (Págs. 2 y 3, Figura 2)
 - **Sustitución del formulario de login en [index.php](file:///c:/xampp/htdocs/DAW/prac2/index.php#L30-L43):**
   - Cuando el usuario está autenticado o siendo recordado, en lugar de pedir usuario y contraseña se muestra el bloque con los botones **Acceder** (a [index-reg.php](file:///c:/xampp/htdocs/DAW/prac2/index-reg.php)) y **Salir** (a [salir.php](file:///c:/xampp/htdocs/DAW/prac2/salir.php)), además de cambiar el menú superior de navegación ([inicio.php](file:///c:/xampp/htdocs/DAW/prac2/includes/inicio.php)).
-  - Si se está recordando al usuario (`$_SESSION['recordado'] === true`), tanto en [index.php](file:///c:/xampp/htdocs/DAW/prac2/index.php#L33-L38) como en [index-reg.php](file:///c:/xampp/htdocs/DAW/prac2/index-reg.php#L24-L29) se muestra el mensaje:
+  - Si se está recordando al usuario (`$_SESSION['recordado'] === true`), tanto en [index.php](file:///c:/xampp/htdocs/DAW/prac2/index.php#L33-L38) como en [index-reg.php](file:///c:/xampp/htdocs/DAW/prac2/index-reg.php#L24-L29), así como automáticamente desde [inicio.php](file:///c:/xampp/htdocs/DAW/prac2/includes/inicio.php) en el resto de páginas al acceder directamente a su URL (Nota 12), se muestra el mensaje:
     > *«Hola **[Usuario]**, su última visita fue el **DD/MM/AAAA a las HH:MM**.»*
   - Si el usuario inició sesión sin marcar «Recordarme», no se muestra ningún mensaje de última visita (tal como pide la pág. 2).
 - **Cálculo exacto de la última visita (Pág. 3):**

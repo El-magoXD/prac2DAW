@@ -7,6 +7,8 @@
 $estaAutenticado = usuarioAutenticado();
 $usuarioSesion = obtenerUsuarioActual();
 $mostrarMenuPrivado = $estaAutenticado || (isset($esPaginaPrivada) && $esPaginaPrivada === true);
+$estaSiendoRecordado = $estaAutenticado && !empty($_SESSION['recordado']) && !empty($_SESSION['ultima_visita']);
+$paginaActual = basename($_SERVER['PHP_SELF'] ?? '');
 ?>
   <body>
     <a class="skip-link" href="#main-content">Saltar al contenido principal</a>
@@ -39,3 +41,11 @@ $mostrarMenuPrivado = $estaAutenticado || (isset($esPaginaPrivada) && $esPaginaP
     </header>
 
     <main id="main-content">
+<?php if ($estaSiendoRecordado && !in_array($paginaActual, ['index.php', 'index-reg.php'], true)): ?>
+      <section class="conBorde" aria-label="Información de última visita">
+        <p>
+          Hola <strong><?= e($usuarioSesion) ?></strong>, su última visita fue el
+          <strong><?= e($_SESSION['ultima_visita']) ?></strong>.
+        </p>
+      </section>
+<?php endif; ?>
