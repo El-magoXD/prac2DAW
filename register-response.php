@@ -1,17 +1,19 @@
 <?php
 /**
- * Práctica 7 y 8 - Respuesta "Página con el formulario de registro como nuevo usuario" (register-response.php).
- * Comprueba mediante PHP que se ha escrito algo en nombre de usuario, contraseña y repetir contraseña,
- * y que contraseña y repetir contraseña coinciden:
- * - Si hay errores: guarda los mensajes de error y los datos previos en Flashdata ($_SESSION['flash'])
- *   y redirige inmediatamente a register.php sin usar la URL.
- * - Si todo es correcto: muestra los datos que el usuario ha introducido (sin la foto de perfil).
+ * Práctica 7, 8 y 9 - Respuesta "Página con el formulario de registro como nuevo usuario" / "Mis datos"
+ * (register-response.php). Comparte las mismas validaciones para ambos formularios y consulta
+ * el nombre del país en la tabla Paises.
  */
 require_once __DIR__ . '/includes/funciones.php';
 
 iniciarSesionYRecordar();
 
 $datos = !empty($_POST) ? $_POST : $_GET;
+$modoFormulario = (($datos['modo_formulario'] ?? '') === 'mis_datos') ? 'mis_datos' : 'registro';
+
+if ($modoFormulario === 'mis_datos') {
+    exigirAutenticacion();
+}
 
 $usuario = $datos['usuario'] ?? '';
 $password = $datos['password'] ?? '';
@@ -48,9 +50,12 @@ if (!tieneContenidoSinEspacios($password2)) {
     $errores[] = $errPassword2;
 }
 
-// Si hay errores, almacenar en Flashdata y redirigir a register.php (Práctica 8, pág. 4)
+// Si hay errores, almacenar en Flashdata y redirigir al formulario correspondiente
 if (!empty($errores)) {
-    establecerFlash('registro_error', [
+    $claveFlash = ($modoFormulario === 'mis_datos') ? 'mis_datos_error' : 'registro_error';
+    $destino = ($modoFormulario === 'mis_datos') ? 'mis-datos.php' : 'register.php';
+
+    establecerFlash($claveFlash, [
         'usuario'          => $usuario,
         'password'         => $password,
         'password2'        => $password2,
@@ -64,24 +69,33 @@ if (!empty($errores)) {
         'err_password2'    => $errPassword2,
         'mensajes'         => $errores,
     ]);
-    redirigir('register.php');
+    redirigir($destino);
 }
 
-$tituloPagina = 'Respuesta de registro | PI - Pisos e Inmuebles';
-$esPaginaPrivada = false;
+$esPaginaPrivada = ($modoFormulario === 'mis_datos');
+$tituloPagina = $esPaginaPrivada
+    ? 'Validación de Mis datos | PI - Pisos e Inmuebles'
+    : 'Respuesta de registro | PI - Pisos e Inmuebles';
 
 require_once __DIR__ . '/includes/cabecera.php';
 require_once __DIR__ . '/includes/inicio.php';
 
 $nombresSexo = [
+    '1'      => 'Hombre',
+    '2'      => 'Mujer',
+    '3'      => 'Otro',
     'hombre' => 'Hombre',
     'mujer'  => 'Mujer',
     'otro'   => 'Otro',
 ];
 ?>
       <section>
-        <h2>Registro completado correctamente</h2>
-        <p>Inserción realizada, tus datos recibidos son los siguientes:</p>
+        <h2><?= $esPaginaPrivada ? 'Datos validados correctamente' : 'Registro completado correctamente' ?></h2>
+        <p>
+          <?= $esPaginaPrivada
+              ? 'Tus datos enviados desde "Mis datos" se han validado correctamente (la actualización en BD se implementará en la siguiente práctica):'
+              : 'Inserción realizada, tus datos recibidos son los siguientes:' ?>
+        </p>
 
         <fieldset>
           <legend>Datos de acceso registrados</legend>
@@ -95,7 +109,7 @@ $nombresSexo = [
           <legend>Datos personales registrados</legend>
           <p>
             <strong>Sexo:</strong>
-            <?= ($sexo !== '' && isset($nombresSexo[$sexo])) ? e($nombresSexo[$sexo]) : '<em>(No especificado)</em>' ?>
+            <?= ($sexo !== '' && isset($nombresSexo[(string) $sexo])) ? e($nombresSexo[(string) $sexo]) : '<em>(No especificado)</em>' ?>
           </p>
           <p>
             <strong>Fecha de nacimiento:</strong>
@@ -107,12 +121,17 @@ $nombresSexo = [
           </p>
           <p>
             <strong>País de residencia:</strong>
-            <?= tieneContenidoSinEspacios($pais) ? e(obtenerNombrePais($pais)) : '<em>(No especificado)</em>' ?>
+            <?= tieneContenidoSinEspacios((string) $pais) ? e(obtenerNombrePais($pais)) : '<em>(No especificado)</em>' ?>
           </p>
         </fieldset>
 
         <p>
+<?php if ($esPaginaPrivada): ?>
+          <a class="btn-primary" href="mis-datos.php">Volver a Mis datos</a>
+          <a class="btn-primary" href="index-reg.php">Volver al menú de usuario</a>
+<?php else: ?>
           <a class="btn-primary" href="index.php">Volver a la página principal</a>
+<?php endif; ?>
         </p>
       </section>
 <?php

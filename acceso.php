@@ -1,10 +1,8 @@
 <?php
 /**
- * Práctica 7 y 8 - Página control de acceso (no visible).
- * Valida las credenciales enviadas desde el formulario de inicio de sesión:
- * - Si hay errores, emplea Flashdata en sesión (sin pasar errores por la URL) y redirige al formulario.
- * - Si es correcto, inicia la sesión del usuario, asigna su estilo CSS preferido, gestiona la cookie
- *   "Recordarme en este equipo" (90 días, HttpOnly, mediante token) y redirige a index-reg.php.
+ * Práctica 7, 8 y 9 - Página control de acceso (no visible).
+ * Valida las credenciales contra la tabla Usuarios de la base de datos pibd
+ * mediante sentencias preparadas mysqli y verificación de contraseña cifrada (password_verify).
  */
 require_once __DIR__ . '/includes/funciones.php';
 
@@ -63,45 +61,52 @@ if (!$passwordValido) {
     redirigir($origen);
 }
 
-// 2. Comprobar que el fichero de usuarios permitidos existe y tiene permisos de lectura
-$rutaFicheroUsuarios = __DIR__ . '/includes/datos_usuarios.php';
-if (!file_exists($rutaFicheroUsuarios) || !is_readable($rutaFicheroUsuarios)) {
+$usuarioLimpio = trim((string) $usuario);
+
+// 2. Comprobar que la conexión a la base de datos funciona antes de consultar
+$conexionPrueba = obtenerConexionBD();
+if (!$conexionPrueba instanceof mysqli) {
     establecerFlash('login_error', [
-        'codigo'          => 'fichero_usuarios',
+        'codigo'          => 'error_bd',
         'mensajes'        => [
-            'Error interno: no se ha podido acceder al fichero de usuarios permitidos.',
+            'Error interno: no se ha podido establecer conexión con la base de datos.',
         ],
         'error_usuario'   => '',
         'error_password'  => '',
-        'usuario_previo'  => trim($usuario),
+        'usuario_previo'  => $usuarioLimpio,
     ]);
     redirigir($origen);
 }
+$conexionPrueba->close();
 
-require $rutaFicheroUsuarios;
+// 3. Consultar el usuario en la tabla Usuarios mediante sentencia preparada
+$datosUsuario = obtenerUsuarioPorNombre($usuarioLimpio);
 
-$usuarioLimpio = trim($usuario);
+$credencialesCorrectas = false;
+if ($datosUsuario !== null && isset($datosUsuario['Clave'])) {
+    $claveAlmacenada = (string) $datosUsuario['Clave'];
+    $credencialesCorrectas = password_verify($password, $claveAlmacenada) || hash_equals($claveAlmacenada, (string) $password);
+}
 
-// 3. Comprobar si el usuario pertenece a los cuatro usuarios permitidos y su contraseña coincide
-if (
-    isset($usuariosPermitidos[$usuarioLimpio]) &&
-    isset($usuariosPermitidos[$usuarioLimpio]['password']) &&
-    $usuariosPermitidos[$usuarioLimpio]['password'] === $password
-) {
-    $datosUsuario = $usuariosPermitidos[$usuarioLimpio];
-
-    $_SESSION['usuario'] = $usuarioLimpio;
-    $_SESSION['estilo'] = $datosUsuario['estilo'] ?? 'style.css';
-    $_SESSION['titulo_estilo'] = $datosUsuario['titulo_estilo'] ?? 'Estilo principal';
+if ($credencialesCorrectas) {
+    $_SESSION['id_usuario'] = (int) $datosUsuario['IdUsuario'];
+    $_SESSION['usuario'] = (string) $datosUsuario['NomUsuario'];
+    $_SESSION['estilo'] = (string) $datosUsuario['EstiloFichero'];
+    $_SESSION['titulo_estilo'] = (string) $datosUsuario['EstiloNombre'];
 
     if ($recordarme) {
         $ahoraTexto = date('d/m/Y \a \l\a\s H:i');
         $expira90Dias = time() + (90 * 24 * 60 * 60);
+        $tokenUsuario = generarTokenRecordar(
+            (int) $datosUsuario['IdUsuario'],
+            (string) $datosUsuario['NomUsuario'],
+            (string) $datosUsuario['Clave']
+        );
 
         $_SESSION['recordado'] = true;
         $_SESSION['ultima_visita'] = $ahoraTexto;
 
-        enviarCookieSegura('recordar_token', $datosUsuario['token'], $expira90Dias);
+        enviarCookieSegura('recordar_token', $tokenUsuario, $expira90Dias);
         enviarCookieSegura('recordar_ultima_visita', $ahoraTexto, $expira90Dias);
         enviarCookieSegura('recordar_expira', (string) $expira90Dias, $expira90Dias);
     } else {

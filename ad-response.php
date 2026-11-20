@@ -1,6 +1,6 @@
 <?php
 /**
- * Práctica 7 y 8 - Respuesta "Solicitar folleto" (ad-response.php - parte privada).
+ * Práctica 7, 8 y 9 - Respuesta "Solicitar folleto" (ad-response.php - parte privada).
  * Protegida mediante sesión PHP (exigirAutenticacion()).
  */
 require_once __DIR__ . '/includes/funciones.php';
@@ -12,45 +12,45 @@ $esPaginaPrivada = true;
 require_once __DIR__ . '/includes/cabecera.php';
 require_once __DIR__ . '/includes/inicio.php';
 
-// Recogida de parámetros enviados por el usuario (POST o GET)
 $datos = !empty($_POST) ? $_POST : $_GET;
 
-$codigoAnuncio = $datos['anuncio'] ?? 'piso-alicante';
-$textoAdicional = $datos['texto_adicional'] ?? '';
-$colorPortada = $datos['color_portada'] ?? '#000000';
+$codigoAnuncio = (string) ($datos['anuncio'] ?? '');
+$textoAdicional = (string) ($datos['texto_adicional'] ?? '');
+$colorPortada = (string) ($datos['color_portada'] ?? '#000000');
 $copias = isset($datos['copias']) && is_numeric($datos['copias']) ? max(1, min(99, (int) $datos['copias'])) : 1;
-$resolucion = isset($datos['resolucion']) && is_numeric($datos['resolucion']) ? (int) $datos['resolucion'] : 150;
-$impresion = $datos['impresion'] ?? 'blanco-negro';
-$mostrarPrecio = $datos['mostrar_precio'] ?? 'si';
+$resolucion = isset($datos['resolucion']) && is_numeric($datos['resolucion']) ? max(150, min(900, (int) $datos['resolucion'])) : 150;
+$impresion = (string) ($datos['impresion'] ?? 'blanco-negro');
+$mostrarPrecio = (string) ($datos['mostrar_precio'] ?? 'si');
 
-$nombre = $datos['nombre'] ?? '';
-$email = $datos['email'] ?? '';
-$calle = $datos['calle'] ?? '';
-$numero = $datos['numero'] ?? '';
-$piso = $datos['piso'] ?? '';
-$puerta = $datos['puerta'] ?? '';
-$codigoPostal = $datos['codigo_postal'] ?? '';
-$localidad = $datos['localidad'] ?? '';
-$provincia = $datos['provincia'] ?? '';
+$nombre = (string) ($datos['nombre'] ?? '');
+$email = (string) ($datos['email'] ?? '');
+$calle = (string) ($datos['calle'] ?? '');
+$numero = (string) ($datos['numero'] ?? '');
+$piso = (string) ($datos['piso'] ?? '');
+$puerta = (string) ($datos['puerta'] ?? '');
+$codigoPostal = (string) ($datos['codigo_postal'] ?? '');
+$localidad = (string) ($datos['localidad'] ?? '');
+$provincia = (string) ($datos['provincia'] ?? '');
 $pais = obtenerNombrePais($datos['pais'] ?? '');
-$telefono = $datos['telefono'] ?? '';
-$fechaRecepcion = $datos['fecha_recepcion'] ?? '';
+$telefono = (string) ($datos['telefono'] ?? '');
+$fechaRecepcion = (string) ($datos['fecha_recepcion'] ?? '');
 
-// Valores ficticios de páginas y fotos del folleto según el anuncio seleccionado
-if ($codigoAnuncio === 'apartamento-valencia') {
-    $nombreAnuncio = 'Apartamento moderno en Valencia';
-    $numPaginasFicticio = 8;
-    $numFotosFicticio = 15;
-} else {
-    $nombreAnuncio = 'Piso luminoso en Alicante';
-    $numPaginasFicticio = 5;
-    $numFotosFicticio = 6;
+$nombreAnuncio = 'Anuncio seleccionado';
+$numPaginasFicticio = 5;
+$numFotosFicticio = 6;
+
+if (ctype_digit($codigoAnuncio) && (int) $codigoAnuncio > 0) {
+    $galeriaAnuncio = obtenerGaleriaAnuncio((int) $codigoAnuncio);
+    if ($galeriaAnuncio !== null) {
+        $nombreAnuncio = $galeriaAnuncio['anuncio']['titulo'];
+        $numFotosFicticio = (int) $galeriaAnuncio['total'];
+        $numPaginasFicticio = max(3, $numFotosFicticio + 2);
+    }
 }
 
 $esColor = ($impresion === 'color');
 $esAltaResolucion = ($resolucion > 300);
 
-// Cálculo del precio unitario y precio total (el número de copias multiplica el precio unitario)
 $costeUnitario = calcularCosteFolleto($numPaginasFicticio, $numFotosFicticio, $esColor, $esAltaResolucion);
 $costeTotal = $costeUnitario * $copias;
 

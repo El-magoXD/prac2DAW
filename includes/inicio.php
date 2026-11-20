@@ -20,6 +20,8 @@ $paginaActual = basename($_SERVER['PHP_SELF'] ?? '');
 <?php if ($mostrarMenuPrivado): ?>
           <li><a href="index.php"><i class="fa-solid fa-house" aria-label="Página principal" role="img"></i> Página principal</a></li>
           <li><a href="index-reg.php"><i class="fa-solid fa-user" aria-label="Menú usuario" role="img"></i> <?= e(obtenerSaludoHorario($usuarioSesion)) ?></a></li>
+          <li><a href="mis-datos.php"><i class="fa-solid fa-id-card" aria-label="Mis datos" role="img"></i> Mis datos</a></li>
+          <li><a href="configurar.php"><i class="fa-solid fa-palette" aria-label="Configurar" role="img"></i> Configurar</a></li>
           <li><a href="search.php"><i class="fa-solid fa-magnifying-glass" aria-label="Buscar anuncios" role="img"></i> Buscar anuncios</a></li>
           <li><a href="mis-anuncios.php"><i class="fa-solid fa-bullhorn" aria-label="Mis anuncios" role="img"></i> Mis anuncios</a></li>
           <li><a href="crear-anuncio.php"><i class="fa-solid fa-circle-plus" aria-label="Crear anuncio" role="img"></i> Crear anuncio</a></li>

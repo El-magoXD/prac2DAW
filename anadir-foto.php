@@ -1,7 +1,8 @@
 <?php
 /**
- * Práctica 7 y 8 - Página "Añadir foto a anuncio" (anadir-foto.php - parte privada).
+ * Práctica 7, 8 y 9 - Página "Añadir foto a anuncio" (anadir-foto.php - parte privada).
  * Protegida mediante sesión PHP (exigirAutenticacion()).
+ * Carga la lista de anuncios del usuario desde la tabla Anuncios.
  */
 require_once __DIR__ . '/includes/funciones.php';
 exigirAutenticacion();
@@ -12,15 +13,17 @@ $esPaginaPrivada = true;
 require_once __DIR__ . '/includes/cabecera.php';
 require_once __DIR__ . '/includes/inicio.php';
 
-$anunciosDisponibles = [
-    1 => 'Piso luminoso en Alicante',
-    2 => 'Apartamento moderno en Valencia',
-    3 => 'Piso reformado en Madrid',
-];
+$idUsuario = obtenerIdUsuarioActual();
+$anunciosUsuario = obtenerAnunciosDeUsuario($idUsuario);
+$anunciosDisponibles = [];
+foreach ($anunciosUsuario as $anuncioItem) {
+    $anunciosDisponibles[(int) $anuncioItem['id']] = (string) $anuncioItem['titulo'];
+}
 
 $anuncioPreseleccionado = null;
-if (isset($_GET['anuncio']) && $_GET['anuncio'] !== '') {
-    $idCandidato = (int) $_GET['anuncio'];
+$anuncioRaw = $_GET['anuncio'] ?? '';
+if (is_string($anuncioRaw) && ctype_digit($anuncioRaw) && (int) $anuncioRaw > 0) {
+    $idCandidato = (int) $anuncioRaw;
     if (isset($anunciosDisponibles[$idCandidato])) {
         $anuncioPreseleccionado = $idCandidato;
     }
@@ -33,6 +36,10 @@ if (isset($_GET['anuncio']) && $_GET['anuncio'] !== '') {
           Recuerda que todas las imágenes deben contar con un texto alternativo descriptivo de al menos 10 caracteres.
         </p>
 
+<?php if (empty($anunciosDisponibles)): ?>
+        <p>No tienes anuncios disponibles en la base de datos a los que añadir fotografías.</p>
+        <p><a class="btn-primary" href="crear-anuncio.php">Crear anuncio</a></p>
+<?php else: ?>
         <form action="mis-anuncios.php" method="post" enctype="multipart/form-data">
           <fieldset>
             <legend>Datos de la fotografía</legend>
@@ -77,6 +84,7 @@ if (isset($_GET['anuncio']) && $_GET['anuncio'] !== '') {
                 id="texto_alternativo"
                 name="texto_alternativo"
                 minlength="10"
+                maxlength="255"
                 placeholder="Describe detalladamente la imagen (mínimo 10 caracteres)"
                 required
               />
@@ -100,6 +108,7 @@ if (isset($_GET['anuncio']) && $_GET['anuncio'] !== '') {
             </p>
           </fieldset>
         </form>
+<?php endif; ?>
       </section>
 <?php
 require_once __DIR__ . '/includes/pie.php';

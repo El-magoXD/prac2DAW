@@ -1,7 +1,8 @@
 <?php
 /**
- * Práctica 7 y 8 - Página "Solicitar folleto" (create-ad.php - parte privada).
- * Protegida mediante sesión PHP (exigirAutenticacion()).
+ * Práctica 7, 8 y 9 - Página "Solicitar folleto" (create-ad.php - parte privada).
+ * Muestra un listado con todos los anuncios del usuario autenticado obtenidos desde la BD
+ * y permite elegir uno de ellos en el formulario de solicitud.
  */
 require_once __DIR__ . '/includes/funciones.php';
 exigirAutenticacion();
@@ -12,6 +13,9 @@ $scriptsPagina = ['js/utilidades.js', 'js/folleto.js'];
 
 require_once __DIR__ . '/includes/cabecera.php';
 require_once __DIR__ . '/includes/inicio.php';
+
+$idUsuarioActual = obtenerIdUsuarioActual();
+$anunciosUsuario = obtenerAnunciosDeUsuario($idUsuarioActual);
 ?>
       <h2>Solicitar un folleto publicitario</h2>
       <p>
@@ -21,6 +25,24 @@ require_once __DIR__ . '/includes/inicio.php';
         el tipo de impresión y la resolución, y el número de copias multiplica el
         precio unitario del folleto publicitario.
       </p>
+
+      <section class="conBorde">
+        <h3>Tus anuncios disponibles para folleto (<?= count($anunciosUsuario) ?>)</h3>
+<?php if (empty($anunciosUsuario)): ?>
+        <p>Actualmente no tienes anuncios publicados en la base de datos.</p>
+<?php else: ?>
+        <ul>
+<?php foreach ($anunciosUsuario as $anuncioPropio): ?>
+          <li>
+            <a href="ver-anuncio.php?id=<?= (int) $anuncioPropio['id'] ?>">
+              <strong><?= e($anuncioPropio['titulo']) ?></strong>
+            </a>
+            — <?= e($anuncioPropio['tipo_anuncio']) ?> (<?= e($anuncioPropio['ciudad']) ?>, <?= e($anuncioPropio['precio']) ?>)
+          </li>
+<?php endforeach; ?>
+        </ul>
+<?php endif; ?>
+      </section>
 
       <section>
         <h3>Tarifas de impresión</h3>
@@ -131,12 +153,16 @@ require_once __DIR__ . '/includes/inicio.php';
             <label for="anuncio">Anuncio propio (*):</label>
             <select id="anuncio" name="anuncio" required>
               <option value="">Selecciona uno de tus anuncios</option>
-              <option value="piso-alicante">
-                Piso luminoso en Alicante (5 páginas, 6 fotos)
+<?php foreach ($anunciosUsuario as $anuncioPropio): ?>
+<?php
+    $galeriaAnuncioPropio = obtenerGaleriaAnuncio((int) $anuncioPropio['id']);
+    $numFotosAnuncio = $galeriaAnuncioPropio !== null ? (int) $galeriaAnuncioPropio['total'] : 3;
+    $numPaginasAnuncio = max(3, $numFotosAnuncio + 2);
+?>
+              <option value="<?= (int) $anuncioPropio['id'] ?>">
+                <?= e($anuncioPropio['titulo']) ?> (<?= $numPaginasAnuncio ?> páginas, <?= $numFotosAnuncio ?> fotos)
               </option>
-              <option value="apartamento-valencia">
-                Apartamento moderno en Valencia (8 páginas, 15 fotos)
-              </option>
+<?php endforeach; ?>
             </select>
             <small>Solo puedes solicitar folletos de anuncios publicados por ti.</small>
           </p>
@@ -317,13 +343,12 @@ require_once __DIR__ . '/includes/inicio.php';
               <option value="Valencia">Valencia</option>
               <option value="Castellón">Castellón</option>
             </select>
-            <select id="pais" name="pais" required>
-              <option value="">País</option>
-              <option value="espana">España</option>
-              <option value="francia">Francia</option>
-              <option value="italia">Italia</option>
-              <option value="portugal">Portugal</option>
-            </select>
+<?php
+$paisSeleccionado = '';
+$textoOpcionVaciaPais = 'País';
+$paisObligatorio = true;
+require __DIR__ . '/includes/select_paises.php';
+?>
           </p>
 
           <p>

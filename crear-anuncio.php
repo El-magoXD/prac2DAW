@@ -1,7 +1,8 @@
 <?php
 /**
- * Práctica 7 y 8 - Página "Crear anuncio" (crear-anuncio.php - parte privada).
- * Protegida mediante sesión PHP (exigirAutenticacion()).
+ * Práctica 7, 8 y 9 - Página "Crear anuncio" (crear-anuncio.php - parte privada).
+ * Carga las listas desplegables de Tipo de anuncio, Tipo de vivienda y País desde la BD
+ * mediante fragmentos reutilizables (Nota 45).
  */
 require_once __DIR__ . '/includes/funciones.php';
 exigirAutenticacion();
@@ -20,26 +21,12 @@ require_once __DIR__ . '/includes/inicio.php';
           <fieldset>
             <legend>Datos generales del anuncio</legend>
 
-            <p>
-              <label for="tipo_anuncio">Tipo de anuncio (*):</label>
-              <select id="tipo_anuncio" name="tipo_anuncio" required>
-                <option value="">Selecciona el tipo de anuncio</option>
-                <option value="venta">Venta</option>
-                <option value="alquiler">Alquiler</option>
-              </select>
-            </p>
-
-            <p>
-              <label for="tipo_vivienda">Tipo de vivienda (*):</label>
-              <select id="tipo_vivienda" name="tipo_vivienda" required>
-                <option value="">Selecciona el tipo de vivienda</option>
-                <option value="obra_nueva">Obra nueva</option>
-                <option value="vivienda">Vivienda</option>
-                <option value="oficina">Oficina</option>
-                <option value="local">Local</option>
-                <option value="garaje">Garaje</option>
-              </select>
-            </p>
+<?php
+$esFormularioCrearAnuncio = true;
+$tipoAnuncioSeleccionado = '';
+$tipoViviendaSeleccionado = '';
+require __DIR__ . '/includes/campos_busqueda_anuncio.php';
+?>
 
             <p>
               <label for="titulo">Título del anuncio (*):</label>
@@ -59,7 +46,7 @@ require_once __DIR__ . '/includes/inicio.php';
                 id="precio"
                 name="precio"
                 min="0"
-                step="1"
+                step="0.01"
                 placeholder="Ej. 185000"
                 required
               />
@@ -78,19 +65,12 @@ require_once __DIR__ . '/includes/inicio.php';
 
             <p>
               <label for="pais">País (*):</label>
-              <select id="pais" name="pais" required>
-                <option value="">Selecciona un país</option>
-                <option value="espana">España</option>
-                <option value="francia">Francia</option>
-                <option value="italia">Italia</option>
-                <option value="alemania">Alemania</option>
-                <option value="portugal">Portugal</option>
-                <option value="paises-bajos">Países Bajos</option>
-                <option value="belgica">Bélgica</option>
-                <option value="irlanda">Irlanda</option>
-                <option value="reino-unido">Reino Unido</option>
-                <option value="estados-unidos">Estados Unidos</option>
-              </select>
+<?php
+$paisSeleccionado = '';
+$textoOpcionVaciaPais = 'Selecciona un país';
+$paisObligatorio = true;
+require __DIR__ . '/includes/select_paises.php';
+?>
             </p>
 
             <p>
@@ -115,13 +95,15 @@ require_once __DIR__ . '/includes/inicio.php';
             </p>
 
             <p>
-              <label for="alt_foto_principal">Texto alternativo de la foto principal:</label>
+              <label for="alt_foto_principal">Texto alternativo de la foto principal (*):</label>
               <input
                 type="text"
                 id="alt_foto_principal"
                 name="alt_foto_principal"
                 minlength="10"
+                maxlength="255"
                 placeholder="Descripción de la foto principal (mínimo 10 caracteres)"
+                required
               />
             </p>
           </fieldset>
@@ -136,6 +118,7 @@ require_once __DIR__ . '/includes/inicio.php';
                 id="superficie"
                 name="superficie"
                 min="1"
+                step="0.01"
                 placeholder="Ej. 90"
                 required
               />
@@ -168,10 +151,10 @@ require_once __DIR__ . '/includes/inicio.php';
             <p>
               <label for="planta">Planta (*):</label>
               <input
-                type="text"
+                type="number"
                 id="planta"
                 name="planta"
-                placeholder="Ej. 4ª planta / Bajo"
+                placeholder="Ej. 4 (0 para Bajo, -1 para sótano)"
                 required
               />
             </p>

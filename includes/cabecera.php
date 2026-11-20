@@ -12,28 +12,39 @@ if (!isset($tituloPagina) || $tituloPagina === '') {
     $tituloPagina = 'PI - Pisos e Inmuebles';
 }
 
-$estilosDisponibles = [
-    [
-        'href'  => 'style.css',
-        'title' => 'Estilo principal',
-    ],
-    [
-        'href'  => 'css/noche.css',
-        'title' => 'Modo noche',
-    ],
-    [
-        'href'  => 'css/contraste.css',
-        'title' => 'Alto contraste',
-    ],
-    [
-        'href'  => 'css/grande.css',
-        'title' => 'Texto grande',
-    ],
-    [
-        'href'  => 'css/contrasteygrande.css',
-        'title' => 'Alto contraste y texto grande',
-    ],
-];
+$estilosBD = obtenerEstilos();
+if (!empty($estilosBD)) {
+    $estilosDisponibles = [];
+    foreach ($estilosBD as $filaEstilo) {
+        $estilosDisponibles[] = [
+            'href'  => (string) $filaEstilo['Fichero'],
+            'title' => (string) $filaEstilo['Nombre'],
+        ];
+    }
+} else {
+    $estilosDisponibles = [
+        [
+            'href'  => 'style.css',
+            'title' => 'Estilo principal',
+        ],
+        [
+            'href'  => 'css/noche.css',
+            'title' => 'Modo noche',
+        ],
+        [
+            'href'  => 'css/contraste.css',
+            'title' => 'Alto contraste',
+        ],
+        [
+            'href'  => 'css/grande.css',
+            'title' => 'Texto grande',
+        ],
+        [
+            'href'  => 'css/contrasteygrande.css',
+            'title' => 'Alto contraste y texto grande',
+        ],
+    ];
+}
 
 $estiloUsuario = $_SESSION['estilo'] ?? 'style.css';
 $estilosOrdenados = [];

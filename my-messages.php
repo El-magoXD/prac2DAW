@@ -1,7 +1,8 @@
 <?php
 /**
- * Práctica 7 y 8 - Página "Mis mensajes" (my-messages.php - parte privada).
- * Protegida mediante sesión PHP (exigirAutenticacion()).
+ * Práctica 7, 8 y 9 - Página "Mis mensajes" (my-messages.php - parte privada).
+ * Consulta los mensajes enviados (UsuOrigen) y recibidos (UsuDestino) del usuario en la BD
+ * y muestra el número total de mensajes enviados y recibidos.
  */
 require_once __DIR__ . '/includes/funciones.php';
 exigirAutenticacion();
@@ -11,60 +12,77 @@ $esPaginaPrivada = true;
 
 require_once __DIR__ . '/includes/cabecera.php';
 require_once __DIR__ . '/includes/inicio.php';
+
+$idUsuario = obtenerIdUsuarioActual();
+$mensajesEnviados = obtenerMensajesEnviadosUsuario($idUsuario);
+$mensajesRecibidos = obtenerMensajesRecibidosUsuario($idUsuario);
 ?>
       <p><strong><?= e(obtenerSaludoHorario(obtenerUsuarioActual())) ?></strong></p>
 
-      <section>
-        <h2><u>Mensajes enviados</u></h2>
-
-        <article>
-          <fieldset>
-            <p><strong>Para:</strong> Juan Pérez</p>
-            <p><strong>Tipo de mensaje:</strong> Más información</p>
-            <p>
-              <strong>Texto:</strong> Hola, estoy interesado en el piso que
-              tienes en Alicante. ¿Podrías darme más detalles?
-            </p>
-            <p><strong>Fecha:</strong> 25/09/2026</p>
-          </fieldset>
-        </article>
-
-        <article>
-          <fieldset>
-            <p><strong>Para:</strong> María López</p>
-            <p><strong>Tipo de mensaje:</strong> Solicitar una cita</p>
-            <p>
-              <strong>Texto:</strong> Buenas tardes, me gustaría saber si el
-              apartamento sigue disponible y si se puede visitar.
-            </p>
-            <p><strong>Fecha:</strong> 24/09/2026</p>
-          </fieldset>
-        </article>
+      <section class="conBorde">
+        <h2>Resumen de mensajería</h2>
+        <ul>
+          <li><strong>Total de mensajes enviados:</strong> <?= count($mensajesEnviados) ?></li>
+          <li><strong>Total de mensajes recibidos:</strong> <?= count($mensajesRecibidos) ?></li>
+        </ul>
       </section>
 
       <section>
-        <h2><u>Mensajes recibidos</u></h2>
-
+        <h2><u>Mensajes enviados (<?= count($mensajesEnviados) ?>)</u></h2>
+<?php if (empty($mensajesEnviados)): ?>
+        <p>Todavía no has enviado ningún mensaje.</p>
+<?php else: ?>
+<?php foreach ($mensajesEnviados as $msg): ?>
         <article>
           <fieldset>
-            <p><strong>De:</strong> Juan Pérez</p>
-            <p><strong>Tipo de mensaje:</strong> Solicitar una cita</p>
             <p>
-              <strong>Texto:</strong> Me parece perfecto, ¿podríamos concertar
-              una visita para el próximo lunes?
+              <strong>Para:</strong>
+              <a href="perfil-usuario.php?id=<?= (int) $msg['IdDestinatario'] ?>">
+                <?= e($msg['NomDestinatario']) ?>
+              </a>
             </p>
-            <p><strong>Fecha:</strong> 28/09/2026</p>
+            <p>
+              <strong>Anuncio:</strong>
+              <a href="anuncio.php?id=<?= (int) $msg['Anuncio'] ?>">
+                <?= e($msg['TituloAnuncio']) ?>
+              </a>
+            </p>
+            <p><strong>Tipo de mensaje:</strong> <?= e($msg['NomTMensaje']) ?></p>
+            <p><strong>Texto:</strong> <?= e($msg['Texto']) ?></p>
+            <p><strong>Fecha:</strong> <?= e(formatearFechaBD($msg['FRegistro'], true)) ?></p>
           </fieldset>
         </article>
+<?php endforeach; ?>
+<?php endif; ?>
+      </section>
 
+      <section>
+        <h2><u>Mensajes recibidos (<?= count($mensajesRecibidos) ?>)</u></h2>
+<?php if (empty($mensajesRecibidos)): ?>
+        <p>Todavía no has recibido ningún mensaje.</p>
+<?php else: ?>
+<?php foreach ($mensajesRecibidos as $msg): ?>
         <article>
           <fieldset>
-            <p><strong>De:</strong> María López</p>
-            <p><strong>Tipo de mensaje:</strong> Más información</p>
-            <p><strong>Texto:</strong> Claro que sí, sigue disponible para visitas.</p>
-            <p><strong>Fecha:</strong> 26/09/2026</p>
+            <p>
+              <strong>De:</strong>
+              <a href="perfil-usuario.php?id=<?= (int) $msg['IdRemitente'] ?>">
+                <?= e($msg['NomRemitente']) ?>
+              </a>
+            </p>
+            <p>
+              <strong>Anuncio:</strong>
+              <a href="ver-anuncio.php?id=<?= (int) $msg['Anuncio'] ?>">
+                <?= e($msg['TituloAnuncio']) ?>
+              </a>
+            </p>
+            <p><strong>Tipo de mensaje:</strong> <?= e($msg['NomTMensaje']) ?></p>
+            <p><strong>Texto:</strong> <?= e($msg['Texto']) ?></p>
+            <p><strong>Fecha:</strong> <?= e(formatearFechaBD($msg['FRegistro'], true)) ?></p>
           </fieldset>
         </article>
+<?php endforeach; ?>
+<?php endif; ?>
       </section>
 <?php
 require_once __DIR__ . '/includes/pie.php';

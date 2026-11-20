@@ -1,3 +1,32 @@
+# Implementaciones Parte 9 (MySQL / MariaDB y acceso a datos con `mysqli`)
+
+### 1. Script SQL listo para importar en XAMPP ([pibd.sql](file:///c:/xampp/htdocs/DAW/prac2/pibd.sql))
+- Crea la base de datos **`pibd`** (`utf8mb4` / `utf8mb4_unicode_ci`) y el usuario específico **`wwwdata`@`localhost`** (contraseña `abc`) con permisos mínimos de manipulación de datos (`SELECT, INSERT, UPDATE, DELETE ON pibd.*`).
+- Define las 10 tablas pedidas con claves primarias, autoincrementos, claves ajenas y restricciones `CHECK` (`CHAR_LENGTH(Alternativo) >= 10`):
+  - **Tablas maestras:** `Paises`, `Estilos`, `TiposAnuncios`, `TiposViviendas`, `TiposMensajes`.
+  - **Tablas principales:** `Usuarios`, `Anuncios`, `Fotos`, `Solicitudes`, `Mensajes`.
+- Puebla las tablas con datos variados y coherentes: 10 países, 5 estilos, 2 tipos de anuncio, 5 tipos de vivienda, 3 tipos de mensaje, 5 usuarios con contraseñas cifradas mediante `password_hash` (`pedro`/`pedro123`, `juan`/`Juan123`, `maria`/`Maria123`, `admin`/`Admin123`, `usuario1`/`Pass123`), 10 anuncios repartidos por ciudades y países, 29 fotos secundarias, 8 mensajes cruzados y 3 solicitudes de ejemplo.
+- **Cómo importarlo en XAMPP:**
+  1. Inicia **Apache** y **MySQL** desde el Panel de Control de XAMPP.
+  2. Abre `http://localhost/phpmyadmin/`, entra en la pestaña **Importar** (o **SQL**) y selecciona el fichero [pibd.sql](file:///c:/xampp/htdocs/DAW/prac2/pibd.sql).
+
+### 2. Configuración `.ini` y capa `mysqli` segura ([config.ini](file:///c:/xampp/htdocs/DAW/prac2/includes/config.ini) y [funciones.php](file:///c:/xampp/htdocs/DAW/prac2/includes/funciones.php))
+- Parámetros de conexión aislados en [config.ini](file:///c:/xampp/htdocs/DAW/prac2/includes/config.ini) leídos con `parse_ini_file()`.
+- Conexión orientada a objetos (`new mysqli(...)`) con `MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT`, juego de caracteres `utf8mb4`, sentencias preparadas (`$mysqli->prepare(...)` + `bind_param`), cierre explícito de resultados/sentencias/conexiones y registro interno de errores con `error_log()`.
+
+### 3. Fragmentos reutilizables creados en `includes/`
+- [select_paises.php](file:///c:/xampp/htdocs/DAW/prac2/includes/select_paises.php): Desplegable de países desde `Paises`.
+- [campos_busqueda_anuncio.php](file:///c:/xampp/htdocs/DAW/prac2/includes/campos_busqueda_anuncio.php): Desplegables compartidos de `TiposAnuncios` y `TiposViviendas` (Nota 45).
+- [ficha_anuncio.php](file:///c:/xampp/htdocs/DAW/prac2/includes/ficha_anuncio.php): Detalle completo de un anuncio compartido entre [anuncio.php](file:///c:/xampp/htdocs/DAW/prac2/anuncio.php) y [ver-anuncio.php](file:///c:/xampp/htdocs/DAW/prac2/ver-anuncio.php) (Nota 44).
+- [galeria_fotos_anuncio.php](file:///c:/xampp/htdocs/DAW/prac2/includes/galeria_fotos_anuncio.php): Galería completa y conteo total de fotos compartida entre [ver-fotos.php](file:///c:/xampp/htdocs/DAW/prac2/ver-fotos.php) y [ver-fotos-privada.php](file:///c:/xampp/htdocs/DAW/prac2/ver-fotos-privada.php) (Notas 46 y 47).
+- [formulario_usuario.php](file:///c:/xampp/htdocs/DAW/prac2/includes/formulario_usuario.php): Formulario común compartido entre [register.php](file:///c:/xampp/htdocs/DAW/prac2/register.php) y [mis-datos.php](file:///c:/xampp/htdocs/DAW/prac2/mis-datos.php) (pág. 9).
+
+### 4. Páginas nuevas y consultas `SELECT` implementadas
+- **Páginas nuevas:** [perfil-usuario.php](file:///c:/xampp/htdocs/DAW/prac2/perfil-usuario.php), [ver-fotos.php](file:///c:/xampp/htdocs/DAW/prac2/ver-fotos.php), [ver-fotos-privada.php](file:///c:/xampp/htdocs/DAW/prac2/ver-fotos-privada.php), [configurar.php](file:///c:/xampp/htdocs/DAW/prac2/configurar.php), [mis-datos.php](file:///c:/xampp/htdocs/DAW/prac2/mis-datos.php) y [mensajes-anuncio.php](file:///c:/xampp/htdocs/DAW/prac2/mensajes-anuncio.php).
+- **Páginas actualizadas a BD:** [ultimos_anuncios.php](file:///c:/xampp/htdocs/DAW/prac2/includes/ultimos_anuncios.php) (`FRegistro DESC LIMIT 5`), [acceso.php](file:///c:/xampp/htdocs/DAW/prac2/acceso.php) (`password_verify()`), [register.php](file:///c:/xampp/htdocs/DAW/prac2/register.php), [register-response.php](file:///c:/xampp/htdocs/DAW/prac2/register-response.php), [search.php](file:///c:/xampp/htdocs/DAW/prac2/search.php), [result.php](file:///c:/xampp/htdocs/DAW/prac2/result.php) (búsqueda rápida con artículos/preposiciones `"un"`, `"una"`, `"en"`, `"de"` y búsqueda avanzada insensible a mayúsculas/minúsculas con validación estricta de números y fechas), [anuncio.php](file:///c:/xampp/htdocs/DAW/prac2/anuncio.php), [ver-anuncio.php](file:///c:/xampp/htdocs/DAW/prac2/ver-anuncio.php), [message.php](file:///c:/xampp/htdocs/DAW/prac2/message.php), [message-sent.php](file:///c:/xampp/htdocs/DAW/prac2/message-sent.php), [create-ad.php](file:///c:/xampp/htdocs/DAW/prac2/create-ad.php), [ad-response.php](file:///c:/xampp/htdocs/DAW/prac2/ad-response.php), [my-messages.php](file:///c:/xampp/htdocs/DAW/prac2/my-messages.php), [mis-anuncios.php](file:///c:/xampp/htdocs/DAW/prac2/mis-anuncios.php), [crear-anuncio.php](file:///c:/xampp/htdocs/DAW/prac2/crear-anuncio.php) y [anadir-foto.php](file:///c:/xampp/htdocs/DAW/prac2/anadir-foto.php).
+
+---
+
 # Implementaciones Parte 8
 
 ### 1. Opción «Recordarme en este equipo» (Cookies de 90 días, `HttpOnly`, mediante Token)

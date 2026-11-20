@@ -30,7 +30,8 @@ $estaSiendoRecordado = !empty($_SESSION['recordado']) && !empty($_SESSION['ultim
         <p>Estilo visual asignado en tu sesión: <span class="badge"><?= e($estiloActivoTitulo) ?></span></p>
 
         <ul>
-          <li><a href="register.php">Mis datos</a></li>
+          <li><a href="mis-datos.php">Mis datos</a></li>
+          <li><a href="configurar.php">Configurar</a></li>
           <li><a href="salir.php">Darme de baja</a></li>
           <li><a href="mis-anuncios.php">Mis anuncios</a></li>
           <li><a href="crear-anuncio.php">Crear anuncio</a></li>

@@ -1,9 +1,7 @@
 <?php
 /**
- * Práctica 7 y 8 - Respuesta "Página enviar mensaje" (message-sent.php - parte pública restringida).
- * Protegida mediante sesión PHP (exigirAutenticacion()).
- * Muestra una confirmación de que se ha enviado el mensaje y los datos introducidos por el usuario.
- * Comprueba mediante PHP que el tipo de mensaje es válido y que se ha escrito algo en el texto del mensaje.
+ * Práctica 7, 8 y 9 - Respuesta "Página enviar mensaje" (message-sent.php - parte pública restringida).
+ * Valida el tipo de mensaje contra la tabla TiposMensajes de la BD (y las opciones de contact.php).
  */
 require_once __DIR__ . '/includes/funciones.php';
 
@@ -19,19 +17,21 @@ $esPaginaPrivada = false;
 require_once __DIR__ . '/includes/cabecera.php';
 require_once __DIR__ . '/includes/inicio.php';
 
-$idAnuncio = isset($datos['id_anuncio']) && is_numeric($datos['id_anuncio']) ? (int) $datos['id_anuncio'] : 1;
+$idRaw = $datos['id_anuncio'] ?? '';
+$idAnuncio = (is_string($idRaw) && ctype_digit($idRaw) && (int) $idRaw > 0) ? (int) $idRaw : 1;
 
-$tipoMensaje = $datos['tipo_mensaje'] ?? '';
-$textoMensaje = $datos['texto_mensaje'] ?? '';
+$tipoMensaje = trim((string) ($datos['tipo_mensaje'] ?? ''));
+$textoMensaje = (string) ($datos['texto_mensaje'] ?? '');
 
 $tiposValidos = [
-    'mas_informacion'  => 'Más información',
-    'solicitar_cita'   => 'Solicitar una cita',
-    'comunicar_oferta' => 'Comunicar una oferta',
-    'ayuda'            => 'Ayuda',
-    'accesibilidad'    => 'Accesibilidad',
-    'otro'             => 'Otro',
+    'ayuda'         => 'Ayuda',
+    'accesibilidad' => 'Accesibilidad',
+    'otro'          => 'Otro',
 ];
+
+foreach (obtenerTiposMensajes() as $tm) {
+    $tiposValidos[(string) $tm['IdTMensaje']] = (string) $tm['NomTMensaje'];
+}
 
 $errores = [];
 
@@ -55,7 +55,7 @@ if (!tieneContenidoSinEspacios($textoMensaje)) {
           </ul>
         </div>
         <p>
-          <a class="btn-primary" href="<?= e($origen . '?id=' . $idAnuncio) ?>">Volver al formulario de envío de mensaje</a>
+          <a class="btn-primary" href="<?= e($origen . ($origen === 'message.php' ? '?id=' . $idAnuncio : '')) ?>">Volver al formulario de envío de mensaje</a>
         </p>
       </section>
 <?php else: ?>
@@ -77,7 +77,9 @@ if (!tieneContenidoSinEspacios($textoMensaje)) {
 
       <section>
         <p>
+<?php if ($origen === 'message.php'): ?>
           <a class="btn-primary" href="anuncio.php?id=<?= $idAnuncio ?>">Volver al anuncio</a>
+<?php endif; ?>
           <a class="btn-primary" href="index.php">Volver a la página principal</a>
         </p>
       </section>

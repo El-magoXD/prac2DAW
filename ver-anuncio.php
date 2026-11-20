@@ -1,104 +1,38 @@
 <?php
 /**
- * Práctica 7 y 8 - Página "Ver anuncio" de la parte privada (ver-anuncio.php).
+ * Práctica 7, 8 y 9 - Página "Ver anuncio" de la parte privada (ver-anuncio.php).
  * Protegida mediante sesión PHP (exigirAutenticacion()).
+ * Comparte el fragmento común includes/ficha_anuncio.php con anuncio.php (Nota 44).
  */
 require_once __DIR__ . '/includes/funciones.php';
 exigirAutenticacion();
 
-$idAnuncio = isset($_GET['id']) && is_numeric($_GET['id']) ? (int) $_GET['id'] : 1;
-$anuncio = obtenerDatosAnuncioPorId($idAnuncio);
+$idRaw = $_GET['id'] ?? '';
+$idAnuncio = (is_string($idRaw) && ctype_digit($idRaw) && (int) $idRaw > 0) ? (int) $idRaw : 0;
+$anuncio = ($idAnuncio > 0) ? obtenerDatosAnuncioPorId($idAnuncio) : null;
 
 if ($anuncio !== null) {
     registrarVisitaAnuncio($idAnuncio);
     $tituloPagina = 'Ver anuncio: ' . $anuncio['titulo'] . ' | PI - Pisos e Inmuebles';
-    $errorFichero = false;
 } else {
-    $tituloPagina = 'Error al ver anuncio | PI - Pisos e Inmuebles';
-    $errorFichero = true;
+    $tituloPagina = 'Anuncio no encontrado | PI - Pisos e Inmuebles';
 }
 
 $esPaginaPrivada = true;
 require_once __DIR__ . '/includes/cabecera.php';
 require_once __DIR__ . '/includes/inicio.php';
 ?>
-<?php if ($errorFichero || !$anuncio): ?>
+<?php if (!$anuncio): ?>
       <section class="conBorde">
-        <h2>Error al cargar el anuncio</h2>
-        <p>No se ha podido acceder al fichero de datos del anuncio.</p>
+        <h2>Anuncio no encontrado</h2>
+        <p>El identificador de anuncio solicitado no es válido o no existe en la base de datos.</p>
         <p><a class="btn-primary" href="mis-anuncios.php">Volver a Mis anuncios</a></p>
       </section>
 <?php else: ?>
-      <article>
-        <header>
-          <h2><?= e($anuncio['titulo']) ?></h2>
-          <p>
-            <span class="badge"><?= e($anuncio['tipo_anuncio']) ?></span>
-            <span class="badge"><?= e($anuncio['tipo_vivienda']) ?></span>
-          </p>
-        </header>
-
-        <section>
-          <figure>
-            <img
-              src="<?= e($anuncio['foto_principal']) ?>"
-              width="800"
-              alt="<?= e($anuncio['alt_foto_principal']) ?>"
-            />
-            <figcaption>Foto principal: <?= e($anuncio['titulo']) ?></figcaption>
-          </figure>
-
-          <h3>Miniaturas de fotos</h3>
-<?php foreach ($anuncio['miniaturas'] as $foto): ?>
-          <img
-            src="<?= e($foto['src']) ?>"
-            width="150"
-            alt="<?= e($foto['alt']) ?>"
-            title="<?= e($foto['titulo']) ?>"
-          />
-<?php endforeach; ?>
-        </section>
-
-        <section>
-          <h3>Descripción del inmueble</h3>
-          <p><?= e($anuncio['texto']) ?></p>
-        </section>
-
-        <section>
-          <h3>Datos generales</h3>
-          <ul>
-            <li><strong>Tipo de anuncio:</strong> <?= e($anuncio['tipo_anuncio']) ?></li>
-            <li><strong>Tipo de vivienda:</strong> <?= e($anuncio['tipo_vivienda']) ?></li>
-            <li><strong>Fecha de publicación:</strong> <?= e($anuncio['fecha']) ?></li>
-            <li><strong>Ciudad:</strong> <?= e($anuncio['ciudad']) ?></li>
-            <li><strong>País:</strong> <?= e($anuncio['pais']) ?></li>
-            <li><strong>Precio:</strong> <?= e($anuncio['precio']) ?></li>
-          </ul>
-        </section>
-
-        <section>
-          <h3>Características</h3>
-          <ul>
-            <li><strong>Superficie:</strong> <?= e($anuncio['caracteristicas']['superficie']) ?></li>
-            <li><strong>Número de habitaciones:</strong> <?= (int) $anuncio['caracteristicas']['habitaciones'] ?></li>
-            <li><strong>Número de baños:</strong> <?= (int) $anuncio['caracteristicas']['banos'] ?></li>
-            <li><strong>Planta:</strong> <?= e($anuncio['caracteristicas']['planta']) ?></li>
-            <li><strong>Año de construcción:</strong> <?= (int) $anuncio['caracteristicas']['anio_construccion'] ?></li>
-          </ul>
-        </section>
-
-        <footer>
-          <p>
-            <a class="btn-accent" href="anadir-foto.php?anuncio=<?= $idAnuncio ?>">
-              <i class="fa-solid fa-camera" aria-hidden="true"></i> Añadir foto a anuncio
-            </a>
-            <a class="btn-primary" href="my-messages.php">
-              <i class="fa-solid fa-envelope" aria-hidden="true"></i> Ver mensajes
-            </a>
-            <a class="btn-primary" href="mis-anuncios.php">Volver a Mis anuncios</a>
-          </p>
-        </footer>
-      </article>
+<?php
+$esVistaPrivadaFicha = true;
+require __DIR__ . '/includes/ficha_anuncio.php';
+?>
 <?php endif; ?>
 <?php
 require_once __DIR__ . '/includes/pie.php';

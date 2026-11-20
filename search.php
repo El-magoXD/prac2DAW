@@ -1,6 +1,7 @@
 <?php
 /**
- * Práctica 7 - Página con el formulario de búsqueda de anuncios (search.php).
+ * Práctica 7 y 9 - Página con el formulario de búsqueda de anuncios (search.php).
+ * Carga las listas desplegables de Tipo de anuncio, Tipo de vivienda y País desde la BD.
  */
 $tituloPagina = 'Búsqueda de Anuncios | PI - Pisos e Inmuebles';
 $esPaginaPrivada = false;
@@ -16,26 +17,12 @@ require_once __DIR__ . '/includes/inicio.php';
           <fieldset>
             <legend>Criterios de búsqueda</legend>
 
-            <p>
-              <label for="tipo_anuncio">Tipo de anuncio:</label>
-              <select id="tipo_anuncio" name="tipo_anuncio">
-                <option value="">Cualquiera</option>
-                <option value="venta">Venta</option>
-                <option value="alquiler">Alquiler</option>
-              </select>
-            </p>
-
-            <p>
-              <label for="tipo_vivienda">Tipo de vivienda:</label>
-              <select id="tipo_vivienda" name="tipo_vivienda">
-                <option value="">Cualquiera</option>
-                <option value="obra_nueva">Obra nueva</option>
-                <option value="vivienda">Vivienda</option>
-                <option value="oficina">Oficina</option>
-                <option value="local">Local</option>
-                <option value="garaje">Garaje</option>
-              </select>
-            </p>
+<?php
+$esFormularioCrearAnuncio = false;
+$tipoAnuncioSeleccionado = '';
+$tipoViviendaSeleccionado = '';
+require __DIR__ . '/includes/campos_busqueda_anuncio.php';
+?>
 
             <p>
               <label for="ciudad">Ciudad:</label>
@@ -49,19 +36,12 @@ require_once __DIR__ . '/includes/inicio.php';
 
             <p>
               <label for="pais">País:</label>
-              <select id="pais" name="pais">
-                <option value="">Selecciona un país</option>
-                <option value="espana">España</option>
-                <option value="francia">Francia</option>
-                <option value="italia">Italia</option>
-                <option value="alemania">Alemania</option>
-                <option value="portugal">Portugal</option>
-                <option value="paises-bajos">Países Bajos</option>
-                <option value="belgica">Bélgica</option>
-                <option value="irlanda">Irlanda</option>
-                <option value="reino-unido">Reino Unido</option>
-                <option value="estados-unidos">Estados Unidos</option>
-              </select>
+<?php
+$paisSeleccionado = '';
+$textoOpcionVaciaPais = 'Cualquiera';
+$paisObligatorio = false;
+require __DIR__ . '/includes/select_paises.php';
+?>
             </p>
 
             <p>
